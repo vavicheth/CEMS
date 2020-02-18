@@ -11,15 +11,23 @@
 |
 */
 
+Route::group(['middleware' => ['auth.lock']], function () {
 // Example Routes
-Route::view('/', 'landing');
-Route::match(['get', 'post'], '/dashboard', function(){
-    return view('dashboard');
+    Route::view('/', 'landing');
+    Route::match(['get', 'post'], '/dashboard', function () {
+        return view('dashboard');
+    });
+    Route::view('/pages/slick', 'pages.slick');
+    Route::view('/pages/datatables', 'pages.datatables');
+    Route::view('/pages/blank', 'pages.blank');
+
 });
-Route::view('/pages/slick', 'pages.slick');
-Route::view('/pages/datatables', 'pages.datatables');
-Route::view('/pages/blank', 'pages.blank');
+
 
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+// Locked User
+Route::get('login/locked', 'Auth\LoginController@locked')->middleware('auth')->name('login.locked');
+Route::post('login/locked', 'Auth\LoginController@unlock')->name('login.unlock');
