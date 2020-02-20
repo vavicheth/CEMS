@@ -1,13 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="6d59e93e-3e6d-4755-8d35-1fa8f2556fbb" name="Default Changelist" comment="" />
+    <list default="true" id="6d59e93e-3e6d-4755-8d35-1fa8f2556fbb" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/resources/views/layouts/header.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/layouts/side_overlay.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/layouts/sidebar.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Auth/LoginController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Auth/LoginController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Kernel.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Kernel.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Middleware/AuthLock.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Traits/LockableTrait.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/User.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/css/oneui.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/oneui.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/css/themes/amethyst.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/themes/amethyst.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/css/themes/city.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/themes/city.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/css/themes/flat.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/themes/flat.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/css/themes/modern.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/themes/modern.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/css/themes/smooth.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/themes/smooth.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/js/laravel.app.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/laravel.app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/js/oneui.app.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/oneui.app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/js/pages/tables_datatables.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/pages/tables_datatables.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/mix-manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/public/mix-manifest.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/layouts/backend.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/backend.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ComposerSettings" synchronizationState="SYNCHRONIZE">
+  <component name="ComposerSettings" doNotAsk="true" synchronizationState="SYNCHRONIZE">
     <pharConfigPath>$PROJECT_DIR$/composer.json</pharConfigPath>
     <execution>
       <executable />
@@ -21,7 +44,7 @@
     </option>
   </component>
   <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="PhpWorkspaceProjectConfiguration">
     <include_path>
@@ -158,6 +181,7 @@
       <option name="presentableId" value="Default" />
       <updated>1581998529015</updated>
       <workItem from="1581998531574" duration="19931000" />
+      <workItem from="1582171906037" duration="11046000" />
     </task>
     <servers />
   </component>
@@ -177,9 +201,13 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="461" y="163" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1582000297728" />
-    <state x="1136" y="345" key="com.intellij.ide.util.TipDialog" timestamp="1581998595320">
+    <state x="1136" y="345" key="com.intellij.ide.util.TipDialog" timestamp="1582171907860">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="1136" y="345" key="com.intellij.ide.util.TipDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1581998595320" />
+    <state x="1136" y="345" key="com.intellij.ide.util.TipDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1582171907860" />
+    <state x="616" y="240" key="run.anything.popup" timestamp="1582180028312">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="616" y="240" key="run.anything.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1582180028312" />
   </component>
 </project>

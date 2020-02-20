@@ -2,7 +2,6 @@
 
 namespace App;
 
-use App\Traits\LockableTrait;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -10,7 +9,6 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 class User extends Authenticatable
 {
     use Notifiable;
-    use LockableTrait; //Locked User
 
     /**
      * The attributes that are mass assignable.
