@@ -11,7 +11,7 @@
 |
 */
 
-Route::group(['middleware' => ['auth']], function () {
+Route::group(['middleware' => ['auth'], 'prefix' => 'admin', 'as' => 'admin.'], function () {
 // Example Routes
     Route::view('/', 'landing');
     Route::match(['get', 'post'], '/dashboard', function () {
@@ -22,6 +22,10 @@ Route::group(['middleware' => ['auth']], function () {
     Route::view('/pages/blank', 'pages.blank');
 
     Route::get('/home', 'HomeController@index')->name('home');
+
+    //Setting
+    Route::get('setting/ui','Admin\UiController@index')->name('setting.ui');
+    Route::patch('setting/ui/{$user_id}','Admin\UiController@update')->name('setting.ui.update');
 });
 
 
