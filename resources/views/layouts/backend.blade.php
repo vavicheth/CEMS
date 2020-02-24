@@ -2,7 +2,7 @@
 
 @section('body_block')
 
-        <div id="page-container" class="sidebar-o enable-cookies enable-page-overlay sidebar-dark side-scroll page-header-fixed page-header-dark  sidebar-o-xs">
+        <div id="page-container" class="{{\Illuminate\Support\Facades\Auth::user()->ui_user() ? \Illuminate\Support\Facades\Auth::user()->ui_user() : 'sidebar-o enable-cookies enable-page-overlay sidebar-dark side-scroll page-header-fixed page-header-dark '}}">
             <!-- Side Overlay-->
                 @include('layouts.side_overlay')
             <!-- END Side Overlay -->
@@ -64,9 +64,9 @@
                                         <!-- CRM -->
                                         <a class="block block-rounded block-themed bg-default" href="javascript:void(0)">
                                             <div class="block-content text-center">
-                                                <i class="si si-speedometer fa-2x text-white-75"></i>
+                                                <i class="fa fa-user-injured fa-2x text-white-75"></i>
                                                 <p class="font-w600 font-size-sm text-white mt-2 mb-3">
-                                                    CRM
+                                                    Patients
                                                 </p>
                                             </div>
                                         </a>
@@ -76,9 +76,9 @@
                                         <!-- Products -->
                                         <a class="block block-rounded block-themed bg-danger" href="javascript:void(0)">
                                             <div class="block-content text-center">
-                                                <i class="si si-rocket fa-2x text-white-75"></i>
+                                                <i class="fa fa-user-md fa-2x text-white-75"></i>
                                                 <p class="font-w600 font-size-sm text-white mt-2 mb-3">
-                                                    Products
+                                                    OPD
                                                 </p>
                                             </div>
                                         </a>
@@ -86,11 +86,35 @@
                                     </div>
                                     <div class="col-6">
                                         <!-- Sales -->
+                                        <a class="block block-rounded block-themed bg-success " href="javascript:void(0)">
+                                            <div class="block-content text-center">
+                                                <i class="fa fa-bed fa-2x text-white-75"></i>
+                                                <p class="font-w600 font-size-sm text-white mt-2 mb-3">
+                                                    IPD
+                                                </p>
+                                            </div>
+                                        </a>
+                                        <!-- END Sales -->
+                                    </div>
+                                    <div class="col-6">
+                                        <!-- Payments -->
+                                        <a class="block block-rounded block-themed bg-warning " href="javascript:void(0)">
+                                            <div class="block-content text-center">
+                                                <i class="fa fa-calendar-alt fa-2x text-white-75"></i>
+                                                <p class="font-w600 font-size-sm text-white mt-2 mb-3">
+                                                    Appointments
+                                                </p>
+                                            </div>
+                                        </a>
+                                        <!-- END Payments -->
+                                    </div>
+                                    <div class="col-6">
+                                        <!-- Sales -->
                                         <a class="block block-rounded block-themed bg-success mb-0" href="javascript:void(0)">
                                             <div class="block-content text-center">
-                                                <i class="si si-plane fa-2x text-white-75"></i>
+                                                <i class="fa fa-chart-bar fa-2x text-white-75"></i>
                                                 <p class="font-w600 font-size-sm text-white mt-2 mb-3">
-                                                    Sales
+                                                    Reports
                                                 </p>
                                             </div>
                                         </a>
@@ -100,9 +124,9 @@
                                         <!-- Payments -->
                                         <a class="block block-rounded block-themed bg-warning mb-0" href="javascript:void(0)">
                                             <div class="block-content text-center">
-                                                <i class="si si-wallet fa-2x text-white-75"></i>
+                                                <i class="fa fa-user-cog fa-2x text-white-75"></i>
                                                 <p class="font-w600 font-size-sm text-white mt-2 mb-3">
-                                                    Payments
+                                                    Profile
                                                 </p>
                                             </div>
                                         </a>

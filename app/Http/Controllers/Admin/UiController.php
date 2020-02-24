@@ -12,7 +12,9 @@ class UiController extends Controller
     public function index()
     {
         $uis=Ui::all();
-        return view('admin.ui.update',compact('uis'));
+        $ui_user=Auth::user()->uis;
+
+        return view('admin.ui.update',compact('uis','ui_user'));
     }
 
     public function update(Request $request)
@@ -31,6 +33,8 @@ class UiController extends Controller
         }
         $user=Auth::user();
         $user->uis()->sync($a);
+
+        return redirect()->back();
 
     }
 }
