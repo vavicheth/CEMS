@@ -25,7 +25,7 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'admin', 'as' => 'admin.'], 
 
     //Setting
     Route::get('setting/ui','Admin\UiController@index')->name('setting.ui');
-    Route::patch('setting/ui/{$user_id}','Admin\UiController@update')->name('setting.ui.update');
+    Route::post('setting/ui','Admin\UiController@update')->name('setting.ui');
 });
 
 

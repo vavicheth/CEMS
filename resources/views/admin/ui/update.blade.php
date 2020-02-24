@@ -11,7 +11,7 @@
                 </h1>
                 <nav class="flex-sm-00-auto ml-sm-3" aria-label="breadcrumb">
                     <ol class="breadcrumb breadcrumb-alt">
-                        <li class="breadcrumb-item">Examples</li>
+                        <li class="breadcrumb-item">Setting</li>
                         <li class="breadcrumb-item" aria-current="page">
                             <a class="link-fx" href="">UI</a>
                         </li>
@@ -24,62 +24,98 @@
 
     <!-- Page Content -->
     <div class="content">
+        <form method="POST" action="{{route('admin.setting.ui')}}">
+        @csrf
         <!-- Your Block -->
-        <div class="block">
-            <div class="block-header">
-                <h3 class="block-title">Block Title</h3>
-            </div>
-            <div class="block-content">
-                <div class="row">
-                    <div class="col-lg-4 col-xl-4">
-                        <div class="form-group">
-                            <label>Cookie</label>
-                            <div class="custom-control custom-switch mb-1">
-                                <input type="checkbox" class="custom-control-input" id="example-sw-custom1"
-                                       name="example-sw-custom1" checked>
-                                <label class="custom-control-label" for="example-sw-custom1">cookies</label>
+            <div class="block">
+                <div class="block-header">
+                    <h3 class="block-title">Block Title</h3>
+                </div>
+                <div class="block-content">
+                    <div class="row">
+
+                        <div class="col-lg-3 col-xl-3">
+                            <div class="form-group">
+                                <label>Cookie</label>
+                                @foreach($uis->where('type','Cookies') as $ui)
+                                    <div class="custom-control custom-switch mb-1">
+                                        <input type="checkbox" class="custom-control-input" id="{{$ui->key}}"
+                                               name="{{$ui->key}}" value="{{$ui->id}}" checked>
+                                        <label class="custom-control-label" for="{{$ui->key}}">{{$ui->key}}</label>
+                                    </div>
+                                @endforeach
+                            </div>
+                            <div class="form-group">
+                                <label>Main Content Layout</label>
+                                <div class="custom-control custom-radio mb-1">
+                                    <input type="radio" class="custom-control-input" id="main-content-default"
+                                           name="pay-content-layout" value="" checked>
+                                    <label class="custom-control-label"
+                                           for="main-content-default">main-content-default</label>
+                                </div>
+                                @foreach($uis->where('type','Page-Content-Layout') as $ui)
+                                    <div class="custom-control custom-radio mb-1">
+                                        <input type="radio" class="custom-control-input" id="{{$ui->key}}"
+                                               name="pay-content-layout" value="{{$ui->id}}" checked>
+                                        <label class="custom-control-label"
+                                               for="{{$ui->key}}">{{$ui->key}}</label>
+                                    </div>
+                                @endforeach
+                            </div>
+                        </div>
+
+                        <div class="col-lg-3 col-xl-3">
+                            <div class="form-group">
+                                <label>Sidebar</label>
+                                @foreach($uis->where('type','Sidebar') as $ui)
+                                    <div class="custom-control custom-switch mb-1">
+                                        <input type="checkbox" class="custom-control-input" id="{{$ui->key}}"
+                                               name="{{$ui->key}}" value="{{$ui->id}}" checked>
+                                        <label class="custom-control-label" for="{{$ui->key}}">{{$ui->key}}</label>
+                                    </div>
+                                @endforeach
+                            </div>
+                        </div>
+
+                        <div class="col-lg-3 col-xl-3">
+                            <div class="form-group">
+                                <label>Side Overlay</label>
+                                @foreach($uis->where('type','Side-Overlay') as $ui)
+                                    <div class="custom-control custom-switch mb-1">
+                                        <input type="checkbox" class="custom-control-input" id="{{$ui->key}}"
+                                               name="{{$ui->key}}" value="{{$ui->id}}" checked>
+                                        <label class="custom-control-label" for="{{$ui->key}}">{{$ui->key}}</label>
+                                    </div>
+                                @endforeach
+                            </div>
+                        </div>
+
+                        <div class="col-lg-3 col-xl-3">
+                            <div class="form-group">
+                                <label>Header</label>
+                                @foreach($uis->where('type','Header') as $ui)
+                                    <div class="custom-control custom-switch mb-1">
+                                        <input type="checkbox" class="custom-control-input" id="{{$ui->key}}"
+                                               name="{{$ui->key}}" value="{{$ui->id}}" checked>
+                                        <label class="custom-control-label" for="{{$ui->key}}">{{$ui->key}}</label>
+                                    </div>
+                                @endforeach
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-4 col-xl-4">
-                        <div class="form-group">
-                            <label>Sidebar</label>
-                            <div class="custom-control custom-switch mb-1">
-                                <input type="checkbox" class="custom-control-input" id="example-sw-custom1"
-                                       name="example-sw-custom1" checked>
-                                <label class="custom-control-label" for="example-sw-custom1">sidebar-mini</label>
-                            </div>
-                            <div class="custom-control custom-switch mb-1">
-                                <input type="checkbox" class="custom-control-input" id="example-sw-custom1"
-                                       name="example-sw-custom1" checked>
-                                <label class="custom-control-label" for="example-sw-custom1">sidebar-o-xs</label>
-                            </div>
-                            <div class="custom-control custom-switch mb-1">
-                                <input type="checkbox" class="custom-control-input" id="example-sw-custom1"
-                                       name="example-sw-custom1" checked>
-                                <label class="custom-control-label" for="example-sw-custom1">sidebar-dark</label>
-                            </div>
-                            <div class="custom-control custom-switch mb-1">
-                                <input type="checkbox" class="custom-control-input" id="example-sw-custom1"
-                                       name="example-sw-custom1" checked>
-                                <label class="custom-control-label" for="example-sw-custom1">sidebar-r</label>
-                            </div>
+
+                    <!-- Submit -->
+                    <div class="row items-push ">
+                        <div class="ml-2">
+                            <button type="submit" class="btn btn-primary">Submit</button>
                         </div>
                     </div>
-                    <div class="col-lg-4 col-xl-4">
-                        <div class="form-group">
-                            <label>Switches</label>
-                            <div class="custom-control custom-switch mb-1">
-                                <input type="checkbox" class="custom-control-input" id="example-sw-custom1"
-                                       name="example-sw-custom1" checked>
-                                <label class="custom-control-label" for="example-sw-custom1">Option 1</label>
-                            </div>
-                        </div>
-                    </div>
+                    <!-- END Submit -->
+
                 </div>
             </div>
-        </div>
-        <!-- END Your Block -->
+            <!-- END Your Block -->
+        </form>
     </div>
     <!-- END Page Content -->
 @endsection

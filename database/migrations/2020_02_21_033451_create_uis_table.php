@@ -17,6 +17,7 @@ class CreateUisTable extends Migration
             $table->bigIncrements('id');
             $table->string('type');
             $table->string('key');
+            $table->text('description')->nullable();
             $table->timestamps();
         });
     }
