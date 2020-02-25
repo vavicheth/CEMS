@@ -26,6 +26,10 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'admin', 'as' => 'admin.'], 
     //Setting
     Route::get('setting/ui','Admin\Setting\UiController@index')->name('setting.ui');
     Route::post('setting/ui','Admin\Setting\UiController@update')->name('setting.ui');
+
+    //User Managements
+
+    Route::resource('user_managements/users','Admin\UserManagements\UserController');
 });
 
 

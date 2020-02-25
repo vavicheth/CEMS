@@ -81,29 +81,31 @@
                                                 @csrf
                                                 <div class="py-3">
                                                     <div class="form-group">
-                                                        <input type="email"
-                                                               class="form-control form-control-alt form-control-lg @error('email') is-invalid @enderror"
-                                                               id="email" name="email" value="{{ old('email') }}"
-                                                               required autocomplete="email" autofocus
-                                                               placeholder={{ __('E-Mail Address') }}>
+{{--                                                        <input type="email"--}}
+{{--                                                               class="form-control form-control-alt form-control-lg @error('email') is-invalid @enderror"--}}
+{{--                                                               id="email" name="email" value="{{ old('email') }}"--}}
+{{--                                                               required autocomplete="email" autofocus--}}
+{{--                                                               placeholder={{ __('E-Mail Address') }}>--}}
 
-                                                        @error('email')
+{{--                                                        @error('email')--}}
+{{--                                                        <span class="invalid-feedback" role="alert">--}}
+{{--                                                                                                                <strong>{{ $message }}</strong>--}}
+{{--                                                                                                            </span>--}}
+{{--                                                        @enderror--}}
+
+                                                        <input
+                                                                class="form-control form-control-alt form-control-lg @error('username') is-invalid @enderror"
+                                                                id="username" name="username"
+                                                                value="{{ old('username') }}"
+                                                                required autofocus
+                                                                placeholder={{ __('Username or E-Mail Address') }}>
+
+                                                        @error('username')
                                                         <span class="invalid-feedback" role="alert">
-                                                                                                                <strong>{{ $message }}</strong>
-                                                                                                            </span>
+                                                            <div id="login-username-error"
+                                                            class="invalid-feedback animated fadeIn">{{$message}}</div>
+                                                        </span>
                                                         @enderror
-
-                                                        {{--                                                        <input--}}
-                                                        {{--                                                            class="form-control form-control-alt form-control-lg @error('username') is-invalid @enderror"--}}
-                                                        {{--                                                            id="username" name="username" value="{{ old('username') }}"--}}
-                                                        {{--                                                            required autofocus--}}
-                                                        {{--                                                            placeholder={{ __('Username or E-Mail Address') }}>--}}
-
-                                                        {{--                                                        @error('username')--}}
-                                                        {{--                                                        <span class="invalid-feedback" role="alert">--}}
-                                                        {{--                                                            <div id="login-username-error" class="invalid-feedback animated fadeIn">{{$message}}</div>--}}
-                                                        {{--                                                        </span>--}}
-                                                        {{--                                                        @enderror--}}
 
 
 
