@@ -24,8 +24,8 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'admin', 'as' => 'admin.'], 
     Route::get('/home', 'HomeController@index')->name('home');
 
     //Setting
-    Route::get('setting/ui','Admin\UiController@index')->name('setting.ui');
-    Route::post('setting/ui','Admin\UiController@update')->name('setting.ui');
+    Route::get('setting/ui','Admin\Setting\UiController@index')->name('setting.ui');
+    Route::post('setting/ui','Admin\Setting\UiController@update')->name('setting.ui');
 });
 
 
