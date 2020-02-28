@@ -3,9 +3,12 @@
 namespace App\Http\Controllers\Admin\UserManagements;
 
 use App\Http\Controllers\Controller;
+use App\User;
 use Illuminate\Http\Request;
+use RealRashid\SweetAlert\Facades\Alert;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
+use Yajra\DataTables\Facades\DataTables;
 
 class UserController extends Controller
 {
@@ -14,15 +17,27 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-//        Role::create(['name'=>'Users']);
-//        Permission::create(['name'=>'ui_delete']);
-//        $role=Role::findOrFail(4);
-//        $role->givePermissionTo([1]);
-//        auth()->user()->assignRole('Admin');
+        if($request->ajax())
+        {
+            $data=User::query()->orderBy('created_at','desc');
 
-        return auth()->user()->getPermissionsViaRoles();
+            return DataTables::of($data)
+                ->addColumn('action', function ($data) {
+                    $button='<button type="button" name="show" id="'.$data->id.'" class="btn btn-sm btn-info mr-1" data-toggle="tooltip" title="Show data"><i class="fa fa-eye"></i></button>';
+                    $button .=' <a href="' . route('admin.user_managements.users.edit', $data->id) . '" class="btn btn-sm btn-success mr-1" data-toggle="tooltip" title="Edit data"><i class="fa fa-edit"></i></a>';
+                    $button .=' <button type="button" name="delete" id="'.$data->id.'" class="btn btn-sm btn-danger mr-1" data-toggle="tooltip" title="Delete data"><i class="fa fa-trash-alt"></i></button>';
+                    return $button;
+                })
+//                ->editColumn('active', function ($data) {
+//                    return $data->active == 1 ? '<span class="badge badge-success">Active</span>' : '<span class="badge badge-danger">Inactive</span>';
+//                })
+                ->rawColumns(['action'])
+                ->make(true);
+        }
+
+        return view('admin.user_managements.users.index');
     }
 
     /**
@@ -32,7 +47,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.user_managements.users.create');
     }
 
     /**

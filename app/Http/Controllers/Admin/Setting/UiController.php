@@ -7,6 +7,7 @@ use App\Model\Ui;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class UiController extends Controller
 {
@@ -15,14 +16,13 @@ class UiController extends Controller
         $uis=Ui::all();
         $ui_user=Auth::user()->uis;
 
+        toast('Your Post as been submited!','success');
+
         return view('admin.setting.ui.update',compact('uis','ui_user'));
     }
 
     public function update(Request $request)
     {
-        $c=Session::all();
-        dd($c);
-
         $data = $request->except('_token');
         /**
          * default pay-content-layout is ''

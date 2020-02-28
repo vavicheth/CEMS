@@ -82,6 +82,12 @@ MAIN CONTENT LAYOUT
 <!-- Laravel Scaffolding JS -->
 <!-- <script src="{{ mix('/js/laravel.app.js') }}"></script> -->
 
+<!-- Notification -->
+<script src="{{asset('js/plugins/bootstrap-notify/bootstrap-notify.min.js')}}"></script>
+
+<!-- Sweat alert and Toast -->
+@include('sweetalert::alert')
+
 @yield('js_after')
 </body>
 </html>

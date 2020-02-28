@@ -155,9 +155,25 @@
                 </a>
                 <ul class="nav-main-submenu">
                     <li class="nav-main-item">
-                        <a class="nav-main-link{{ request()->is('admin/user_managements/user') ? ' active' : '' }}" href="{{route('admin.setting.ui')}}">
+                        <a class="nav-main-link{{ request()->is('admin/user_managements/users') ? ' active' : '' }}" href="{{route('admin.user_managements.users.index')}}">
                             <i class="nav-main-link-icon si si-user"></i>
-                            <span class="nav-main-link-name">UI</span>
+                            <span class="nav-main-link-name">Users</span>
+                        </a>
+                    </li>
+                </ul>
+                <ul class="nav-main-submenu">
+                    <li class="nav-main-item">
+                        <a class="nav-main-link{{ request()->is('admin/user_managements/roles') ? ' active' : '' }}" href="{{route('admin.user_managements.roles.index')}}">
+                            <i class="nav-main-link-icon fa fa-users-cog"></i>
+                            <span class="nav-main-link-name">Roles</span>
+                        </a>
+                    </li>
+                </ul>
+                <ul class="nav-main-submenu">
+                    <li class="nav-main-item">
+                        <a class="nav-main-link{{ request()->is('admin/user_managements/permissions') ? ' active' : '' }}" href="{{route('admin.user_managements.permissions.index')}}">
+                            <i class="nav-main-link-icon fa fa-hand-paper"></i>
+                            <span class="nav-main-link-name">Permissions</span>
                         </a>
                     </li>
                 </ul>

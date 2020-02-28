@@ -2,7 +2,7 @@
 
 @section('body_block')
 
-        <div id="page-container" class="{{\Illuminate\Support\Facades\Auth::user()->ui_user() ? \Illuminate\Support\Facades\Auth::user()->ui_user() : 'sidebar-o enable-cookies enable-page-overlay sidebar-dark side-scroll page-header-fixed page-header-dark '}}">
+        <div id="page-container" class="{{\Illuminate\Support\Facades\Auth::user()->ui_user() ? \Illuminate\Support\Facades\Auth::user()->ui_user() : 'sidebar-o enable-cookies sidebar-dark side-scroll page-header-fixed page-header-dark '}}">
             <!-- Side Overlay-->
                 @include('layouts.side_overlay')
             <!-- END Side Overlay -->
