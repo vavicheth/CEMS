@@ -27,61 +27,78 @@
 
             <div class="block-content block-content-full">
 
-                <!-- Simple Wizard 2 -->
-                <div class="js-wizard-simple block block">
+                <!-- Validation Wizard 2 -->
+                <div class="js-wizard-validation2 block block">
+
+                    <!-- Wizard Progress Bar -->
+                    <div class="progress rounded-0" data-wizard="progress" style="height: 8px;">
+                        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width: 30%;" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                    <!-- END Wizard Progress Bar -->
+
                     <!-- Step Tabs -->
                     <ul class="nav nav-tabs nav-tabs-alt nav-justified" role="tablist">
                         <li class="nav-item">
-                            <a class="nav-link active" href="#wizard-simple2-step1" data-toggle="tab">User Login</a>
+                            <a class="nav-link active" href="#wizard-user-personal-step1" data-toggle="tab">1. Personal</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#wizard-simple2-step2" data-toggle="tab">Personal Info</a>
+                            <a class="nav-link" href="#wizard-user-login-step2" data-toggle="tab">2. Login</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#wizard-simple2-step3" data-toggle="tab">Photos</a>
+                            <a class="nav-link" href="#wizard-user-photo-step3" data-toggle="tab">3. Extra</a>
                         </li>
                     </ul>
                     <!-- END Step Tabs -->
 
                     <!-- Form -->
-                    <form action="be_forms_wizard.html" method="POST">
+                    <form class="js-wizard-validation2-form" action="be_forms_wizard.html" method="POST">
                         <!-- Steps Content -->
                         <div class="block-content block-content-full tab-content px-md-5" style="min-height: 303px;">
                             <!-- Step 1 -->
-                            <div class="tab-pane active" id="wizard-simple2-step1" role="tabpanel">
+                            <div class="tab-pane active" id="wizard-user-personal-step1" role="tabpanel">
                                 <div class="form-group">
-                                    <label for="wizard-simple2-firstname">First Name</label>
-                                    <input class="form-control form-control-alt" type="text" id="wizard-simple2-firstname" name="wizard-simple2-firstname">
+                                    <label for="wizard-validation2-firstname">First Name</label>
+                                    <input class="form-control form-control-alt" type="text" id="wizard-validation2-firstname" name="wizard-validation2-firstname">
                                 </div>
                                 <div class="form-group">
-                                    <label for="wizard-simple2-lastname">Last Name</label>
-                                    <input class="form-control form-control-alt" type="text" id="wizard-simple2-lastname" name="wizard-simple2-lastname">
+                                    <label for="wizard-validation2-lastname">Last Name</label>
+                                    <input class="form-control form-control-alt" type="text" id="wizard-validation2-lastname" name="wizard-validation2-lastname">
                                 </div>
                                 <div class="form-group">
-                                    <label for="wizard-simple2-email">Email</label>
-                                    <input class="form-control form-control-alt" type="email" id="wizard-simple2-email" name="wizard-simple2-email">
+                                    <label for="wizard-validation2-email">Email</label>
+                                    <input class="form-control form-control-alt" type="email" id="wizard-validation2-email" name="wizard-validation2-email">
                                 </div>
                             </div>
                             <!-- END Step 1 -->
 
                             <!-- Step 2 -->
-                            <div class="tab-pane" id="wizard-simple2-step2" role="tabpanel">
-                                <div class="form-group">
-                                    <label for="wizard-simple2-bio">Bio</label>
-                                    <textarea class="form-control form-control-alt" id="wizard-simple2-bio" name="wizard-simple2-bio" rows="7"></textarea>
+                            <div class="tab-pane" id="wizard-user-login-step2" role="tabpanel">
+{{--                                <div class="form-group row">--}}
+{{--                                    <label class="col-sm-4 col-form-label"  for="wizard-validation2-email">Email</label>--}}
+{{--                                    <div class="col-sm-8">--}}
+{{--                                        <input class="form-control form-control-sm" type="email" id="wizard-validation2-email" name="wizard-validation2-email">--}}
+{{--                                    </div>--}}
+{{--                                </div>--}}
+
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label"  for="wizard-validation2-password">Email</label>
+                                    <div class="col-sm-8">
+                                        <input class="form-control form-control-sm" type="password" id="wizard-validation2-password" name="wizard-validation2-password">
+                                    </div>
                                 </div>
+
                             </div>
                             <!-- END Step 2 -->
 
                             <!-- Step 3 -->
-                            <div class="tab-pane" id="wizard-simple2-step3" role="tabpanel">
+                            <div class="tab-pane" id="wizard-user-photo-step3" role="tabpanel">
                                 <div class="form-group">
-                                    <label for="wizard-simple2-location">Location</label>
-                                    <input class="form-control form-control-alt" type="text" id="wizard-simple2-location" name="wizard-simple2-location">
+                                    <label for="wizard-validation2-location">Location</label>
+                                    <input class="form-control form-control-alt" type="text" id="wizard-validation2-location" name="wizard-validation2-location">
                                 </div>
                                 <div class="form-group">
-                                    <label for="wizard-simple2-skills">Skills</label>
-                                    <select class="form-control form-control-alt" id="wizard-simple2-skills" name="wizard-simple2-skills">
+                                    <label for="wizard-validation2-skills">Skills</label>
+                                    <select class="form-control form-control-alt" id="wizard-validation2-skills" name="wizard-validation2-skills">
                                         <option value="">Please select your best skill</option>
                                         <option value="1">Photoshop</option>
                                         <option value="2">HTML</option>
@@ -91,8 +108,8 @@
                                 </div>
                                 <div class="form-group">
                                     <div class="custom-control custom-checkbox custom-control-primary">
-                                        <input type="checkbox" class="custom-control-input" id="wizard-simple2-terms" name="wizard-simple2-terms">
-                                        <label class="custom-control-label" for="wizard-simple2-terms">Agree with the terms</label>
+                                        <input type="checkbox" class="custom-control-input" id="wizard-validation2-terms" name="wizard-validation2-terms">
+                                        <label class="custom-control-label" for="wizard-validation2-terms">Agree with the terms</label>
                                     </div>
                                 </div>
                             </div>
@@ -122,7 +139,8 @@
                     </form>
                     <!-- END Form -->
                 </div>
-                <!-- END Simple Wizard 2 -->
+                <!-- END Validation Wizard 2 -->
+
             </div>
         </div>
         <!-- END Dynamic Table with Export Buttons -->

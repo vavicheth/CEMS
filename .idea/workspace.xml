@@ -2,18 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6d59e93e-3e6d-4755-8d35-1fa8f2556fbb" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/resources/views/admin/user_managements/users/create.blade.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/admin/user_managements/users/edit.blade.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/admin/user_managements/users/index.blade.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/admin/user_managements/users/show.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gitattributes" beforeDir="false" afterPath="$PROJECT_DIR$/.gitattributes" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/cems.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/cems.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Console/Kernel.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Console/Kernel.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Exceptions/Handler.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Exceptions/Handler.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/Setting/UiController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/Setting/UiController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/UserManagements/UserController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/UserManagements/UserController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Auth/ForgotPasswordController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Auth/ForgotPasswordController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Auth/LoginController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Auth/LoginController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Auth/RegisterController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Auth/RegisterController.php" afterDir="false" />
@@ -1652,7 +1646,6 @@
       <change beforePath="$PROJECT_DIR$/public/js/plugins/sweetalert2/sweetalert2.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/plugins/sweetalert2/sweetalert2.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/js/plugins/vide/jquery.vide.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/plugins/vide/jquery.vide.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/js/plugins/vide/jquery.vide.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/plugins/vide/jquery.vide.min.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/mix-manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/public/mix-manifest.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/robots.txt" beforeDir="false" afterPath="$PROJECT_DIR$/public/robots.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/js/bootstrap.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/bootstrap.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/lang/en/auth.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/lang/en/auth.php" afterDir="false" />
@@ -1765,9 +1758,8 @@
       <change beforePath="$PROJECT_DIR$/resources/sass/vendor/fontawesome/regular.scss" beforeDir="false" afterPath="$PROJECT_DIR$/resources/sass/vendor/fontawesome/regular.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/sass/vendor/fontawesome/solid.scss" beforeDir="false" afterPath="$PROJECT_DIR$/resources/sass/vendor/fontawesome/solid.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/sass/vendor/fontawesome/v4-shims.scss" beforeDir="false" afterPath="$PROJECT_DIR$/resources/sass/vendor/fontawesome/v4-shims.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/admin/user_managements/users/create.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/user_managements/users/create.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/layouts/backend.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/backend.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/layouts/main.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/main.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/layouts/sidebar.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/sidebar.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/pages/datatables.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/pages/datatables.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/api.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/api.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/channels.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/channels.php" afterDir="false" />
@@ -1974,7 +1966,9 @@
       <workItem from="1582636807515" duration="5053000" />
       <workItem from="1582685489560" duration="5962000" />
       <workItem from="1582772378730" duration="9121000" />
-      <workItem from="1582849121600" duration="9022000" />
+      <workItem from="1582849121600" duration="9617000" />
+      <workItem from="1583118936254" duration="2742000" />
+      <workItem from="1583123612975" duration="6429000" />
     </task>
     <servers />
   </component>
@@ -1994,10 +1988,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="461" y="163" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1582000297728" />
-    <state x="1136" y="345" key="com.intellij.ide.util.TipDialog" timestamp="1582849130960">
+    <state x="1136" y="345" key="com.intellij.ide.util.TipDialog" timestamp="1583123679235">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="1136" y="345" key="com.intellij.ide.util.TipDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1582849130960" />
+    <state x="1136" y="345" key="com.intellij.ide.util.TipDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1583123679235" />
     <state x="616" y="240" key="run.anything.popup" timestamp="1582709540422">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
