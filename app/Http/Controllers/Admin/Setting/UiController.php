@@ -16,8 +16,6 @@ class UiController extends Controller
         $uis=Ui::all();
         $ui_user=Auth::user()->uis;
 
-        toast('Your Post as been submited!','success');
-
         return view('admin.setting.ui.update',compact('uis','ui_user'));
     }
 

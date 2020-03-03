@@ -81,58 +81,23 @@
                                                 @csrf
                                                 <div class="py-3">
                                                     <div class="form-group">
-{{--                                                        <input type="email"--}}
-{{--                                                               class="form-control form-control-alt form-control-lg @error('email') is-invalid @enderror"--}}
-{{--                                                               id="email" name="email" value="{{ old('email') }}"--}}
-{{--                                                               required autocomplete="email" autofocus--}}
-{{--                                                               placeholder={{ __('E-Mail Address') }}>--}}
-
-{{--                                                        @error('email')--}}
-{{--                                                        <span class="invalid-feedback" role="alert">--}}
-{{--                                                                                                                <strong>{{ $message }}</strong>--}}
-{{--                                                                                                            </span>--}}
-{{--                                                        @enderror--}}
-
-                                                        <input
-                                                                class="form-control form-control-alt form-control-lg @error('username') is-invalid @enderror"
-                                                                id="username" name="username"
-                                                                value="{{ old('username') }}"
-                                                                required autofocus
-                                                                placeholder={{ __('Username or E-Mail Address') }}>
-
+                                                        <input class="form-control form-control-alt form-control-lg" id="username" name="username"
+                                                               value="{{ old('username') }}"
+                                                               autofocus
+                                                               placeholder={{ __('Username or E-Mail Address') }}>
                                                         @error('username')
-                                                        <span class="invalid-feedback" role="alert">
-                                                            <div id="login-username-error"
-                                                            class="invalid-feedback animated fadeIn">{{$message}}</div>
-                                                        </span>
+                                                            <span class="text-danger animated fadeIn">{{ $errors->first('username') }}</span>
                                                         @enderror
-
-
-
-
                                                     </div>
                                                     <div class="form-group">
                                                         <input type="password"
-                                                               class="form-control form-control-alt form-control-lg @error('password') is-invalid @enderror"
-                                                               id="password" name="password" required
+                                                               class="form-control form-control-alt form-control-lg"
+                                                               id="password" name="password"
                                                                autocomplete="current-password"
                                                                placeholder="{{__('Password')}}">
                                                         @error('password')
-                                                        <span class="invalid-feedback" role="alert">
-                                                            <strong>{{ $message }}</strong>
-                                                        </span>
+                                                            <span class="text-danger animated fadeIn">{{ $errors->first('password') }}</span>
                                                         @enderror
-
-
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <div class="custom-control custom-checkbox">
-                                                            <input type="checkbox" class="custom-control-input"
-                                                                   id="remember"
-                                                                   name="remember" {{ old('remember') ? 'checked' : '' }}>
-                                                            <label class="custom-control-label font-w400"
-                                                                   for="remember"> {{ __('Remember Me') }}</label>
-                                                        </div>
                                                     </div>
 
                                                 </div>
@@ -145,6 +110,7 @@
                                                 </div>
                                             </form>
                                             <!-- END Sign In Form -->
+
                                         </div>
                                     </div>
                                 </div>
@@ -167,10 +133,37 @@
 
 @section('after_js')
     <!-- Page JS Plugins -->
-{{--    <script src="{{asset('js/plugins/jquery-validation/jquery.validate.min.js')}}"></script>--}}
+    <script src="{{asset('js/plugins/jquery-validation/jquery.validate.min.js')}}"></script>
+    <script src="{{asset('js/plugins/jquery-validation/additional-methods.js')}}"></script>
 
-    <!-- Page JS Code -->
-{{--    <script src="{{asset('js/plugins/pages/op_auth_signin.min.js')}}"></script>--}}
+    <script>
+        jQuery(function () {
+            One.helpers("validation"), jQuery(".js-validation").validate({
+                rules: {
+                    "username": {
+                        required: !0,
+                        minlength: 3
+                    },
+                    "password": {
+                        required: !0,
+                        minlength: 6
+                    }
+                },
+                messages: {
+                    "username": {
+                        required: "Please enter a username",
+                        minlength: "Your username must consist of at least 3 characters"
+                    },
+                    "password": {
+                        required: "Please provide a password",
+                        minlength: "Your password must be at least 6 characters long"
+                    }
+                }
+            })
+        });
+
+
+    </script>
 @endsection
 
 

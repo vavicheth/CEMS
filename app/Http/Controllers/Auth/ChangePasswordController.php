@@ -45,10 +45,11 @@ class ChangePasswordController extends Controller
      */
     public function changePassword(Request $request)
     {
+//        dd($request->all());
 
         $user = Auth::getUser();
 
-        $this->validator($request->all())->validate();
+//        $this->validator($request->all())->validate();
 
         if (Hash::check($request->get('current_password'), $user->password)) {
             $user->password = $request->get('new_password');
@@ -72,6 +73,7 @@ class ChangePasswordController extends Controller
         return Validator::make($data, [
             'current_password' => 'required',
             'new_password' => 'required|min:6|confirmed',
+//            'new_password_confirmation' => 'confirmed',
         ]);
     }
 }

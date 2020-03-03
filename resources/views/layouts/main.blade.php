@@ -23,6 +23,33 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400italic,600,700%7COpen+Sans:300,400,400italic,600,700">
     <link rel="stylesheet" id="css-main" href="{{ mix('/css/oneui.css') }}">
 
+    <!-- Loading progressbar pace -->
+    <style>
+        .pace {
+            -webkit-pointer-events: none;
+            pointer-events: none;
+
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            user-select: none;
+        }
+
+        .pace-inactive {
+            display: none;
+        }
+
+        .pace .pace-progress {
+            background: #2299dd;
+            position: fixed;
+            z-index: 2000;
+            top: 0;
+            right: 100%;
+            width: 100%;
+            height: 2px;
+        }
+
+    </style>
+
     <!-- You can include a specific file from public/css/themes/ folder to alter the default color theme of the template. eg: -->
 <!-- <link rel="stylesheet" id="css-theme" href="{{ mix('/css/themes/amethyst.css') }}"> -->
 @yield('css_after')
@@ -84,6 +111,10 @@ MAIN CONTENT LAYOUT
 
 <!-- Notification -->
 <script src="{{asset('js/plugins/bootstrap-notify/bootstrap-notify.min.js')}}"></script>
+
+<!-- Loading progressbar pace -->
+<script src="{{asset('js/plugins/pace/pace.min.js')}}"></script>
+
 
 <!-- Sweat alert and Toast -->
 @include('sweetalert::alert')

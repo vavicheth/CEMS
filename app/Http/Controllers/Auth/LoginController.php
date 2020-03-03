@@ -48,15 +48,17 @@ class LoginController extends Controller
 
         $this->validate($request, [
             'username' => 'required',
-            'password' => 'required',
+            'password' => 'required|min:6',
         ]);
 
         $fieldType = filter_var($request->username, FILTER_VALIDATE_EMAIL) ? 'email' : 'username';
 
         if(auth()->attempt(array($fieldType => $input['username'], 'password' => $input['password'])))
         {
+            toast('Welcome CEMS system!','info');
             return redirect()->route('admin.setting.ui');
         }else{
+            toast('Username or password is not correct!','error');
             return redirect()->route('login')
                 ->with('error','Email-Address And Password Are Wrong.');
         }
