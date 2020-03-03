@@ -11,6 +11,10 @@
 |
 */
 
+// Change Password Routes...
+Route::get('change_password', 'Auth\ChangePasswordController@showChangePasswordForm')->name('auth.change_password');
+Route::patch('change_password', 'Auth\ChangePasswordController@changePassword')->name('auth.change_password');
+
 Route::group(['middleware' => ['auth'], 'prefix' => 'admin', 'as' => 'admin.'], function () {
 // Example Routes
     Route::view('/', 'landing');
@@ -31,6 +35,10 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'admin', 'as' => 'admin.'], 
     Route::resource('user_managements/users','Admin\UserManagements\UserController', ['as' => 'user_managements']);
     Route::resource('user_managements/permissions','Admin\UserManagements\PermissionController', ['as' => 'user_managements']);
     Route::resource('user_managements/roles','Admin\UserManagements\RoleController', ['as' => 'user_managements']);
+
+
+
+
 });
 
 

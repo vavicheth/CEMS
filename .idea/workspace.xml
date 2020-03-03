@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6d59e93e-3e6d-4755-8d35-1fa8f2556fbb" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/resources/views/auth/change_password.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gitattributes" beforeDir="false" afterPath="$PROJECT_DIR$/.gitattributes" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/cems.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/cems.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
@@ -1758,8 +1759,8 @@
       <change beforePath="$PROJECT_DIR$/resources/sass/vendor/fontawesome/regular.scss" beforeDir="false" afterPath="$PROJECT_DIR$/resources/sass/vendor/fontawesome/regular.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/sass/vendor/fontawesome/solid.scss" beforeDir="false" afterPath="$PROJECT_DIR$/resources/sass/vendor/fontawesome/solid.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/sass/vendor/fontawesome/v4-shims.scss" beforeDir="false" afterPath="$PROJECT_DIR$/resources/sass/vendor/fontawesome/v4-shims.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/admin/user_managements/users/create.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/user_managements/users/create.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/layouts/backend.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/backend.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/layouts/header.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/header.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/pages/datatables.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/pages/datatables.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/api.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/api.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/channels.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/channels.php" afterDir="false" />
@@ -1789,14 +1790,6 @@
         <option value="blade file" />
       </list>
     </option>
-  </component>
-  <component name="FindInProjectRecents">
-    <findStrings>
-      <find>apps</find>
-      <find>CRM</find>
-      <find>one-mo</find>
-      <find>one-modal-apps</find>
-    </findStrings>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -1898,6 +1891,7 @@
       <path value="$PROJECT_DIR$/vendor/anahkiasen/underscore-php" />
       <path value="$PROJECT_DIR$/vendor/realrashid/sweet-alert" />
       <path value="$PROJECT_DIR$/vendor/yajra/laravel-datatables-oracle" />
+      <path value="$PROJECT_DIR$/vendor/laravelcollective/html" />
     </include_path>
   </component>
   <component name="ProjectId" id="1XxrLFUcVjC3sbosZ86I3bA6B67" />
@@ -1920,13 +1914,13 @@
     <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="D:\Working\Web\CEMS\cems\app\Http\Controllers\Admin\Setting" />
-      <recent name="D:\Working\Web\CEMS\cems\resources\views\admin\setting" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="D:\Working\Web\CEMS\cems\public\js\plugins" />
       <recent name="D:\Working\Web\CEMS\cems\resources\views\errors" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\Working\Web\CEMS\cems\app\Http\Controllers\Admin\Setting" />
+      <recent name="D:\Working\Web\CEMS\cems\resources\views\admin\setting" />
     </key>
   </component>
   <component name="RunManager">
@@ -1968,7 +1962,8 @@
       <workItem from="1582772378730" duration="9121000" />
       <workItem from="1582849121600" duration="9617000" />
       <workItem from="1583118936254" duration="2742000" />
-      <workItem from="1583123612975" duration="6429000" />
+      <workItem from="1583123612975" duration="6542000" />
+      <workItem from="1583221481330" duration="6404000" />
     </task>
     <servers />
   </component>
@@ -1988,10 +1983,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="461" y="163" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1582000297728" />
-    <state x="1136" y="345" key="com.intellij.ide.util.TipDialog" timestamp="1583123679235">
+    <state x="1136" y="345" key="com.intellij.ide.util.TipDialog" timestamp="1583221629768">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="1136" y="345" key="com.intellij.ide.util.TipDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1583123679235" />
+    <state x="1136" y="345" key="com.intellij.ide.util.TipDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1583221629768" />
     <state x="616" y="240" key="run.anything.popup" timestamp="1582709540422">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>

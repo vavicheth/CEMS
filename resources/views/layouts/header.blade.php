@@ -83,6 +83,10 @@
                         </a>
                         <div role="separator" class="dropdown-divider"></div>
                         <h5 class="dropdown-header text-uppercase">Actions</h5>
+                        <a class="dropdown-item d-flex align-items-center justify-content-between" href="{{route('auth.change_password')}}">
+                            <span>Change Password</span>
+                            <i class="si si-key ml-1"></i>
+                        </a>
                         <a class="dropdown-item d-flex align-items-center justify-content-between" href="#">
                             <span>Lock Account</span>
                             <i class="si si-lock ml-1"></i>
