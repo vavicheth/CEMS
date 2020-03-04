@@ -31,14 +31,12 @@
                 {!! Form::open(['method' => 'PATCH', 'route' => ['auth.change_password'],'class'=>'js-validation']) !!}
                 <div class="col-lg-8 col-xl-5">
 
-
                     <div class="row">
                         <label class="col-sm-4" for="current_password">Current Password <span
                                     class="text-danger">*</span></label>
                         <div class="col-sm-8 form-group">
                             <input type="password" class="form-control" id="current_password" name="current_password"
                                    placeholder="Type current password..." autofocus>
-
                         </div>
                     </div>
                     <div class="row">
@@ -47,7 +45,6 @@
                         <div class="col-sm-8 form-group">
                             <input type="password" class="form-control" id="new_password" name="new_password"
                                    placeholder="Choose a safe one..">
-
                         </div>
                     </div>
                     <div class="row">
@@ -59,19 +56,14 @@
                         </div>
                     </div>
 
-
                 </div>
-
 
                 {!! Form::submit('Submit', ['class' => 'btn btn-primary']) !!}
                 {!! Form::close() !!}
 
-
             </div>
 
-
         </div>
-
 
     </div>
     <!-- END Page Content -->

@@ -91,13 +91,13 @@
                             <span>Lock Account</span>
                             <i class="si si-lock ml-1"></i>
                         </a>
-                        <a class="dropdown-item d-flex align-items-center justify-content-between" href="{{ route('logout') }}" onclick="event.preventDefault();
+                        <a class="dropdown-item d-flex align-items-center justify-content-between" href="{{ route('auth.logout') }}" onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
                             <span>{{ __('Logout') }}</span>
                             <i class="si si-logout ml-1"></i>
                         </a>
 
-                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                        <form id="logout-form" action="{{ route('auth.logout') }}" method="POST" style="display: none;">
                             @csrf
                         </form>
 

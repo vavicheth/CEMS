@@ -41,8 +41,12 @@ class LoginController extends Controller
         ]);
     }
 
-    public function login(Request $request)
+    public function showLoginForm()
+    {
+        return view('auth.login');
+    }
 
+    public function login(Request $request)
     {
         $input = $request->all();
 
@@ -55,18 +59,23 @@ class LoginController extends Controller
 
         if(auth()->attempt(array($fieldType => $input['username'], 'password' => $input['password'])))
         {
-            toast('Welcome CEMS system!','info');
-            return redirect()->route('admin.setting.ui');
+            return redirect()->route('admin.setting.ui')->with('message_info','Welcome CEMS system!');
         }else{
             toast('Username or password is not correct!','error');
             return redirect()->route('login')
                 ->with('error','Email-Address And Password Are Wrong.');
         }
 
-
-
     }
 
+    public function logout(Request $request)
+    {
+        $this->guard()->logout();
+
+        $request->session()->invalidate();
+
+        return redirect('/admin/user_managements/users');
+    }
 
 
 

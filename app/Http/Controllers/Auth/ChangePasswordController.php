@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 
 class ChangePasswordController extends Controller
@@ -45,20 +46,16 @@ class ChangePasswordController extends Controller
      */
     public function changePassword(Request $request)
     {
-//        dd($request->all());
-
         $user = Auth::getUser();
-
-//        $this->validator($request->all())->validate();
-
+        $this->validator($request->all())->validate();
         if (Hash::check($request->get('current_password'), $user->password)) {
-            $user->password = $request->get('new_password');
+            $user->password = bcrypt($request->get('new_password'));
             $user->save();
-            toast('Password change successfully!','success');
-            return redirect($this->redirectTo);
+//            toast('Password change successfully!','success');
+            return redirect($this->redirectTo)->with('message_success','Password change successfully!');
         } else {
-            toast('Current password is incorrect','error');
-            return redirect()->back();
+//            toast('Current password is incorrect','error');
+            return redirect()->back()->with('message_error','Current password is incorrect!');
         }
     }
 

@@ -115,6 +115,24 @@ MAIN CONTENT LAYOUT
 <!-- Loading progressbar pace -->
 <script src="{{asset('js/plugins/pace/pace.min.js')}}"></script>
 
+<!-- Toast notification from controller -->
+<script>
+    jQuery(function () {
+        @if(session('message_info'))
+        One.helpers('notify', {type: 'info', icon: 'fa fa-info-circle mr-1', message: "{{@session('message_info')}}"});
+        @elseif(session('message_success'))
+        One.helpers('notify', {type: 'success', icon: 'fa fa-check mr-1', message: "{{@session('message_success')}}"});
+        @elseif(session('message_warning'))
+        One.helpers('notify', {
+            type: 'warning',
+            icon: 'fa fa-exclamation mr-1',
+            message: "{{@session('message_warning')}}"
+        });
+        @elseif(session('message_error'))
+        One.helpers('notify', {type: 'danger', icon: 'fa fa-times mr-1', message: "{{@session('message_error')}}"});
+        @endif
+    });
+</script>
 
 <!-- Sweat alert and Toast -->
 @include('sweetalert::alert')

@@ -77,7 +77,7 @@
                                             <!-- jQuery Validation (.js-validation-signin class is initialized in js/pages/op_auth_signin.min.js which was auto compiled from _es6/pages/op_auth_signin.js) -->
                                             <!-- For more info and examples you can check out https://github.com/jzaefferer/jquery-validation -->
                                             <form class="js-validation-signin" method="POST"
-                                                  action="{{ route('login') }}">
+                                                  action="{{ route('auth.login') }}">
                                                 @csrf
                                                 <div class="py-3">
                                                     <div class="form-group">

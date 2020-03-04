@@ -4,6 +4,8 @@
     <!-- Page JS Plugins CSS -->
     <link rel="stylesheet" href="{{ asset('js/plugins/datatables/dataTables.bootstrap4.css') }}">
     <link rel="stylesheet" href="{{ asset('js/plugins/datatables/buttons-bs4/buttons.bootstrap4.min.css') }}">
+
+    <link rel="stylesheet" href="{{ asset('js/plugins/select2/css/select2.min.css') }}">
 @endsection
 
 @section('content')
@@ -14,12 +16,12 @@
         <!-- Dynamic Table with Export Buttons -->
         <div class="block">
             <div class="block-header">
-                <h3 class="block-title">Create New User</h3>
+                <h3 class="block-title">Change Password</h3>
                 <nav class="flex-sm-00-auto ml-sm-3" aria-label="breadcrumb">
                     <ol class="breadcrumb breadcrumb-alt">
                         <li class="breadcrumb-item">User Managements</li>
                         <li class="breadcrumb-item" aria-current="page">
-                            <a class="link-fx" href="">Users</a>
+                            <a class="link-fx" href="">Change password</a>
                         </li>
                     </ol>
                 </nav>
@@ -27,123 +29,115 @@
 
             <div class="block-content block-content-full">
 
-                <!-- Validation Wizard 2 -->
-                <div class="js-wizard-validation2 block block">
+                {!! Form::open(['method' => 'POST', 'route' => ['admin.user_managements.users.store'],'class'=>'js-validation']) !!}
+                {{--                @csrf--}}
+                <div class="col-lg-8 col-xl-5">
 
-                    <!-- Wizard Progress Bar -->
-                    <div class="progress rounded-0" data-wizard="progress" style="height: 8px;">
-                        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width: 30%;" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100"></div>
+                    <div class="row">
+                        <label class="col-sm-4" for="staff_id">Staff_code <span class="text-danger">*</span></label>
+                        <div class="col-sm-8 form-group">
+                            <select class="js-select2 form-control" id="staff_id" name="staff_id" style="width: 100%;"
+                                    data-placeholder="Choose one..">
+                                <option></option>
+                                <!-- Required for data-placeholder attribute to work with Select2 plugin -->
+                                <option value="1">HTML</option>
+                                <option value="2">CSS</option>
+                                <option value="3">JavaScript</option>
+                                <option value="4">Angular</option>
+                                <option value="5">React</option>
+                            </select>
+                            @error('staff_id')
+                            <span class="text-danger animated fadeIn">{{$message}}</span>
+                            @enderror
+                        </div>
                     </div>
-                    <!-- END Wizard Progress Bar -->
 
-                    <!-- Step Tabs -->
-                    <ul class="nav nav-tabs nav-tabs-alt nav-justified" role="tablist">
-                        <li class="nav-item">
-                            <a class="nav-link active" href="#wizard-user-personal-step1" data-toggle="tab">1. Personal</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#wizard-user-login-step2" data-toggle="tab">2. Login</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#wizard-user-photo-step3" data-toggle="tab">3. Extra</a>
-                        </li>
-                    </ul>
-                    <!-- END Step Tabs -->
-
-                    <!-- Form -->
-                    <form class="js-wizard-validation2-form" action="be_forms_wizard.html" method="POST">
-                        <!-- Steps Content -->
-                        <div class="block-content block-content-full tab-content px-md-5" style="min-height: 303px;">
-                            <!-- Step 1 -->
-                            <div class="tab-pane active" id="wizard-user-personal-step1" role="tabpanel">
-                                <div class="form-group">
-                                    <label for="wizard-validation2-firstname">First Name</label>
-                                    <input class="form-control form-control-alt" type="text" id="wizard-validation2-firstname" name="wizard-validation2-firstname">
-                                </div>
-                                <div class="form-group">
-                                    <label for="wizard-validation2-lastname">Last Name</label>
-                                    <input class="form-control form-control-alt" type="text" id="wizard-validation2-lastname" name="wizard-validation2-lastname">
-                                </div>
-                                <div class="form-group">
-                                    <label for="wizard-validation2-email">Email</label>
-                                    <input class="form-control form-control-alt" type="email" id="wizard-validation2-email" name="wizard-validation2-email">
-                                </div>
-                            </div>
-                            <!-- END Step 1 -->
-
-                            <!-- Step 2 -->
-                            <div class="tab-pane" id="wizard-user-login-step2" role="tabpanel">
-{{--                                <div class="form-group row">--}}
-{{--                                    <label class="col-sm-4 col-form-label"  for="wizard-validation2-email">Email</label>--}}
-{{--                                    <div class="col-sm-8">--}}
-{{--                                        <input class="form-control form-control-sm" type="email" id="wizard-validation2-email" name="wizard-validation2-email">--}}
-{{--                                    </div>--}}
-{{--                                </div>--}}
-
-                                <div class="form-group row">
-                                    <label class="col-sm-4 col-form-label"  for="wizard-validation2-password">Email</label>
-                                    <div class="col-sm-8">
-                                        <input class="form-control form-control-sm" type="password" id="wizard-validation2-password" name="wizard-validation2-password">
-                                    </div>
-                                </div>
-
-                            </div>
-                            <!-- END Step 2 -->
-
-                            <!-- Step 3 -->
-                            <div class="tab-pane" id="wizard-user-photo-step3" role="tabpanel">
-                                <div class="form-group">
-                                    <label for="wizard-validation2-location">Location</label>
-                                    <input class="form-control form-control-alt" type="text" id="wizard-validation2-location" name="wizard-validation2-location">
-                                </div>
-                                <div class="form-group">
-                                    <label for="wizard-validation2-skills">Skills</label>
-                                    <select class="form-control form-control-alt" id="wizard-validation2-skills" name="wizard-validation2-skills">
-                                        <option value="">Please select your best skill</option>
-                                        <option value="1">Photoshop</option>
-                                        <option value="2">HTML</option>
-                                        <option value="3">CSS</option>
-                                        <option value="4">JavaScript</option>
-                                    </select>
-                                </div>
-                                <div class="form-group">
-                                    <div class="custom-control custom-checkbox custom-control-primary">
-                                        <input type="checkbox" class="custom-control-input" id="wizard-validation2-terms" name="wizard-validation2-terms">
-                                        <label class="custom-control-label" for="wizard-validation2-terms">Agree with the terms</label>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- END Step 3 -->
+                    <div class="row">
+                        <label class="col-sm-4" for="name">Full Name </label>
+                        <div class="col-sm-8 form-group">
+                            <input type="text" class="form-control" id="name" name="name"
+                                   placeholder="Type your full name..." autofocus>
+                            @error('name')
+                            <span class="text-danger animated fadeIn">{{$message}}</span>
+                            @enderror
                         </div>
-                        <!-- END Steps Content -->
+                    </div>
 
-                        <!-- Steps Navigation -->
-                        <div class="block-content block-content-sm block-content-full bg-body-light rounded-bottom">
-                            <div class="row">
-                                <div class="col-6">
-                                    <button type="button" class="btn btn-secondary" data-wizard="prev">
-                                        <i class="fa fa-angle-left mr-1"></i> Previous
-                                    </button>
-                                </div>
-                                <div class="col-6 text-right">
-                                    <button type="button" class="btn btn-secondary" data-wizard="next">
-                                        Next <i class="fa fa-angle-right ml-1"></i>
-                                    </button>
-                                    <button type="submit" class="btn btn-primary d-none" data-wizard="finish">
-                                        <i class="fa fa-check mr-1"></i> Submit
-                                    </button>
-                                </div>
-                            </div>
+                    <div class="row">
+                        <label class="col-sm-4" for="username">Username <span class="text-danger">*</span></label>
+                        <div class="col-sm-8 form-group">
+                            <input type="text" class="form-control" id="username" name="username"
+                                   placeholder="Username">
+                            @error('username')
+                            <span class="text-danger animated fadeIn">{{$message}}</span>
+                            @enderror
                         </div>
-                        <!-- END Steps Navigation -->
-                    </form>
-                    <!-- END Form -->
+                    </div>
+
+                    <div class="row">
+                        <label class="col-sm-4" for="email">Email <span class="text-danger">*</span></label>
+                        <div class="col-sm-8 form-group">
+                            <input type="email" class="form-control" id="email" name="email"
+                                   placeholder="Username">
+                            @error('email')
+                            <span class="text-danger animated fadeIn">{{$message}}</span>
+                            @enderror
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <label class="col-sm-4 " for="password">New Password <span
+                                class="text-danger">*</span></label>
+                        <div class="col-sm-8 form-group">
+                            <input type="password" class="form-control" id="password" name="password"
+                                   placeholder="Password">
+                            @error('password')
+                            <span class="text-danger animated fadeIn">{{$message}}</span>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="row">
+                        <label class="col-sm-4 " for="new_password_confirmation">Confirm Password <span
+                                class="text-danger">*</span></label>
+                        <div class="col-sm-8 form-group">
+                            <input type="password" class="form-control" id="new_password_confirmation"
+                                   name="new_password_confirmation" placeholder="Password confirm">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <label class="col-sm-4" for="role_id">Role <span class="text-danger">*</span></label>
+                        <div class="col-sm-8 form-group">
+                            <select class="js-select2 form-control" id="role_id" name="role_id" style="width: 100%;"
+                                    data-placeholder="Choose one..">
+                                <option></option>
+                                <!-- Required for data-placeholder attribute to work with Select2 plugin -->
+                                <option value="1">HTML</option>
+                                <option value="2">CSS</option>
+                                <option value="3">JavaScript</option>
+                                <option value="4">Angular</option>
+                                <option value="5">React</option>
+                            </select>
+                            @error('role_id')
+                            <span class="text-danger animated fadeIn">{{$message}}</span>
+                            @enderror
+                        </div>
+                    </div>
+
                 </div>
-                <!-- END Validation Wizard 2 -->
+
+                <div class="col-lg-4 col-xl-3">
+
+                </div>
+
+                {!! Form::submit('Save', ['class' => 'btn btn-primary']) !!}
+                {!! Form::close() !!}
+
 
             </div>
+
+
         </div>
-        <!-- END Dynamic Table with Export Buttons -->
+
 
     </div>
     <!-- END Page Content -->
@@ -152,9 +146,69 @@
 @section('js_after')
 
     <!-- Page JS Plugins -->
-    <script src="{{asset('js/plugins/jquery-bootstrap-wizard/bs4/jquery.bootstrap.wizard.min.js')}}"></script>
+    <script src="{{asset('js/plugins/select2/js/select2.full.min.js')}}"></script>
     <script src="{{asset('js/plugins/jquery-validation/jquery.validate.min.js')}}"></script>
     <script src="{{asset('js/plugins/jquery-validation/additional-methods.js')}}"></script>
 
-    <script src="{{asset('js/plugins/pages/be_forms_wizard.min.js')}}"></script>
+    <script>
+        jQuery(function () {
+            One.helpers('select2');
+            One.helpers("validation"), jQuery(".js-validation").validate({
+                    ignore: [], rules: {
+                        "staff_id": {
+                            required: !0
+                        }
+                        , "name": {
+                            required: !0
+                        }
+                        , "username": {
+                            required: !0
+                        }
+                        , "email": {
+                            required: !0, email: !0
+                        }
+                        , "password": {
+                            required: !0, minlength: 3
+                        }
+                        , "new_password_confirmation": {
+                            required: !0, equalTo: "#password"
+                        }, "role_id": {
+                            required: !0
+                        }
+                    }
+                    , messages: {
+                        "name": {
+                            required: "Please provide a Full Name",
+                        }
+                        ,
+                        "username": {
+                            required: "Please provide a Username",
+                        }
+                        ,
+                        "email": {
+                            required: "Please enter a email address",
+                            email: "Please enter a valid email address"
+                        }
+                        ,
+                        "password": {
+                            required: "Please provide a password",
+                            minlength: "Your password must be at least 3 characters long"
+                        }
+                        ,
+                        "new_password_confirmation": {
+                            required: "Please provide a confirm password",
+                            equalTo: "Please enter the same password as above"
+                        }, "staff_id": "Please select a value!", "role_id": "Please select a value!"
+                    }
+                }
+            ), jQuery(".js-select2").on("change", (function (e) {
+                    jQuery(e.currentTarget).valid()
+                }
+            ))
+        });
+
+
+    </script>
+
+
 @endsection

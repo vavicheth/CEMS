@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Admin\UserManagements;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\UsersStoreRequest;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use RealRashid\SweetAlert\Facades\Alert;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
@@ -47,6 +49,15 @@ class UserController extends Controller
      */
     public function create()
     {
+//        Role::create(['name'=> 'Users']);
+//        Permission::create(['name' => 'users_delete']);
+//        $role = Role::findOrFail(2);
+//        $role->givePermissionTo([1,2]);
+//        auth()->user()->assignRole([1,2]);
+
+//        return auth()->user()->getPermissionsViaRoles();
+
+        abort_if(! Gate::allows('users_create'),401);
         return view('admin.user_managements.users.create');
     }
 
@@ -56,9 +67,10 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(UsersStoreRequest $request)
     {
-        //
+
+
     }
 
     /**
