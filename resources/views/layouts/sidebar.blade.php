@@ -58,29 +58,29 @@
                     </a>
                     <!-- END Color Themes -->
 
-                    <div class="dropdown-divider"></div>
+{{--                    <div class="dropdown-divider"></div>--}}
 
-                    <!-- Sidebar Styles -->
-                    <!-- Layout API, functionality initialized in Template._uiApiLayout() -->
-                    <a class="dropdown-item" data-toggle="layout" data-action="sidebar_style_light" href="#">
-                        <span>Sidebar Light</span>
-                    </a>
-                    <a class="dropdown-item" data-toggle="layout" data-action="sidebar_style_dark" href="#">
-                        <span>Sidebar Dark</span>
-                    </a>
-                    <!-- Sidebar Styles -->
+{{--                    <!-- Sidebar Styles -->--}}
+{{--                    <!-- Layout API, functionality initialized in Template._uiApiLayout() -->--}}
+{{--                    <a class="dropdown-item" data-toggle="layout" data-action="sidebar_style_light" href="#">--}}
+{{--                        <span>Sidebar Light</span>--}}
+{{--                    </a>--}}
+{{--                    <a class="dropdown-item" data-toggle="layout" data-action="sidebar_style_dark" href="#">--}}
+{{--                        <span>Sidebar Dark</span>--}}
+{{--                    </a>--}}
+{{--                    <!-- Sidebar Styles -->--}}
 
-                    <div class="dropdown-divider"></div>
+{{--                    <div class="dropdown-divider"></div>--}}
 
-                    <!-- Header Styles -->
-                    <!-- Layout API, functionality initialized in Template._uiApiLayout() -->
-                    <a class="dropdown-item" data-toggle="layout" data-action="header_style_light" href="#">
-                        <span>Header Light</span>
-                    </a>
-                    <a class="dropdown-item" data-toggle="layout" data-action="header_style_dark" href="#">
-                        <span>Header Dark</span>
-                    </a>
-                    <!-- Header Styles -->
+{{--                    <!-- Header Styles -->--}}
+{{--                    <!-- Layout API, functionality initialized in Template._uiApiLayout() -->--}}
+{{--                    <a class="dropdown-item" data-toggle="layout" data-action="header_style_light" href="#">--}}
+{{--                        <span>Header Light</span>--}}
+{{--                    </a>--}}
+{{--                    <a class="dropdown-item" data-toggle="layout" data-action="header_style_dark" href="#">--}}
+{{--                        <span>Header Dark</span>--}}
+{{--                    </a>--}}
+{{--                    <!-- Header Styles -->--}}
                 </div>
             </div>
             <!-- END Themes -->

@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="{{ asset('js/plugins/datatables/buttons-bs4/buttons.bootstrap4.min.css') }}">
 
     <link rel="stylesheet" href="{{ asset('js/plugins/select2/css/select2.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('js/plugins/dropzone/dist/min/dropzone.min.css') }}">
 @endsection
 
 @section('content')
@@ -123,6 +124,16 @@
                         </div>
                     </div>
 
+                    <div class="row">
+                        <div class="col-sm-4 "> </div>
+                        <div class="col-sm-8 form-group">
+                            <div class="custom-control custom-switch custom-control-primary mb-1">
+                                <input type="checkbox" class="custom-control-input" id="active" name="active" checked>
+                                <label class="custom-control-label" for="active">Active</label>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
 
                 <div class="col-lg-4 col-xl-3">
@@ -131,6 +142,12 @@
 
                 {!! Form::submit('Save', ['class' => 'btn btn-primary']) !!}
                 {!! Form::close() !!}
+
+                <form action="/file-upload" class="dropzone">
+                    <div class="fallback">
+                        <input name="file" type="file" multiple />
+                    </div>
+                </form>
 
 
             </div>
@@ -146,6 +163,7 @@
 @section('js_after')
 
     <!-- Page JS Plugins -->
+    <script src="{{asset('js/plugins/dropzone/dropzone.min.js')}}"></script>
     <script src="{{asset('js/plugins/select2/js/select2.full.min.js')}}"></script>
     <script src="{{asset('js/plugins/jquery-validation/jquery.validate.min.js')}}"></script>
     <script src="{{asset('js/plugins/jquery-validation/additional-methods.js')}}"></script>
