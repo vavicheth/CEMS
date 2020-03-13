@@ -6,7 +6,15 @@
     <link rel="stylesheet" href="{{ asset('js/plugins/datatables/buttons-bs4/buttons.bootstrap4.min.css') }}">
 
     <link rel="stylesheet" href="{{ asset('js/plugins/select2/css/select2.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('js/plugins/dropzone/dist/min/dropzone.min.css') }}">
+
+    <!-- Bootstrap input file CSS -->
+{{--    <link href="{{asset('js/plugins/bootstrap-input/fileinput.min.css')}}" media="all" rel="stylesheet"--}}
+{{--          type="text/css"/>--}}
+
+    <!-- Slim Image Cropper file CSS -->
+        <link href="{{asset('js/plugins/slim-image-cropper/slim.min.css')}}" rel="stylesheet" type="text/css"/>
+
+
 @endsection
 
 @section('content')
@@ -30,124 +38,132 @@
 
             <div class="block-content block-content-full">
 
-                {!! Form::open(['method' => 'POST', 'route' => ['admin.user_managements.users.store'],'class'=>'js-validation']) !!}
+                {!! Form::open(['method' => 'POST', 'route' => ['admin.user_managements.users.store'],'class'=>'js-validation', 'files' => true]) !!}
                 {{--                @csrf--}}
-                <div class="col-lg-8 col-xl-5">
+                <div class="row">
+                    <div class="col-lg-8 col-xl-5">
 
-                    <div class="row">
-                        <label class="col-sm-4" for="staff_id">Staff_code <span class="text-danger">*</span></label>
-                        <div class="col-sm-8 form-group">
-                            <select class="js-select2 form-control" id="staff_id" name="staff_id" style="width: 100%;"
-                                    data-placeholder="Choose one..">
-                                <option></option>
-                                <!-- Required for data-placeholder attribute to work with Select2 plugin -->
-                                <option value="1">HTML</option>
-                                <option value="2">CSS</option>
-                                <option value="3">JavaScript</option>
-                                <option value="4">Angular</option>
-                                <option value="5">React</option>
-                            </select>
-                            @error('staff_id')
-                            <span class="text-danger animated fadeIn">{{$message}}</span>
-                            @enderror
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <label class="col-sm-4" for="name">Full Name </label>
-                        <div class="col-sm-8 form-group">
-                            <input type="text" class="form-control" id="name" name="name"
-                                   placeholder="Type your full name..." autofocus>
-                            @error('name')
-                            <span class="text-danger animated fadeIn">{{$message}}</span>
-                            @enderror
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <label class="col-sm-4" for="username">Username <span class="text-danger">*</span></label>
-                        <div class="col-sm-8 form-group">
-                            <input type="text" class="form-control" id="username" name="username"
-                                   placeholder="Username">
-                            @error('username')
-                            <span class="text-danger animated fadeIn">{{$message}}</span>
-                            @enderror
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <label class="col-sm-4" for="email">Email <span class="text-danger">*</span></label>
-                        <div class="col-sm-8 form-group">
-                            <input type="email" class="form-control" id="email" name="email"
-                                   placeholder="Username">
-                            @error('email')
-                            <span class="text-danger animated fadeIn">{{$message}}</span>
-                            @enderror
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <label class="col-sm-4 " for="password">New Password <span
-                                class="text-danger">*</span></label>
-                        <div class="col-sm-8 form-group">
-                            <input type="password" class="form-control" id="password" name="password"
-                                   placeholder="Password">
-                            @error('password')
-                            <span class="text-danger animated fadeIn">{{$message}}</span>
-                            @enderror
-                        </div>
-                    </div>
-                    <div class="row">
-                        <label class="col-sm-4 " for="new_password_confirmation">Confirm Password <span
-                                class="text-danger">*</span></label>
-                        <div class="col-sm-8 form-group">
-                            <input type="password" class="form-control" id="new_password_confirmation"
-                                   name="new_password_confirmation" placeholder="Password confirm">
-                        </div>
-                    </div>
-                    <div class="row">
-                        <label class="col-sm-4" for="role_id">Role <span class="text-danger">*</span></label>
-                        <div class="col-sm-8 form-group">
-                            <select class="js-select2 form-control" id="role_id" name="role_id" style="width: 100%;"
-                                    data-placeholder="Choose one..">
-                                <option></option>
-                                <!-- Required for data-placeholder attribute to work with Select2 plugin -->
-                                <option value="1">HTML</option>
-                                <option value="2">CSS</option>
-                                <option value="3">JavaScript</option>
-                                <option value="4">Angular</option>
-                                <option value="5">React</option>
-                            </select>
-                            @error('role_id')
-                            <span class="text-danger animated fadeIn">{{$message}}</span>
-                            @enderror
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-sm-4 "> </div>
-                        <div class="col-sm-8 form-group">
-                            <div class="custom-control custom-switch custom-control-primary mb-1">
-                                <input type="checkbox" class="custom-control-input" id="active" name="active" checked>
-                                <label class="custom-control-label" for="active">Active</label>
+                        <div class="row">
+                            <label class="col-sm-4" for="staff_id">Staff_code <span class="text-danger">*</span></label>
+                            <div class="col-sm-8 form-group">
+                                <select class="js-select2 form-control" id="staff_id" name="staff_id"
+                                        style="width: 100%;"
+                                        data-placeholder="Choose one..">
+                                    <option></option>
+                                    <!-- Required for data-placeholder attribute to work with Select2 plugin -->
+                                    <option value="1">HTML</option>
+                                    <option value="2">CSS</option>
+                                    <option value="3">JavaScript</option>
+                                    <option value="4">Angular</option>
+                                    <option value="5">React</option>
+                                </select>
+                                @error('staff_id')
+                                <span class="text-danger animated fadeIn">{{$message}}</span>
+                                @enderror
                             </div>
                         </div>
+
+                        <div class="row">
+                            <label class="col-sm-4" for="name">Full Name </label>
+                            <div class="col-sm-8 form-group">
+                                <input type="text" class="form-control" id="name" name="name"
+                                       placeholder="Type your full name..." autofocus>
+                                @error('name')
+                                <span class="text-danger animated fadeIn">{{$message}}</span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <label class="col-sm-4" for="username">Username <span class="text-danger">*</span></label>
+                            <div class="col-sm-8 form-group">
+                                <input type="text" class="form-control" id="username" name="username"
+                                       placeholder="Username">
+                                @error('username')
+                                <span class="text-danger animated fadeIn">{{$message}}</span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <label class="col-sm-4" for="email">Email <span class="text-danger">*</span></label>
+                            <div class="col-sm-8 form-group">
+                                <input type="email" class="form-control" id="email" name="email"
+                                       placeholder="Username">
+                                @error('email')
+                                <span class="text-danger animated fadeIn">{{$message}}</span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <label class="col-sm-4 " for="password">New Password <span
+                                    class="text-danger">*</span></label>
+                            <div class="col-sm-8 form-group">
+                                <input type="password" class="form-control" id="password" name="password"
+                                       placeholder="Password">
+                                @error('password')
+                                <span class="text-danger animated fadeIn">{{$message}}</span>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="row">
+                            <label class="col-sm-4 " for="new_password_confirmation">Confirm Password <span
+                                    class="text-danger">*</span></label>
+                            <div class="col-sm-8 form-group">
+                                <input type="password" class="form-control" id="new_password_confirmation"
+                                       name="new_password_confirmation" placeholder="Password confirm">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <label class="col-sm-4" for="role_id">Role <span class="text-danger">*</span></label>
+                            <div class="col-sm-8 form-group">
+                                <select class="js-select2 form-control" id="role_id" name="role_id" style="width: 100%;"
+                                        data-placeholder="Choose one..">
+                                    <option></option>
+                                    <!-- Required for data-placeholder attribute to work with Select2 plugin -->
+                                    <option value="1">HTML</option>
+                                    <option value="2">CSS</option>
+                                    <option value="3">JavaScript</option>
+                                    <option value="4">Angular</option>
+                                    <option value="5">React</option>
+                                </select>
+                                @error('role_id')
+                                <span class="text-danger animated fadeIn">{{$message}}</span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm-4 "></div>
+                            <div class="col-sm-8 form-group">
+                                <div class="custom-control custom-switch custom-control-primary mb-1">
+                                    <input type="checkbox" class="custom-control-input" id="active" name="active"
+                                           checked>
+                                    <label class="custom-control-label" for="active">Active</label>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
 
-                </div>
+                    <div class="col-lg-4 col-xl-4">
+                        <div class="form-group">
+                            <div class="slim" data-label="Drop your avatar here" data-fetcher="fetch.php" data-size="600,600" data-ratio="1:1" data-rotate-button="true" accept="image/jpeg, image/gif, image/png">
+                                <input name="avatar" type="file"/>
+                            </div>
+{{--                            <div class="file-loading">--}}
+{{--                                <input id="file-1" name="photo" type="file" class="file" data-overwrite-initial="false"--}}
+{{--                                        data-theme="fas">--}}
+{{--                            </div>--}}
+                        </div>
 
-                <div class="col-lg-4 col-xl-3">
+                    </div>
 
                 </div>
 
                 {!! Form::submit('Save', ['class' => 'btn btn-primary']) !!}
                 {!! Form::close() !!}
-
-                <form action="/file-upload" class="dropzone">
-                    <div class="fallback">
-                        <input name="file" type="file" multiple />
-                    </div>
-                </form>
 
 
             </div>
@@ -163,10 +179,18 @@
 @section('js_after')
 
     <!-- Page JS Plugins -->
-    <script src="{{asset('js/plugins/dropzone/dropzone.min.js')}}"></script>
     <script src="{{asset('js/plugins/select2/js/select2.full.min.js')}}"></script>
     <script src="{{asset('js/plugins/jquery-validation/jquery.validate.min.js')}}"></script>
     <script src="{{asset('js/plugins/jquery-validation/additional-methods.js')}}"></script>
+
+    <!-- Bootstrap Input file -->
+    <script src="{{asset('js/plugins/slim-image-cropper/slim.kickstart.min.js')}}" crossorigin="anonymous"></script>
+
+    <!-- Bootstrap Input file -->
+{{--    <script src="{{asset('js/plugins/bootstrap-input/jquery-3.3.1.min.js')}}" crossorigin="anonymous"></script>--}}
+{{--    <script src="{{asset('js/plugins/bootstrap-input/bootstrap.bundle.min.js')}}" crossorigin="anonymous"></script>--}}
+{{--    <script src="{{asset('js/plugins/bootstrap-input/fileinput.min.js')}}"></script>--}}
+{{--    <script src="{{asset('js/plugins/bootstrap-input/theme.min.js')}}"></script>--}}
 
     <script>
         jQuery(function () {
@@ -224,6 +248,25 @@
                 }
             ))
         });
+
+        //upload
+        // $(function () {
+        // $("#file-1").fileinput({
+        //     theme: 'fas',
+        //     uploadUrl: '#', // you must set a valid URL here else you will get an error
+        //     allowedFileExtensions: ['jpg', 'png', 'gif'],
+        //     overwriteInitial: false,
+        //
+        //     showUpload: false,
+        //     showCancel:false,
+        //     maxFileSize: 2000,
+        //     maxFilesNum: 10,
+        //     //allowedFileTypes: ['image', 'video', 'flash'],
+        //     slugCallback: function (filename) {
+        //         return filename.replace('(', '_').replace(']', '_');
+        //     }
+        // });
+        // });
 
 
     </script>

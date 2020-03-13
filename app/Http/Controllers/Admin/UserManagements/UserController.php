@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin\UserManagements;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UsersStoreRequest;
+use App\Traits\UploadBySlim;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
@@ -57,7 +58,7 @@ class UserController extends Controller
 
 //        return auth()->user()->getPermissionsViaRoles();
 
-        abort_if(! Gate::allows('users_create'),401);
+        abort_if(! Gate::allows('user_create'),401);
         return view('admin.user_managements.users.create');
     }
 
@@ -72,7 +73,13 @@ class UserController extends Controller
 
 //        dd($request->all());
 
-        $user=User::create($request->all());
+        if ( $request->avatar )
+        {
+            $a= UploadBySlim::uploadPhoto('avatar','/public/media/avatars/');
+            dd($a['name']);
+        }
+
+//        $user=User::create($request->all());
 
 
 

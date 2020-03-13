@@ -2,6 +2,20 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6d59e93e-3e6d-4755-8d35-1fa8f2556fbb" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/app/Traits/slim.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Traits/uploadBySlim.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/js/plugins/bootstrap-input/bootstrap.bundle.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/js/plugins/bootstrap-input/fileinput.min.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/js/plugins/bootstrap-input/fileinput.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/js/plugins/bootstrap-input/jquery-3.3.1.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/js/plugins/bootstrap-input/theme.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/js/plugins/slim-image-cropper/async-remove.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/js/plugins/slim-image-cropper/async.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/js/plugins/slim-image-cropper/fetch.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/js/plugins/slim-image-cropper/slim.kickstart.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/js/plugins/slim-image-cropper/slim.min.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/js/plugins/slim-image-cropper/slim.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/js/plugins/slim-image-cropper/sync.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gitattributes" beforeDir="false" afterPath="$PROJECT_DIR$/.gitattributes" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/cems.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/cems.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
@@ -35,6 +49,7 @@
       <change beforePath="$PROJECT_DIR$/database/migrations/2014_10_12_000000_create_users_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2014_10_12_000000_create_users_table.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/database/migrations/2014_10_12_100000_create_password_resets_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2014_10_12_100000_create_password_resets_table.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/database/seeds/DatabaseSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeds/DatabaseSeeder.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/.htaccess" beforeDir="false" afterPath="$PROJECT_DIR$/public/.htaccess" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/css/oneui.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/oneui.css" afterDir="false" />
@@ -1647,6 +1662,24 @@
       <change beforePath="$PROJECT_DIR$/public/js/plugins/sweetalert2/sweetalert2.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/plugins/sweetalert2/sweetalert2.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/js/plugins/vide/jquery.vide.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/plugins/vide/jquery.vide.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/js/plugins/vide/jquery.vide.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/plugins/vide/jquery.vide.min.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/media/avatars/avatar0.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/media/avatars/avatar1.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/media/avatars/avatar10.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/media/avatars/avatar11.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/media/avatars/avatar12.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/media/avatars/avatar13.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/media/avatars/avatar14.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/media/avatars/avatar15.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/media/avatars/avatar16.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/media/avatars/avatar2.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/media/avatars/avatar3.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/media/avatars/avatar4.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/media/avatars/avatar5.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/media/avatars/avatar6.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/media/avatars/avatar7.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/media/avatars/avatar8.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/media/avatars/avatar9.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/media/avatars/readme.txt" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/public/robots.txt" beforeDir="false" afterPath="$PROJECT_DIR$/public/robots.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/js/bootstrap.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/bootstrap.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/lang/en/auth.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/lang/en/auth.php" afterDir="false" />
@@ -1761,7 +1794,6 @@
       <change beforePath="$PROJECT_DIR$/resources/sass/vendor/fontawesome/v4-shims.scss" beforeDir="false" afterPath="$PROJECT_DIR$/resources/sass/vendor/fontawesome/v4-shims.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/admin/user_managements/users/create.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/user_managements/users/create.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/layouts/backend.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/backend.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/layouts/sidebar.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/sidebar.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/api.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/api.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/channels.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/channels.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/console.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/console.php" afterDir="false" />
@@ -1898,6 +1930,11 @@
       <path value="$PROJECT_DIR$/vendor/guzzlehttp/psr7" />
       <path value="$PROJECT_DIR$/vendor/ralouphie/getallheaders" />
       <path value="$PROJECT_DIR$/vendor/intervention/image" />
+      <path value="$PROJECT_DIR$/vendor/laravel/helpers" />
+      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-php56" />
+      <path value="$PROJECT_DIR$/vendor/intervention/imagecache" />
+      <path value="$PROJECT_DIR$/vendor/jeremeamia/superclosure" />
+      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-util" />
     </include_path>
   </component>
   <component name="ProjectId" id="1XxrLFUcVjC3sbosZ86I3bA6B67" />
@@ -1913,21 +1950,23 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/public/js/plugins/pace" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/app/Traits" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="nodejs_package_manager_path" value="yarn" />
     <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\Working\Web\CEMS\cems\app\Traits" />
+      <recent name="D:\Working\Web\CEMS\cems\public\js\plugins\slim-image-cropper" />
+      <recent name="D:\Working\Web\CEMS\cems\public\js\plugins\bootstrap-input" />
+      <recent name="D:\Working\Web\CEMS\cems\public\js\plugins\pace" />
+      <recent name="D:\Working\Web\CEMS\cems\public\js\plugins" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="D:\Working\Web\CEMS\cems\app\Http\Controllers\Admin\Setting" />
       <recent name="D:\Working\Web\CEMS\cems\resources\views\admin\setting" />
-    </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="D:\Working\Web\CEMS\cems\public\js\plugins\pace" />
-      <recent name="D:\Working\Web\CEMS\cems\public\js\plugins" />
-      <recent name="D:\Working\Web\CEMS\cems\resources\views\errors" />
     </key>
   </component>
   <component name="RunManager">
@@ -1973,7 +2012,12 @@
       <workItem from="1583221481330" duration="6404000" />
       <workItem from="1583233604563" duration="14167000" />
       <workItem from="1583286454378" duration="25750000" />
-      <workItem from="1583367386231" duration="8780000" />
+      <workItem from="1583367386231" duration="8781000" />
+      <workItem from="1583458473403" duration="5250000" />
+      <workItem from="1583808526508" duration="6954000" />
+      <workItem from="1583911800179" duration="598000" />
+      <workItem from="1583975761182" duration="13076000" />
+      <workItem from="1584072738186" duration="2453000" />
     </task>
     <servers />
   </component>
@@ -1985,18 +2029,18 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="690" y="276" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1582810496401" />
-    <state x="794" y="444" key="NewPhpFileDialog" timestamp="1582019240060">
+    <state x="794" y="444" key="NewPhpFileDialog" timestamp="1583995225419">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="794" y="444" key="NewPhpFileDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1582019240060" />
+    <state x="794" y="444" key="NewPhpFileDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1583995225419" />
     <state x="461" y="163" key="SettingsEditor" timestamp="1582000297728">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="461" y="163" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1582000297728" />
-    <state x="1136" y="345" key="com.intellij.ide.util.TipDialog" timestamp="1583367516531">
+    <state x="1136" y="345" key="com.intellij.ide.util.TipDialog" timestamp="1584072739469">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="1136" y="345" key="com.intellij.ide.util.TipDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1583367516531" />
+    <state x="1136" y="345" key="com.intellij.ide.util.TipDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1584072739469" />
     <state x="616" y="240" key="run.anything.popup" timestamp="1582709540422">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
