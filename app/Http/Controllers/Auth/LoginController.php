@@ -49,14 +49,12 @@ class LoginController extends Controller
     public function login(Request $request)
     {
         $input = $request->all();
-
         $this->validate($request, [
             'username' => 'required',
-            'password' => 'required|min:6',
+            'password' => 'required|min:3',
         ]);
 
         $fieldType = filter_var($request->username, FILTER_VALIDATE_EMAIL) ? 'email' : 'username';
-
         if(auth()->attempt(array($fieldType => $input['username'], 'password' => $input['password'])))
         {
             return redirect()->route('admin.setting.ui')->with('message_info','Welcome CEMS system!');
@@ -65,7 +63,6 @@ class LoginController extends Controller
             return redirect()->route('login')
                 ->with('error','Email-Address And Password Are Wrong.');
         }
-
     }
 
     public function logout(Request $request)

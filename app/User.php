@@ -19,7 +19,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password','username','staff_id','active'
+        'name', 'email', 'password','username','staff_id','active','avatar'
     ];
 
     /**
@@ -48,7 +48,6 @@ class User extends Authenticatable
     {
         if ($value != null) {$this->attributes['active']='1';  }
     }
-
 
 
     public function ui_user()

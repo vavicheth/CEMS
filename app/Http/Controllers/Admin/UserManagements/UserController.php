@@ -50,11 +50,15 @@ class UserController extends Controller
      */
     public function create()
     {
-//        Role::create(['name'=> 'Users']);
-//        Permission::create(['name' => 'users_delete']);
-//        $role = Role::findOrFail(2);
-//        $role->givePermissionTo([1,2]);
-//        auth()->user()->assignRole([1,2]);
+//        Role::create(['name'=> 'Admin']);
+//        Permission::create(['name' => 'user_access']);
+//        Permission::create(['name' => 'user_show']);
+//        Permission::create(['name' => 'user_create']);
+//        Permission::create(['name' => 'user_update']);
+//        Permission::create(['name' => 'user_delete']);
+//        $role = Role::findOrFail(1);
+//        $role->givePermissionTo([1,2,3,4,5]);
+//        auth()->user()->assignRole([1]);
 
 //        return auth()->user()->getPermissionsViaRoles();
 
@@ -71,17 +75,12 @@ class UserController extends Controller
     public function store(UsersStoreRequest $request)
     {
 
-//        dd($request->all());
-
         if ( $request->avatar )
         {
-            $a= UploadBySlim::uploadPhoto('avatar','/public/media/avatars/');
-            dd($a['name']);
+            $avatar= UploadBySlim::uploadPhoto('avatar','/public/media/avatars/');
         }
-
-//        $user=User::create($request->all());
-
-
+        $request->request->set('avatar', $avatar['name']);
+        $user=User::create($request->all());
 
     }
 
@@ -104,7 +103,9 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        //
+        $user=User::findOrFail($id);
+
+        return view('admin.user_managements.users.edit',compact('user'));
     }
 
     /**

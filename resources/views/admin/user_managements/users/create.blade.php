@@ -152,12 +152,6 @@
                             <div class="slim" data-label="Drop your avatar here" data-fetcher="fetch.php" data-size="600,600" data-ratio="1:1" data-rotate-button="true" accept="image/jpeg, image/gif, image/png">
                                 <input name="avatar" type="file"/>
                             </div>
-{{--                            <div class="file-loading">--}}
-{{--                                <input id="file-1" name="photo" type="file" class="file" data-overwrite-initial="false"--}}
-{{--                                        data-theme="fas">--}}
-{{--                            </div>--}}
-                        </div>
-
                     </div>
 
                 </div>
