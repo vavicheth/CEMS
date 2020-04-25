@@ -59,7 +59,7 @@ class LoginController extends Controller
         {
             return redirect()->route('admin.setting.ui')->with('message_info','Welcome CEMS system!');
         }else{
-            toast('Username or password is not correct!','error');
+//            toast('Username or password is not correct!','error');
             return redirect()->route('login')
                 ->with('error','Email-Address And Password Are Wrong.');
         }

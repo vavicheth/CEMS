@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin\UserManagements;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UsersStoreRequest;
+use App\Http\Requests\UsersUpdateRequest;
 use App\Traits\UploadBySlim;
 use App\User;
 use Illuminate\Http\Request;
@@ -28,15 +29,15 @@ class UserController extends Controller
 
             return DataTables::of($data)
                 ->addColumn('action', function ($data) {
-                    $button='<button type="button" name="show" id="'.$data->id.'" class="btn btn-sm btn-info mr-1" data-toggle="tooltip" title="Show data"><i class="fa fa-eye"></i></button>';
-                    $button .=' <a href="' . route('admin.user_managements.users.edit', $data->id) . '" class="btn btn-sm btn-success mr-1" data-toggle="tooltip" title="Edit data"><i class="fa fa-edit"></i></a>';
-                    $button .=' <button type="button" name="delete" id="'.$data->id.'" class="btn btn-sm btn-danger mr-1" data-toggle="tooltip" title="Delete data"><i class="fa fa-trash-alt"></i></button>';
+                    $button='<button type="button" name="show" id="'.$data->id.'" class="btn btn-sm btn-info mr-1 mb-1" data-toggle="tooltip" title="Show data"><i class="fa fa-eye"></i></button>';
+                    $button .=' <a href="' . route('admin.user_managements.users.edit', $data->id) . '" class="btn btn-sm btn-success mr-1 mb-1" data-toggle="tooltip" title="Edit data"><i class="fa fa-edit"></i></a>';
+                    $button .=' <button type="button" name="delete" id="'.$data->id.'" class="btn btn-sm btn-danger mr-1 " data-toggle="tooltip" title="Delete data"><i class="fa fa-trash-alt"></i></button>';
                     return $button;
                 })
-//                ->editColumn('active', function ($data) {
-//                    return $data->active == 1 ? '<span class="badge badge-success">Active</span>' : '<span class="badge badge-danger">Inactive</span>';
-//                })
-                ->rawColumns(['action'])
+                ->editColumn('active', function ($data) {
+                    return $data->active == 1 ? '<span class="badge badge-success">Active</span>' : '<span class="badge badge-secondary">Inactive</span>';
+                })
+                ->rawColumns(['action','active'])
                 ->make(true);
         }
 
@@ -50,6 +51,8 @@ class UserController extends Controller
      */
     public function create()
     {
+        return view('admin.user_managements.users.test_pdf');
+
 //        Role::create(['name'=> 'Admin']);
 //        Permission::create(['name' => 'user_access']);
 //        Permission::create(['name' => 'user_show']);
@@ -58,12 +61,18 @@ class UserController extends Controller
 //        Permission::create(['name' => 'user_delete']);
 //        $role = Role::findOrFail(1);
 //        $role->givePermissionTo([1,2,3,4,5]);
-//        auth()->user()->assignRole([1]);
+//        auth()->user()->assignRole([1,2,5]);
 
 //        return auth()->user()->getPermissionsViaRoles();
 
+//        $user=User::findOrFail(1);
+//        return $user->roles->pluck('id');
+
         abort_if(! Gate::allows('user_create'),401);
-        return view('admin.user_managements.users.create');
+
+        $roles=Role::get()->pluck('name', 'id');
+
+        return view('admin.user_managements.users.create',compact('roles'));
     }
 
     /**
@@ -74,13 +83,16 @@ class UserController extends Controller
      */
     public function store(UsersStoreRequest $request)
     {
-
+        abort_if(! Gate::allows('user_create'),401);
         if ( $request->avatar )
         {
             $avatar= UploadBySlim::uploadPhoto('avatar','/public/media/avatars/');
+            $request->request->set('avatar', $avatar['name']);
         }
-        $request->request->set('avatar', $avatar['name']);
         $user=User::create($request->all());
+        $user->syncRoles($request['roles']);
+
+        return redirect(route('admin.user_managements.users.index'))->with('message_success',__('user.create_success'));
 
     }
 
@@ -103,9 +115,14 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        $user=User::findOrFail($id);
+        abort_if(! Gate::allows('user_update'),401);
 
-        return view('admin.user_managements.users.edit',compact('user'));
+        $user=User::findOrFail($id);
+        $roles=Role::get()->pluck('name', 'id');
+
+//        dd($user->avatar);
+
+        return view('admin.user_managements.users.edit',compact('user','roles'));
     }
 
     /**
@@ -115,9 +132,25 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UsersUpdateRequest $request, $id)
     {
-        //
+        abort_if(! Gate::allows('user_update'),401);
+//        dd($request->all());
+        if ( $request->avatar )
+        {
+            $avatar= UploadBySlim::uploadPhoto('avatar','/public/media/avatars/');
+            $request->request->set('avatar', $avatar['name']);
+        }else{
+           $request->request->remove('avatar');
+        }
+        if (!$request->password) {$request->request->remove('password');}
+
+        $user=User::findOrFail($id);
+        $user->update($request->all());
+        $user->syncRoles($request['roles']);
+
+        return redirect(route('admin.user_managements.users.index'))->with('message_success',__('user.update_success'));
+
     }
 
     /**

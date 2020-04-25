@@ -4,6 +4,9 @@
     <!-- Page JS Plugins CSS -->
     <link rel="stylesheet" href="{{ asset('js/plugins/datatables/dataTables.bootstrap4.css') }}">
     <link rel="stylesheet" href="{{ asset('js/plugins/datatables/buttons-bs4/buttons.bootstrap4.min.css') }}">
+
+    <!-- Responsive datatable examples -->
+    <link href="{{ URL::asset('js/plugins/datatables/responsive.bootstrap4.min.css') }}" rel="stylesheet" type="text/css" />
 @endsection
 
 @section('content')
@@ -51,13 +54,15 @@
             </div>
             <div class="block-content block-content-full">
                 <!-- DataTables init on table by adding .js-dataTable-buttons class, functionality is initialized in js/pages/tables_datatables.js -->
-                <table class="table table-bordered table-striped table-vcenter js-dataTable" id="datatable_user" style="border-collapse: collapse;border-spacing: 0;width: 100%">
+{{--                <table class="table table-bordered table-striped table-vcenter js-dataTable" id="datatable_user" style="border-collapse: collapse;border-spacing: 0;width: 100%">--}}
+                <table class="table table-bordered table-striped dt-responsive nowrap table-vcenter js-dataTable" id="datatable_user" style="border-collapse: collapse;border-spacing: 0;width: 100%">
                     <thead>
                     <tr>
 {{--                        <th class="text-center" style="width: 80px;">#</th>--}}
                         <th>Name</th>
                         <th>Username</th>
                         <th class="d-none d-sm-table-cell" style="width: 30%;">Email</th>
+                        <th>Active</th>
                         <th style="width: 15%;">Action</th>
                     </tr>
                     </thead>
@@ -82,6 +87,10 @@
 
     <!-- Page JS Code -->
     <script src="{{ asset('js/pages/tables_datatables.js') }}"></script>
+
+    <!-- Responsive examples -->
+    <script src="{{ URL::asset('js/plugins/datatables/dataTables.responsive.min.js') }}"></script>
+    <script src="{{ URL::asset('js/plugins/datatables/responsive.bootstrap4.min.js') }}"></script>
 
 
     <!-- Page JS Helpers (BS Notify Plugin) -->
@@ -111,7 +120,7 @@
                     // {data: 'abr_kh', name: 'abr_kh'},
                     // {data: 'bed', name: 'bed'},
                     // {data: 'description', name: 'description'},
-                    // {data: 'active', name: 'active'},
+                    {data: 'active', name: 'active'},
                     {data: 'action', name: 'action', orderable: false},
                     // {data: 'created_at', name: 'created_at', visible:true},
 

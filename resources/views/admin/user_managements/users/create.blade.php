@@ -44,6 +44,7 @@
                     <div class="col-lg-8 col-xl-5">
 
                         <div class="row">
+
                             <label class="col-sm-4" for="staff_id">Staff_code <span class="text-danger">*</span></label>
                             <div class="col-sm-8 form-group">
                                 <select class="js-select2 form-control" id="staff_id" name="staff_id"
@@ -116,19 +117,10 @@
                             </div>
                         </div>
                         <div class="row">
-                            <label class="col-sm-4" for="role_id">Role <span class="text-danger">*</span></label>
+                            <label class="col-sm-4" for="role_id">{{__('user.role')}} <span class="text-danger">*</span></label>
                             <div class="col-sm-8 form-group">
-                                <select class="js-select2 form-control" id="role_id" name="role_id" style="width: 100%;"
-                                        data-placeholder="Choose one..">
-                                    <option></option>
-                                    <!-- Required for data-placeholder attribute to work with Select2 plugin -->
-                                    <option value="1">HTML</option>
-                                    <option value="2">CSS</option>
-                                    <option value="3">JavaScript</option>
-                                    <option value="4">Angular</option>
-                                    <option value="5">React</option>
-                                </select>
-                                @error('role_id')
+                                {!! Form::select('roles[]', $roles, old('roles'), ['multiple'=>true,'class' => 'js-select2 form-control']) !!}
+                                @error('roles[]')
                                 <span class="text-danger animated fadeIn">{{$message}}</span>
                                 @enderror
                             </div>
@@ -152,6 +144,7 @@
                             <div class="slim" data-label="Drop your avatar here" data-fetcher="fetch.php" data-size="600,600" data-ratio="1:1" data-rotate-button="true" accept="image/jpeg, image/gif, image/png">
                                 <input name="avatar" type="file"/>
                             </div>
+                        </div>
                     </div>
 
                 </div>
@@ -208,7 +201,7 @@
                         }
                         , "new_password_confirmation": {
                             required: !0, equalTo: "#password"
-                        }, "role_id": {
+                        }, "roles[]": {
                             required: !0
                         }
                     }
@@ -234,7 +227,7 @@
                         "new_password_confirmation": {
                             required: "Please provide a confirm password",
                             equalTo: "Please enter the same password as above"
-                        }, "staff_id": "Please select a value!", "role_id": "Please select a value!"
+                        }, "staff_id": "Please select a value!", "roles[]": "Please select a value!"
                     }
                 }
             ), jQuery(".js-select2").on("change", (function (e) {
