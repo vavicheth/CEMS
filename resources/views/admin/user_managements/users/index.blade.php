@@ -55,7 +55,7 @@
             <div class="block-content block-content-full">
                 <!-- DataTables init on table by adding .js-dataTable-buttons class, functionality is initialized in js/pages/tables_datatables.js -->
 {{--                <table class="table table-bordered table-striped table-vcenter js-dataTable" id="datatable_user" style="border-collapse: collapse;border-spacing: 0;width: 100%">--}}
-                <table class="table table-bordered table-striped dt-responsive nowrap table-vcenter js-dataTable" id="datatable_user" style="border-collapse: collapse;border-spacing: 0;width: 100%">
+                <table class="js-table-checkable table table-hover table-vcenter dt-responsive nowrap table-vcenter js-dataTable" id="datatable_user" style="border-collapse: collapse;border-spacing: 0;width: 100%">
                     <thead>
                     <tr>
 {{--                        <th class="text-center" style="width: 80px;">#</th>--}}

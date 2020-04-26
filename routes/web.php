@@ -40,7 +40,17 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'admin', 'as' => 'admin.'], 
 
     //User Managements
     Route::resource('user_managements/users','Admin\UserManagements\UserController', ['as' => 'user_managements']);
+
+
+    // Permissions
+//    Route::delete('user_managements/permissions/destroy', 'Admin\UserManagements\PermissionController@massDestroy')->name('user_managements.permissions.massDestroy');
+//    Route::resource('permissions', 'PermissionsController');
     Route::resource('user_managements/permissions','Admin\UserManagements\PermissionController', ['as' => 'user_managements']);
+
+
+    // Roles
+//    Route::delete('user_managements/roles/destroy', 'Admin\UserManagements\RoleController@massDestroy')->name('user_managements.roles.massDestroy');
+//    Route::resource('roles', 'RolesController');
     Route::resource('user_managements/roles','Admin\UserManagements\RoleController', ['as' => 'user_managements']);
 
 
