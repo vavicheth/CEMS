@@ -31,7 +31,7 @@ class UserController extends Controller
                 ->addColumn('action', function ($data) {
                     $button='<button type="button" name="show" id="'.$data->id.'" class="btn btn-sm btn-info mr-1 mb-1" data-toggle="tooltip" title="Show data"><i class="fa fa-eye"></i></button>';
                     $button .=' <a href="' . route('admin.user_managements.users.edit', $data->id) . '" class="btn btn-sm btn-success mr-1 mb-1" data-toggle="tooltip" title="Edit data"><i class="fa fa-edit"></i></a>';
-                    $button .=' <button type="button" name="delete" id="'.$data->id.'" class="btn btn-sm btn-danger mr-1 " data-toggle="tooltip" title="Delete data"><i class="fa fa-trash-alt"></i></button>';
+                    $button .=' <button type="button" name="delete" id="'.$data->id.'" class="btn btn-sm btn-danger mr-1 delete" data-toggle="tooltip" title="Delete data"><i class="fa fa-trash-alt"></i></button>';
                     return $button;
                 })
                 ->editColumn('active', function ($data) {
@@ -163,6 +163,9 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $user=User::findOrFail($id);
+        $user->delete();
+
+        return response(__('user.delete_success'));
     }
 }

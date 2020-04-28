@@ -150,6 +150,7 @@
                 </div>
 
                 {!! Form::submit('Update', ['class' => 'btn btn-success']) !!}
+                <a class="btn btn-danger float-right" href="{{route('admin.user_managements.users.index')}}">Cancel</a>
                 {!! Form::close() !!}
 
 

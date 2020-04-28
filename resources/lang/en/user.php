@@ -19,6 +19,7 @@ return [
     'create_success' => 'User has been created!',
     'update_success' => 'User has been updated!',
     'delete_success' => 'User has been deleted!',
+    'delete_error' => 'User can not delete!',
 
 
 ];
