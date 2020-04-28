@@ -21,12 +21,12 @@
         <!-- Dynamic Table with Export Buttons -->
         <div class="block">
             <div class="block-header">
-                <h3 class="block-title">Change Password</h3>
+                <h3 class="block-title">Edit User</h3>
                 <nav class="flex-sm-00-auto ml-sm-3" aria-label="breadcrumb">
                     <ol class="breadcrumb breadcrumb-alt">
                         <li class="breadcrumb-item">User Managements</li>
                         <li class="breadcrumb-item" aria-current="page">
-                            <a class="link-fx" href="">Change password</a>
+                            <a class="link-fx" href="">Edit User</a>
                         </li>
                     </ol>
                 </nav>
@@ -139,7 +139,7 @@
                         <div class="form-group">
                             <div class="slim" data-label="Drop your avatar here" data-fetcher="fetch.php" data-size="600,600" data-ratio="1:1" data-rotate-button="true" accept="image/jpeg, image/gif, image/png">
                                 @if ( $user->avatar )
-                                    <img src="{{ $user->avatar }}" />
+                                    <img src="{{asset('media/avatars/'.$user->avatar) }}" />
                                 @endif
                                 <input name="avatar" type="file"/>
                             </div>

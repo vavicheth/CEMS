@@ -1,6 +1,9 @@
 <?php
 namespace App\Traits;
 use App\Traits\Slim;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
+
 
 class UploadBySlim{
     public static function uploadPhoto(string $field,string $path)
@@ -16,7 +19,8 @@ class UploadBySlim{
             $data = $image['output']['data'];
 
             // Server path
-            $path = base_path() . $path;
+//            $path = base_path() . $path;
+            $path=$path.'/';
 
             // Save the file to the server
             $file = Slim::saveFile($data, $name, $path);
@@ -24,4 +28,15 @@ class UploadBySlim{
 
         return $file;
     }
+
+    public static function deleteAvatarPhoto(string $avatar,string $path)
+    {
+        if(File::exists($path.'/'.$avatar)){
+            File::delete($path.'/'.$avatar);
+        }else{
+            return 'File not existing';
+        }
+    }
+
+
 }

@@ -49,9 +49,14 @@ class User extends Authenticatable
         if ($value != null) {$this->attributes['active']='1';  }
     }
 
-    public function getAvatarAttribute($value)
+
+    public function getAvatarUriAttribute($value)
     {
-        return asset('media/avatars').'/'.$value;
+        if ($value != null){
+            return asset('media/avatars').'/'.$this->attributes['avatar'];
+        }else{
+            return asset('media/avatars').'/'.'default.png';
+        }
     }
 
 

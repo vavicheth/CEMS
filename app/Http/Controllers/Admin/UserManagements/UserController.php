@@ -51,7 +51,6 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('admin.user_managements.users.test_pdf');
 
 //        Role::create(['name'=> 'Admin']);
 //        Permission::create(['name' => 'user_access']);
@@ -84,9 +83,10 @@ class UserController extends Controller
     public function store(UsersStoreRequest $request)
     {
         abort_if(! Gate::allows('user_create'),401);
+
         if ( $request->avatar )
         {
-            $avatar= UploadBySlim::uploadPhoto('avatar','/public/media/avatars/');
+            $avatar= UploadBySlim::uploadPhoto('avatar','media/avatars');
             $request->request->set('avatar', $avatar['name']);
         }
         $user=User::create($request->all());
@@ -135,17 +135,19 @@ class UserController extends Controller
     public function update(UsersUpdateRequest $request, $id)
     {
         abort_if(! Gate::allows('user_update'),401);
-//        dd($request->all());
+        $user=User::findOrFail($id);
+
         if ( $request->avatar )
         {
-            $avatar= UploadBySlim::uploadPhoto('avatar','/public/media/avatars/');
+            UploadBySlim::deleteAvatarPhoto($user->avatar,'media/avatars');
+            $avatar= UploadBySlim::uploadPhoto('avatar','media/avatars');
             $request->request->set('avatar', $avatar['name']);
         }else{
            $request->request->remove('avatar');
         }
         if (!$request->password) {$request->request->remove('password');}
 
-        $user=User::findOrFail($id);
+
         $user->update($request->all());
         $user->syncRoles($request['roles']);
 
