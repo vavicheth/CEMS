@@ -29,7 +29,7 @@ class UserController extends Controller
 
             return DataTables::of($data)
                 ->addColumn('action', function ($data) {
-                    $button='<button type="button" name="show" id="'.$data->id.'" class="btn btn-sm btn-info mr-1 mb-1" data-toggle="tooltip" title="Show data"><i class="fa fa-eye"></i></button>';
+                    $button='<a href="' . route('admin.user_managements.users.show', $data->id) . '" class="btn btn-sm btn-info mr-1 mb-1" data-toggle="tooltip" title="Show data"><i class="fa fa-eye"></i></a>';
                     $button .=' <a href="' . route('admin.user_managements.users.edit', $data->id) . '" class="btn btn-sm btn-success mr-1 mb-1" data-toggle="tooltip" title="Edit data"><i class="fa fa-edit"></i></a>';
                     $button .=' <button type="button" name="delete" id="'.$data->id.'" class="btn btn-sm btn-danger mr-1 delete" data-toggle="tooltip" title="Delete data"><i class="fa fa-trash-alt"></i></button>';
                     return $button;
@@ -104,7 +104,9 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        //
+        abort_if(! Gate::allows('user_show'),401);
+        $user = User::findOrFail($id);
+        return view('admin.user_managements.users.show', compact('user'));
     }
 
     /**
