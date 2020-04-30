@@ -57,7 +57,7 @@
             <div class="block-content block-content-full">
                 <!-- DataTables init on table by adding .js-dataTable-buttons class, functionality is initialized in js/pages/tables_datatables.js -->
                 {{--                <table class="table table-bordered table-striped table-vcenter js-dataTable" id="datatable_user" style="border-collapse: collapse;border-spacing: 0;width: 100%">--}}
-                <table class="js-table-checkable table table-hover table-vcenter dt-responsive nowrap table-vcenter js-dataTable"
+                <table class="js-table-checkable table table-hover table-vcenter dt-responsive table-vcenter js-dataTable"
                        id="datatable_user" style="border-collapse: collapse;border-spacing: 0;width: 100%">
                     <thead>
                     <tr>
@@ -139,12 +139,12 @@
                 paging: 100,
                 searching: true,
                 // dom: 'Bfrtip',
-                buttons: [
-                    'copyHtml5',
-                    'excelHtml5',
-                    'csvHtml5',
-                    'pdfHtml5',
-                ],
+                // buttons: [
+                //     'copyHtml5',
+                //     'excelHtml5',
+                //     'csvHtml5',
+                //     'pdfHtml5',
+                // ],
                 ajax: {
                     url: "{{route('admin.user_managements.users.index')}}",
                 },

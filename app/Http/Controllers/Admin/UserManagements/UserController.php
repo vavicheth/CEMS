@@ -105,6 +105,7 @@ class UserController extends Controller
     public function show($id)
     {
         abort_if(! Gate::allows('user_show'),401);
+
         $user = User::findOrFail($id);
         return view('admin.user_managements.users.show', compact('user'));
     }
@@ -117,12 +118,10 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        abort_if(! Gate::allows('user_update'),401);
+        abort_if(! Gate::allows('user_update'),403);
 
         $user=User::findOrFail($id);
         $roles=Role::get()->pluck('name', 'id');
-
-//        dd($user->avatar);
 
         return view('admin.user_managements.users.edit',compact('user','roles'));
     }
@@ -137,6 +136,7 @@ class UserController extends Controller
     public function update(UsersUpdateRequest $request, $id)
     {
         abort_if(! Gate::allows('user_update'),401);
+
         $user=User::findOrFail($id);
 
         if ( $request->avatar )
@@ -153,7 +153,7 @@ class UserController extends Controller
         $user->update($request->all());
         $user->syncRoles($request['roles']);
 
-        return redirect(route('admin.user_managements.users.index'))->with('message_success',__('user.update_success'));
+        return redirect(route('admin.user_managements.users.index'))->with('message_success',__('user.create_success'));
 
     }
 

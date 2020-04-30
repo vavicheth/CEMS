@@ -76,7 +76,7 @@
                 </div>
 
                 <div class="row">
-                    <a class="btn btn-secondary float-right" href="{{route('admin.user_managements.users.index')}}">Cancel</a>
+                    <a class="btn btn-secondary float-right" href="{{route('admin.user_managements.users.index')}}">Back</a>
                 </div>
             </div>
 

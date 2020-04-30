@@ -18,17 +18,10 @@ return [
     'permission' => 'Permission',
     'permissions' => 'Permissions',
 
-    'create_success' => 'User has been created!',
-    'update_success' => 'User has been updated!',
-    'delete_success' => 'User has been deleted!',
-    'delete_error' => 'User can not delete!',
-
-    //Role
-    'role_create_success' => 'Role has been created!',
-    'role_update_success' => 'Role has been updated!',
-    'role_delete_success' => 'Role has been deleted!',
-    'role_delete_error' => 'Role can not delete!',
-
+    'create_success' => 'Role has been created!',
+    'update_success' => 'Role has been updated!',
+    'delete_success' => 'Role has been deleted!',
+    'delete_error' => 'Role can not delete!',
 
 
 ];

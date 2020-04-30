@@ -4,13 +4,13 @@
     <div class="content-header border-bottom">
         <!-- User Avatar -->
         <a class="img-link mr-1" href="javascript:void(0)">
-            <img class="img-avatar img-avatar32" src="{{ asset('media/avatars/avatar10.jpg') }}" alt="">
+            <img class="img-avatar img-avatar32" src="{{ auth()->user()->avataruri }}" alt="">
         </a>
         <!-- END User Avatar -->
 
         <!-- User Info -->
         <div class="ml-2">
-            <a class="link-fx text-dark font-w600" href="javascript:void(0)">Adam McCoy</a>
+            <a class="link-fx text-dark font-w600" href="javascript:void(0)">{{auth()->user()->name}}</a>
         </div>
         <!-- END User Info -->
 
