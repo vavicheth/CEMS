@@ -31,6 +31,17 @@
                 <a type="button" href="{{route('admin.user_managements.roles.create')}}" class="btn btn-sm btn-primary">Add
                     New</a>
                 {{--                @endcan--}}
+
+                <div class="dropdown">
+                    <button type="button" class="btn btn-sm {{ request('trash') == 1 ? 'btn-danger':'btn-primary' }}  dropdown-toggle" id="dropdown-default-primary" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        {{ request('trash') == 1 ? 'Trash':'Show All' }}
+                    </button>
+                    <div class="dropdown-menu font-size-sm primary" aria-labelledby="dropdown-default-primary">
+                        <a class="dropdown-item" href="{{ route('admin.user_managements.roles.index') }}?show_all=1"><i class="fa fa-list-alt"></i> Show All</a>
+                        <a class="dropdown-item" href="{{ route('admin.user_managements.roles.index') }}?trash=1"><i class="fa fa-trash-alt"></i> Trash</a>
+                    </div>
+                </div>
+
             </div>
             <div class="block-content block-content-full">
                 <!-- DataTables init on table by adding .js-dataTable-buttons class, functionality is initialized in js/pages/tables_datatables.js -->
@@ -40,8 +51,9 @@
                     <thead>
                     <tr>
                         {{--                        <th class="text-center" style="width: 80px;">#</th>--}}
-                        <th >Role</th>
-                        <th >Permission</th>
+                        <th width="20%">Role</th>
+                        <th width="20%">Permission</th>
+                        <th width="20%">Description</th>
 {{--                        <th >Create Date</th>--}}
                         <th style="width: 15%;">Action</th>
                     </tr>
@@ -52,7 +64,7 @@
         <!-- END Dynamic Table with Export Buttons -->
 
 
-        <!-- Vertically Centered Block Modal -->
+        <!-- Modal delete data -->
         <div class="modal" id="modal-confirm-delete" tabindex="-1" role="dialog" aria-labelledby="modal-block-popin"
              aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
@@ -81,7 +93,39 @@
                 </div>
             </div>
         </div>
-        <!-- END Vertically Centered Block Modal -->
+        <!-- END Modal delete data -->
+
+
+        <!-- Modal delete data -->
+        <div class="modal" id="modal-confirm-restore" tabindex="-1" role="dialog" aria-labelledby="modal-block-popin"
+             aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="block block-themed block-transparent mb-0">
+                        <div class="block-header bg-success">
+                            <h3 class="block-title">Confirmation Restore</h3>
+                            <div class="block-options">
+                                <button type="button" class="btn-block-option" data-dismiss="modal" aria-label="Close">
+                                    <i class="fa fa-fw fa-times"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="block-content font-size-sm">
+                            Are you sure to restore this role?
+                        </div>
+                        <div class="block-content block-content-full text-right border-top">
+                            <button type="button" class="btn btn-sm btn-success" data-dismiss="modal" id="restore_button"><i
+                                        class="fa fa-backward mr-1"></i>Restore
+                            </button>
+                            <button type="button" class="btn btn-sm btn-light" data-dismiss="modal">Close</button>
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- END Modal delete data -->
 
 
     </div>
@@ -124,11 +168,12 @@
                 //     'pdfHtml5',
                 // ],
                 ajax: {
-                    url: "{{route('admin.user_managements.roles.index')}}",
+                    url: "{{route('admin.user_managements.roles.index')}}{{ request('trash') == 1 ? '?trash=1':'' }}",
                 },
                 columns: [
                     {data: 'name', name: 'name'},
                     {data: 'permissions_role', name: 'permissions_role'},
+                    {data: 'description', name: 'description'},
                     // {data: 'created_at', name: 'created_at'},
                     {data: 'action', name: 'action', orderable: false},
                 ],
@@ -137,17 +182,19 @@
 
 
             var role_id;
+
+            //Delete function
             $(document).on('click', '.delete', function () {
-                user_id = $(this).attr('id');
+                role_id = $(this).attr('id');
                 $('#modal-confirm-delete').modal('show');
             });
             $('#ok_button').click(function () {
                 $.ajax({
                     data: {
-                        "id": user_id,
+                        "id": role_id,
                         "_token": "{{ csrf_token() }}",
                     },
-                    url: "roles/" + user_id,
+                    url: "roles/{{ request('trash') == 1 ? 'per_del/':'' }}" + role_id,
                     type: 'DELETE',
                     success: function (data) {
                         $('#modal-confirm-delete').modal('hide');
@@ -158,7 +205,35 @@
                         One.helpers('notify', {
                             type: 'danger',
                             icon: 'fa fa-times mr-1',
-                            message: "{{__('user.delete_error')}}"
+                            message: "{{__('user.role_delete_error')}}"
+                        });
+                    }
+                })
+            })
+
+            //Restore function
+            $(document).on('click', '.restore', function () {
+                role_id = $(this).attr('id');
+                $('#modal-confirm-restore').modal('show');
+            });
+            $('#restore_button').click(function () {
+                $.ajax({
+                    data: {
+                        "id": role_id,
+                        "_token": "{{ csrf_token() }}",
+                    },
+                    url: "roles/restore/" + role_id,
+                    type: 'POST',
+                    success: function (data) {
+                        $('#modal-confirm-restore').modal('hide');
+                        $('#datatable_role').DataTable().ajax.reload();
+                        One.helpers('notify', {type: 'success', icon: 'fa fa-check mr-1', message: data});
+                    },
+                    error: function () {
+                        One.helpers('notify', {
+                            type: 'danger',
+                            icon: 'fa fa-times mr-1',
+                            message: "{{__('user.role_restore_error')}}"
                         });
                     }
                 })

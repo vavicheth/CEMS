@@ -22,12 +22,26 @@ class RoleController extends Controller
         if($request->ajax())
         {
             $data=Role::query();
+
+            if (request('trash') == 1){
+                $data=$data->onlyTrashed()->get();
+            }
+
             return DataTables::of($data)
                 ->addColumn('action', function ($data) {
                     $button='<a href="' . route('admin.user_managements.roles.show', $data->id) . '" class="btn btn-sm btn-info mr-1 mb-1" data-toggle="tooltip" title="Show data"><i class="fa fa-eye"></i></a>';
                     $button .=' <a href="' . route('admin.user_managements.roles.edit', $data->id) . '" class="btn btn-sm btn-success mr-1 mb-1" data-toggle="tooltip" title="Edit data"><i class="fa fa-edit"></i></a>';
-                    $button .=' <button type="button" name="delete" id="'.$data->id.'" class="btn btn-sm btn-danger mr-1 delete" data-toggle="tooltip" title="Delete data"><i class="fa fa-trash-alt"></i></button>';
-                    return $button;
+                    $button .=' <button type="button" name="delete" id="'.$data->id.'" class="btn btn-sm btn-danger mr-1 mb-1 delete" data-toggle="tooltip" title="Delete data"><i class="fa fa-trash-alt"></i></button>';
+
+                    $trash =' <button type="button" name="restore" id="'.$data->id.'" class="btn btn-sm btn-success mr-1 mb-1 restore" data-toggle="tooltip" title="Restore data"><i class="fa fa-backward"></i></button>';
+                    $trash .=' <button type="button" name="delete" id="'.$data->id.'" class="btn btn-sm btn-danger mr-1 mb-1 delete" data-toggle="tooltip" title="Destroy data"><i class="fa fa-trash-alt"></i></button>';
+
+                    if (request('trash') == 1){
+                        return $trash;
+                    }else{
+                        return $button;
+                    }
+
                 })
                 ->addColumn('permissions_role', function ($data) {
                     $text='';
@@ -55,7 +69,7 @@ class RoleController extends Controller
     public function store(RolesStoreRequest $request)
     {
 
-        $role = Role::create(['name'=> $request->name]);
+        $role = Role::create(['name'=> $request->name,'description'=> $request->description]);
         $role->givePermissionTo($request->input('permissions'));
 
         return redirect()->route('admin.user_managements.roles.index')->with('message_success',__('user.role_create_success'));
@@ -76,7 +90,7 @@ class RoleController extends Controller
     {
 
         $role=Role::findOrFail($id);
-        $role->update(['name'=> $request->name]);
+        $role->update(['name'=> $request->name,'description'=> $request->description]);
         $role->syncPermissions($request->input('permissions'));
 
         return redirect()->route('admin.user_managements.roles.index')->with('message_success',__('user.role_update_success'));
@@ -101,11 +115,22 @@ class RoleController extends Controller
 
     }
 
-    public function massDestroy(MassDestroyRoleRequest $request)
+    public function per_del($id)
     {
-        Role::whereIn('id', request('ids'))->delete();
 
-        return response(null, Response::HTTP_NO_CONTENT);
+        $role=Role::onlyTrashed()->findOrFail($id);
+        $role->forceDelete();
 
+        return response(__('user.role_delete_success'));
+
+    }
+
+    public function restore($id)
+    {
+
+        $role=Role::onlyTrashed()->findOrFail($id);
+        $role->restore();
+
+        return response(__('user.role_restore_success'));
     }
 }

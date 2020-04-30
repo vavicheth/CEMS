@@ -24,10 +24,12 @@ return [
     'delete_error' => 'User can not delete!',
 
     //Role
-    'role_create_success' => 'Role has been created!',
-    'role_update_success' => 'Role has been updated!',
-    'role_delete_success' => 'Role has been deleted!',
-    'role_delete_error' => 'Role can not delete!',
+    'role_create_success' => 'Role has been created !',
+    'role_update_success' => 'Role has been updated !',
+    'role_delete_success' => 'Role has been deleted !',
+    'role_restore_success' => 'Role has been restored !',
+    'role_restore_error' => 'Role can not restore !',
+    'role_delete_error' => 'Role can not delete !',
 
 
 

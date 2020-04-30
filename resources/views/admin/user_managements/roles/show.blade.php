@@ -42,6 +42,10 @@
                                         @endforeach
                                     </td>
                                 </tr>
+                                <tr>
+                                    <td class="font-w600 text-left">Description</td>
+                                    <td>{{$role->description}}</td>
+                                </tr>
                                 </tbody>
                             </table>
                         </div>
