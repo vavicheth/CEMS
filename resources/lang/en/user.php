@@ -31,6 +31,14 @@ return [
     'role_restore_error' => 'Role can not restore !',
     'role_delete_error' => 'Role can not delete !',
 
+    //Permission
+    'permission_create_success' => 'Permission has been created !',
+    'permission_update_success' => 'Permission has been updated !',
+    'permission_delete_success' => 'Permission has been deleted !',
+    'permission_restore_success' => 'Permission has been restored !',
+    'permission_restore_error' => 'Permission can not restore !',
+    'permission_delete_error' => 'Permission can not delete !',
+
 
 
 ];

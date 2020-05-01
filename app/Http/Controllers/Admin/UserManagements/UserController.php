@@ -67,7 +67,7 @@ class UserController extends Controller
 //        $user=User::findOrFail(1);
 //        return $user->roles->pluck('id');
 
-        abort_if(! Gate::allows('user_create'),401);
+        abort_if(! Gate::allows('user_create'),403);
 
         $roles=Role::get()->pluck('name', 'id');
 

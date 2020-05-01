@@ -27,20 +27,22 @@
                 </nav>
             </div>
             <div class="block-header">
-                {{--                @can('role_create')--}}
-                <a type="button" href="{{route('admin.user_managements.roles.create')}}" class="btn btn-sm btn-primary">Add
+                @can('role_create')
+                    <a type="button" href="{{route('admin.user_managements.roles.create')}}" class="btn btn-sm btn-primary">Add
                     New</a>
-                {{--                @endcan--}}
+                @endcan
 
-                <div class="dropdown">
-                    <button type="button" class="btn btn-sm {{ request('trash') == 1 ? 'btn-danger':'btn-primary' }}  dropdown-toggle" id="dropdown-default-primary" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        {{ request('trash') == 1 ? 'Trash':'Show All' }}
-                    </button>
-                    <div class="dropdown-menu font-size-sm primary" aria-labelledby="dropdown-default-primary">
-                        <a class="dropdown-item" href="{{ route('admin.user_managements.roles.index') }}?show_all=1"><i class="fa fa-list-alt"></i> Show All</a>
-                        <a class="dropdown-item" href="{{ route('admin.user_managements.roles.index') }}?trash=1"><i class="fa fa-trash-alt"></i> Trash</a>
+                @can('role_delete')
+                    <div class="dropdown">
+                        <button type="button" class="btn btn-sm {{ request('trash') == 1 ? 'btn-danger':'btn-primary' }}  dropdown-toggle" id="dropdown-default-primary" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            {{ request('trash') == 1 ? 'Trash':'Show All' }}
+                        </button>
+                        <div class="dropdown-menu font-size-sm primary" aria-labelledby="dropdown-default-primary">
+                            <a class="dropdown-item" href="{{ route('admin.user_managements.roles.index') }}?show_all=1"><i class="fa fa-list-alt"></i> Show All</a>
+                            <a class="dropdown-item" href="{{ route('admin.user_managements.roles.index') }}?trash=1"><i class="fa fa-trash-alt"></i> Trash</a>
+                        </div>
                     </div>
-                </div>
+                @endcan
 
             </div>
             <div class="block-content block-content-full">
@@ -50,11 +52,9 @@
                        id="datatable_role" style="border-collapse: collapse;border-spacing: 0;width: 100%">
                     <thead>
                     <tr>
-                        {{--                        <th class="text-center" style="width: 80px;">#</th>--}}
-                        <th width="20%">Role</th>
-                        <th width="20%">Permission</th>
-                        <th width="20%">Description</th>
-{{--                        <th >Create Date</th>--}}
+                        <th width="25%">Role</th>
+                        <th width="25%">Permission</th>
+                        <th width="25%">Description</th>
                         <th style="width: 15%;">Action</th>
                     </tr>
                     </thead>
@@ -79,7 +79,7 @@
                             </div>
                         </div>
                         <div class="block-content font-size-sm">
-                            Are you sure to delete this role?
+                            Are you sure to delete {{ request('trash') == 1 ? 'permanent':'' }} this role?
                         </div>
                         <div class="block-content block-content-full text-right border-top">
                             <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal" id="ok_button"><i
