@@ -68,7 +68,7 @@
 
                     <div class="col-lg-4 col-xl-4">
                         <div class="form-group align-items-center">
-                                    <img width="50%" class="img-fluid"  src="{{asset('media/avatars/'.$user->avatar) }}" />
+                                    <img width="50%" class="img-fluid"  src="{{asset('media/avatars/'.$user->avatar)}}" />
                         </div>
 
                     </div>

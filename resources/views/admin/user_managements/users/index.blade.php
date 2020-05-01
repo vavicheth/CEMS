@@ -51,17 +51,30 @@
                 </nav>
             </div>
             <div class="block-header">
-                <a type="button" href="{{route('admin.user_managements.users.create')}}" class="btn btn-sm btn-primary">Add
-                    New</a>
+                @can('user_create')
+                    <a type="button" href="{{route('admin.user_managements.users.create')}}" class="btn btn-sm btn-primary">Add
+                        New</a>
+                @endcan
+
+                @can('user_delete')
+                    <div class="dropdown">
+                        <button type="button" class="btn btn-sm {{ request('trash') == 1 ? 'btn-danger':'btn-primary' }}  dropdown-toggle" id="dropdown-default-primary" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            {{ request('trash') == 1 ? 'Trash':'Show All' }}
+                        </button>
+                        <div class="dropdown-menu font-size-sm primary" aria-labelledby="dropdown-default-primary">
+                            <a class="dropdown-item" href="{{ route('admin.user_managements.users.index') }}?show_all=1"><i class="fa fa-list-alt"></i> Show All</a>
+                            <a class="dropdown-item" href="{{ route('admin.user_managements.users.index') }}?trash=1"><i class="fa fa-trash-alt"></i> Trash</a>
+                        </div>
+                    </div>
+                @endcan
             </div>
             <div class="block-content block-content-full">
                 <!-- DataTables init on table by adding .js-dataTable-buttons class, functionality is initialized in js/pages/tables_datatables.js -->
                 {{--                <table class="table table-bordered table-striped table-vcenter js-dataTable" id="datatable_user" style="border-collapse: collapse;border-spacing: 0;width: 100%">--}}
-                <table class="js-table-checkable table table-hover table-vcenter dt-responsive table-vcenter js-dataTable"
+                <table class="table table-striped table-hover table-vcenter dt-responsive table-vcenter js-dataTable"
                        id="datatable_user" style="border-collapse: collapse;border-spacing: 0;width: 100%">
                     <thead>
                     <tr>
-                        {{--                        <th class="text-center" style="width: 80px;">#</th>--}}
                         <th>Name</th>
                         <th>Username</th>
                         <th>Email</th>
@@ -75,7 +88,7 @@
         <!-- END Dynamic Table with Export Buttons -->
 
 
-        <!-- Vertically Centered Block Modal -->
+        <!-- Modal delete -->
         <div class="modal" id="modal-confirm-delete" tabindex="-1" role="dialog" aria-labelledby="modal-block-popin"
              aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
@@ -95,7 +108,35 @@
                         <div class="block-content block-content-full text-right border-top">
                             <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal" id="ok_button"><i class="fa fa-trash-alt mr-1"></i>Delete</button>
                             <button type="button" class="btn btn-sm btn-light" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- END model delete -->
 
+        <!-- Modal restore data -->
+        <div class="modal" id="modal-confirm-restore" tabindex="-1" role="dialog" aria-labelledby="modal-block-popin"
+             aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="block block-themed block-transparent mb-0">
+                        <div class="block-header bg-success">
+                            <h3 class="block-title">Confirmation Restore</h3>
+                            <div class="block-options">
+                                <button type="button" class="btn-block-option" data-dismiss="modal" aria-label="Close">
+                                    <i class="fa fa-fw fa-times"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="block-content font-size-sm">
+                            Are you sure to restore this permission?
+                        </div>
+                        <div class="block-content block-content-full text-right border-top">
+                            <button type="button" class="btn btn-sm btn-success" data-dismiss="modal" id="restore_button"><i
+                                        class="fa fa-backward mr-1"></i>Restore
+                            </button>
+                            <button type="button" class="btn btn-sm btn-light" data-dismiss="modal">Close</button>
 
 
                         </div>
@@ -103,7 +144,7 @@
                 </div>
             </div>
         </div>
-        <!-- END Vertically Centered Block Modal -->
+        <!-- END Modal restore data -->
 
 
     </div>
@@ -146,7 +187,7 @@
                 //     'pdfHtml5',
                 // ],
                 ajax: {
-                    url: "{{route('admin.user_managements.users.index')}}",
+                    url: "{{route('admin.user_managements.users.index')}}{{ request('trash') == 1 ? '?trash=1':'' }}",
                 },
                 columns: [
                     {data: 'name', name: 'name'},
@@ -164,6 +205,7 @@
 
 
             var user_id;
+            //Delete function
             $(document).on('click', '.delete', function () {
                 user_id = $(this).attr('id');
                 $('#modal-confirm-delete').modal('show');
@@ -174,7 +216,7 @@
                         "id": user_id,
                         "_token": "{{ csrf_token() }}",
                     },
-                    url: "users/" + user_id,
+                    url: "users/{{ request('trash') == 1 ? 'per_del/':'' }}" + user_id,
                     type: 'DELETE',
                     success: function (data) {
                         $('#modal-confirm-delete').modal('hide');
@@ -182,7 +224,39 @@
                         One.helpers('notify', {type: 'success', icon: 'fa fa-check mr-1', message: data});
                     },
                     error: function () {
-                        One.helpers('notify', {type: 'danger',icon: 'fa fa-times mr-1',message: "{{__('user.delete_error')}}"});
+                        One.helpers('notify', {
+                            type: 'danger',
+                            icon: 'fa fa-times mr-1',
+                            message: "{{__('user.user_delete_error')}}"
+                        });
+                    }
+                })
+            })
+
+            //Restore function
+            $(document).on('click', '.restore', function () {
+                user_id = $(this).attr('id');
+                $('#modal-confirm-restore').modal('show');
+            });
+            $('#restore_button').click(function () {
+                $.ajax({
+                    data: {
+                        "id": user_id,
+                        "_token": "{{ csrf_token() }}",
+                    },
+                    url: "users/restore/" + user_id,
+                    type: 'POST',
+                    success: function (data) {
+                        $('#modal-confirm-restore').modal('hide');
+                        $('#datatable_user').DataTable().ajax.reload();
+                        One.helpers('notify', {type: 'success', icon: 'fa fa-check mr-1', message: data});
+                    },
+                    error: function () {
+                        One.helpers('notify', {
+                            type: 'danger',
+                            icon: 'fa fa-times mr-1',
+                            message: "{{__('user.user_restore_error')}}"
+                        });
                     }
                 })
             })

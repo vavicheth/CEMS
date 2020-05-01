@@ -95,7 +95,7 @@
         <!-- END Modal delete data -->
 
 
-        <!-- Modal delete data -->
+        <!-- Modal restore data -->
         <div class="modal" id="modal-confirm-restore" tabindex="-1" role="dialog" aria-labelledby="modal-block-popin"
              aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
@@ -124,7 +124,7 @@
                 </div>
             </div>
         </div>
-        <!-- END Modal delete data -->
+        <!-- END Modal restore data -->
 
 
     </div>

@@ -40,6 +40,8 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'admin', 'as' => 'admin.'], 
 
     //User Managements
     Route::resource('user_managements/users','Admin\UserManagements\UserController', ['as' => 'user_managements']);
+    Route::delete('user_managements/users/per_del/{id}', 'Admin\UserManagements\UserController@per_del')->name('user_managements.users.per_del');
+    Route::post('user_managements/users/restore/{id}', 'Admin\UserManagements\UserController@restore')->name('user_managements.users.restore');
 
 
     // Permissions

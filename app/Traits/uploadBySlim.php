@@ -29,7 +29,7 @@ class UploadBySlim{
         return $file;
     }
 
-    public static function deleteAvatarPhoto(string $avatar,string $path)
+    public static function deleteAvatarPhoto($avatar= 'test.png',string $path)
     {
         if(File::exists($path.'/'.$avatar)){
             File::delete($path.'/'.$avatar);

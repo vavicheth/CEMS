@@ -2,6 +2,7 @@
 
 namespace App;
 
+use DateTimeInterface;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -15,32 +16,24 @@ class User extends Authenticatable
     use Notifiable;
     use SoftDeletes;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
     protected $fillable = [
         'name', 'email', 'password','username','staff_id','active','avatar'
     ];
 
-    /**
-     * The attributes that should be hidden for arrays.
-     *
-     * @var array
-     */
+
     protected $hidden = [
         'password', 'remember_token',
     ];
 
-    /**
-     * The attributes that should be cast to native types.
-     *
-     * @var array
-     */
+
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    protected function serializeDate(DateTimeInterface $date)
+    {
+        return $date->format('d-M-Y H:i:s');
+    }
 
     public function setPasswordAttribute($value)
     {
@@ -49,6 +42,16 @@ class User extends Authenticatable
     public function setActiveAttribute($value)
     {
         if ($value != null) {$this->attributes['active']='1';  }
+    }
+
+
+    public function getAvatarAttribute($value)
+    {
+        if ($value != null){
+            return $this->attributes['avatar'];
+        }else{
+            return 'default.png';
+        }
     }
 
 

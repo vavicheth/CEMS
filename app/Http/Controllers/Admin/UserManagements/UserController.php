@@ -16,23 +16,39 @@ use Yajra\DataTables\Facades\DataTables;
 
 class UserController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index(Request $request)
     {
+        abort_if(! Gate::allows('user_access'),403);
         if($request->ajax())
         {
             $data=User::query()->orderBy('created_at','desc');
 
+            if (request('trash') == 1 && Gate::allows('user_delete')){
+                $data=$data->onlyTrashed()->get();
+            }
+
             return DataTables::of($data)
                 ->addColumn('action', function ($data) {
-                    $button='<a href="' . route('admin.user_managements.users.show', $data->id) . '" class="btn btn-sm btn-info mr-1 mb-1" data-toggle="tooltip" title="Show data"><i class="fa fa-eye"></i></a>';
-                    $button .=' <a href="' . route('admin.user_managements.users.edit', $data->id) . '" class="btn btn-sm btn-success mr-1 mb-1" data-toggle="tooltip" title="Edit data"><i class="fa fa-edit"></i></a>';
-                    $button .=' <button type="button" name="delete" id="'.$data->id.'" class="btn btn-sm btn-danger mr-1 delete" data-toggle="tooltip" title="Delete data"><i class="fa fa-trash-alt"></i></button>';
-                    return $button;
+                    $button='';
+                    if (Gate::allows('user_show')){
+                        $button .='<a href="' . route('admin.user_managements.users.show', $data->id) . '" class="btn btn-sm btn-info mr-1 mb-1" data-toggle="tooltip" title="Show data"><i class="fa fa-eye"></i></a>';
+                    }
+                    if (Gate::allows('user_update')){
+                        $button .=' <a href="' . route('admin.user_managements.users.edit', $data->id) . '" class="btn btn-sm btn-success mr-1 mb-1" data-toggle="tooltip" title="Edit data"><i class="fa fa-edit"></i></a>';
+                    }
+                    if (Gate::allows('user_delete')){
+                        $button .=' <button type="button" name="delete" id="'.$data->id.'" class="btn btn-sm btn-danger mr-1 delete" data-toggle="tooltip" title="Delete data"><i class="fa fa-trash-alt"></i></button>';
+                    }
+
+                    $trash =' <button type="button" name="restore" id="'.$data->id.'" class="btn btn-sm btn-success mr-1 mb-1 restore" data-toggle="tooltip" title="Restore data"><i class="fa fa-backward"></i></button>';
+                    $trash .=' <button type="button" name="delete" id="'.$data->id.'" class="btn btn-sm btn-danger mr-1 mb-1 delete" data-toggle="tooltip" title="Destroy data"><i class="fa fa-trash-alt"></i></button>';
+
+                    if (request('trash') == 1 && Gate::allows('user_delete')){
+                        return $trash;
+                    }else{
+                        return $button;
+                    }
                 })
                 ->editColumn('active', function ($data) {
                     return $data->active == 1 ? '<span class="badge badge-success">Active</span>' : '<span class="badge badge-secondary">Inactive</span>';
@@ -44,11 +60,6 @@ class UserController extends Controller
         return view('admin.user_managements.users.index');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
 
@@ -68,18 +79,11 @@ class UserController extends Controller
 //        return $user->roles->pluck('id');
 
         abort_if(! Gate::allows('user_create'),403);
-
         $roles=Role::get()->pluck('name', 'id');
 
         return view('admin.user_managements.users.create',compact('roles'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(UsersStoreRequest $request)
     {
         abort_if(! Gate::allows('user_create'),401);
@@ -92,16 +96,9 @@ class UserController extends Controller
         $user=User::create($request->all());
         $user->syncRoles($request['roles']);
 
-        return redirect(route('admin.user_managements.users.index'))->with('message_success',__('user.create_success'));
-
+        return redirect(route('admin.user_managements.users.index'))->with('message_success',__('user.user_create_success'));
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
         abort_if(! Gate::allows('user_show'),401);
@@ -110,12 +107,6 @@ class UserController extends Controller
         return view('admin.user_managements.users.show', compact('user'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
         abort_if(! Gate::allows('user_update'),403);
@@ -126,19 +117,11 @@ class UserController extends Controller
         return view('admin.user_managements.users.edit',compact('user','roles'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(UsersUpdateRequest $request, $id)
     {
         abort_if(! Gate::allows('user_update'),401);
 
         $user=User::findOrFail($id);
-
         if ( $request->avatar )
         {
             UploadBySlim::deleteAvatarPhoto($user->avatar,'media/avatars');
@@ -149,25 +132,36 @@ class UserController extends Controller
         }
         if (!$request->password) {$request->request->remove('password');}
 
-
         $user->update($request->all());
         $user->syncRoles($request['roles']);
 
-        return redirect(route('admin.user_managements.users.index'))->with('message_success',__('user.create_success'));
-
+        return redirect(route('admin.user_managements.users.index'))->with('message_success',__('user.user_create_success'));
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
         $user=User::findOrFail($id);
         $user->delete();
 
-        return response(__('user.delete_success'));
+        return response(__('user.user_delete_success'));
+    }
+
+    public function per_del($id)
+    {
+        abort_if(! Gate::allows('user_delete'),403);
+        $permission=User::onlyTrashed()->findOrFail($id);
+        UploadBySlim::deleteAvatarPhoto($permission->avatar,'media/avatars');
+        $permission->forceDelete();
+
+        return response(__('user.user_delete_success'));
+    }
+
+    public function restore($id)
+    {
+        abort_if(! Gate::allows('permission_delete'),403);
+        $permission=User::onlyTrashed()->findOrFail($id);
+        $permission->restore();
+
+        return response(__('user.user_restore_success'));
     }
 }

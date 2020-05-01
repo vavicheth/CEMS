@@ -18,10 +18,12 @@ return [
     'permission' => 'Permission',
     'permissions' => 'Permissions',
 
-    'create_success' => 'User has been created!',
-    'update_success' => 'User has been updated!',
-    'delete_success' => 'User has been deleted!',
-    'delete_error' => 'User can not delete!',
+    'user_create_success' => 'User has been created !',
+    'user_update_success' => 'User has been updated !',
+    'user_delete_success' => 'User has been deleted !',
+    'user_delete_error' => 'User can not delete !',
+    'user_restore_error' => 'User can not restore !',
+    'user_restore_success' => 'User has been restored !',
 
     //Role
     'role_create_success' => 'Role has been created !',

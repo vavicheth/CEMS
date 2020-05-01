@@ -33,7 +33,6 @@
             </div>
 
             <div class="block-content block-content-full">
-
                 {!! Form::open(['method' => 'PATCH', 'route' => ['admin.user_managements.users.update',$user->id],'class'=>'js-validation', 'files' => true]) !!}
                 {{--                @csrf--}}
                 <div class="row">
@@ -139,7 +138,7 @@
                         <div class="form-group">
                             <div class="slim" data-label="Drop your avatar here" data-fetcher="fetch.php" data-size="600,600" data-ratio="1:1" data-rotate-button="true" accept="image/jpeg, image/gif, image/png">
                                 @if ( $user->avatar )
-                                    <img src="{{asset('media/avatars/'.$user->avatar) }}" />
+                                    <img src="{{asset('media/avatars/'.$user->avatar)}}" />
                                 @endif
                                 <input name="avatar" type="file"/>
                             </div>
@@ -149,8 +148,8 @@
 
                 </div>
 
-                {!! Form::submit('Update', ['class' => 'btn btn-success']) !!}
-                <a class="btn btn-danger float-right" href="{{route('admin.user_managements.users.index')}}">Cancel</a>
+                {!! Form::submit('Update', ['class' => 'btn btn-primary']) !!}
+                <a class="btn btn-alt-secondary float-right" href="{{route('admin.user_managements.users.index')}}">Cancel</a>
                 {!! Form::close() !!}
 
 

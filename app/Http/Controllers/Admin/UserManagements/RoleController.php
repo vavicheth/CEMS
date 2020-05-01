@@ -68,7 +68,7 @@ class RoleController extends Controller
     {
         abort_if(! Gate::allows('role_create'),403);
 
-        $permissions = Permission::all()->pluck('name', 'id');
+        $permissions = Permission::all()->sortBy('name')->pluck('name', 'id');
 
         return view('admin.user_managements.roles.create', compact('permissions'));
     }
@@ -85,7 +85,7 @@ class RoleController extends Controller
     public function edit($id)
     {
         abort_if(! Gate::allows('role_update'),403);
-        $permissions = Permission::all()->pluck('name', 'id');
+        $permissions = Permission::all()->sortBy('name')->pluck('name', 'id');
         $role=Role::findOrFail($id);
 
         return view('admin.user_managements.roles.edit', compact('permissions', 'role'));

@@ -66,7 +66,7 @@
                 </div>
 
                 {!! Form::submit('Save', ['class' => 'btn btn-primary']) !!}
-                <a class="btn btn-danger float-right" href="{{route('admin.user_managements.roles.index')}}">Cancel</a>
+                <a class="btn btn-alt-secondary float-right" href="{{route('admin.user_managements.roles.index')}}">Cancel</a>
                 {!! Form::close() !!}
 
 
