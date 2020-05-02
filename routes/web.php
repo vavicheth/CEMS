@@ -34,7 +34,18 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'admin', 'as' => 'admin.'], 
 
     Route::get('/home', 'HomeController@index')->name('home');
 
-    //Setting
+    /**Setting
+     *
+     */
+    //Departments
+    Route::resource('setting/departments','Admin\Setting\DepartmentController', ['as' => 'setting']);
+    Route::delete('setting/departments/per_del/{id}', 'Admin\Setting\DepartmentController@per_del')->name('setting.departments.per_del');
+    Route::post('setting/departments/restore/{id}', 'Admin\Setting\DepartmentController@restore')->name('setting.departments.restore');
+//    //Documents
+//    Route::resource('setting/documents','Admin\Setting\DocumentController', ['as' => 'setting']);
+//    Route::delete('setting/documents/per_del/{id}', 'Admin\Setting\DocumentController@per_del')->name('setting.documents.per_del');
+//    Route::post('setting/documents/restore/{id}', 'Admin\Setting\DocumentController@restore')->name('setting.documents.restore');
+    //UI
     Route::get('setting/ui','Admin\Setting\UiController@index')->name('setting.ui');
     Route::post('setting/ui','Admin\Setting\UiController@update')->name('setting.ui')->middleware(['permission:ui_update']);
 

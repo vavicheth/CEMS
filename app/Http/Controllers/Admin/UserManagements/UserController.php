@@ -9,8 +9,6 @@ use App\Traits\UploadBySlim;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
-use RealRashid\SweetAlert\Facades\Alert;
-use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -140,6 +138,7 @@ class UserController extends Controller
 
     public function destroy($id)
     {
+        abort_if(! Gate::allows('user_delete'),403);
         $user=User::findOrFail($id);
         $user->delete();
 

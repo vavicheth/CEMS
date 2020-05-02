@@ -20,7 +20,7 @@ class CreateDepartmentsTable extends Migration
             $table->string('abr')->nullable();
             $table->string('abr_kh')->nullable();
             $table->integer('bed_total')->nullable();
-            $table->longText('description')->nullable();
+            $table->text('description')->nullable();
             $table->boolean('active')->default(0)->nullable();
             $table->timestamps();
             $table->softDeletes();

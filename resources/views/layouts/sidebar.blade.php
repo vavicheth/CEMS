@@ -138,6 +138,16 @@
                     <i class="nav-main-link-icon si si-settings"></i>
                     <span class="nav-main-link-name">Setting</span>
                 </a>
+                @can('department_access')
+                    <ul class="nav-main-submenu">
+                        <li class="nav-main-item">
+                            <a class="nav-main-link{{ request()->is('admin/setting/departments') || request()->is('admin/setting/departments/*') ? ' active' : '' }}" href="{{route('admin.setting.departments.index')}}">
+                                <i class="nav-main-link-icon si si-home"></i>
+                                <span class="nav-main-link-name">Department</span>
+                            </a>
+                        </li>
+                    </ul>
+                @endcan
                 <ul class="nav-main-submenu">
                     <li class="nav-main-item">
                         <a class="nav-main-link{{ request()->is('admin/setting/ui') || request()->is('admin/setting/ui/*')? ' active' : '' }}" href="{{route('admin.setting.ui')}}">

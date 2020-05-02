@@ -20,10 +20,9 @@ class CreatePatientsTable extends Migration
             $table->string('name_kh');
             $table->string('gender');
             $table->date('dob');
-            $table->longText('address')->nullable();
+            $table->Text('address')->nullable();
             $table->string('phone')->nullable();
-            $table->longText('description')->nullable();
-            $table->string('nup')->nullable();
+            $table->Text('description')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

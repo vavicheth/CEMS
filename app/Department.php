@@ -11,11 +11,13 @@ class Department extends Model
     use SoftDeletes;
 
     protected $fillable = [
-        'name', 'email', 'password','username','staff_id','active','avatar'
+        'name', 'name_kh', 'abr','abr_kh','bed_total','active','description'
     ];
 
-
-
+    public function setActiveAttribute($value)
+    {
+        if ($value != null) {$this->attributes['active']='1';  }
+    }
 
     protected function serializeDate(DateTimeInterface $date)
     {

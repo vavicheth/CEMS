@@ -54,7 +54,7 @@
                             </div>
                         </div>
                         <div class="row">
-                            <label class="col-sm-2" for="name">Description</label>
+                            <label class="col-sm-2" for="description">Description</label>
                             <div class="col-sm-8 form-group">
                                 <textarea class="form-control" id="description" name="description">{{$role->description}}</textarea>
                                 @error('description')
