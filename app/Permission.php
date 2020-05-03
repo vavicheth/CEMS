@@ -28,6 +28,5 @@ class Permission extends \Spatie\Permission\Models\Permission
     protected function serializeDate(DateTimeInterface $date)
     {
         return $date->format('d-M-Y H:i:s');
-
     }
 }

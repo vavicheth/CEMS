@@ -71,7 +71,7 @@ class DepartmentController extends Controller
 
     public function show($id)
     {
-        abort_if(! Gate::allows('department_show'),401);
+        abort_if(! Gate::allows('department_show'),403);
 
         $department = Department::findOrFail($id);
         return view('admin.setting.departments.show', compact('department'));
@@ -79,7 +79,7 @@ class DepartmentController extends Controller
 
     public function edit($id)
     {
-        abort_if(! Gate::allows('department_update'),401);
+        abort_if(! Gate::allows('department_update'),403);
 
         $department = Department::findOrFail($id);
         return view('admin.setting.departments.edit', compact('department'));
@@ -90,7 +90,7 @@ class DepartmentController extends Controller
         abort_if(! Gate::allows('permission_update'),403);
         $department->update($request->all());
 
-        return redirect()->route('admin.setting.departments.index');
+        return redirect()->route('admin.setting.departments.index')->with('message_success',__('setting.department_update_success'));
     }
 
     public function destroy($id)

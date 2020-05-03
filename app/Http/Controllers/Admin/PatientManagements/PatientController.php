@@ -5,10 +5,13 @@ namespace App\Http\Controllers\Admin\PatientManagements;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\PatientsStoreRequest;
 use App\Patient;
+use App\Traits\Slim;
+use App\Traits\UploadBySlim;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use Yajra\DataTables\Facades\DataTables;
+use Spatie\MediaLibrary\HasMedia\HasMedia;
 
 class PatientController extends Controller
 {
@@ -45,6 +48,9 @@ class PatientController extends Controller
                         return $button;
                     }
                 })
+//                ->editColumn('gender', function ($data) {
+//                    return trans_choice('patient.gender',$data);
+//                })
                 ->editColumn('active', function ($data) {
                     return $data->active == 1 ? '<span class="badge badge-success">Active</span>' : '<span class="badge badge-secondary">Inactive</span>';
                 })
@@ -64,25 +70,43 @@ class PatientController extends Controller
 
     public function store(PatientsStoreRequest $request)
     {
-//        dd($request->all());
-//        $d=Carbon::createFromFormat(config('panel.date_format') , $request->dob)->format('Y-m-d');
-//        dd($d);
+        abort_if(! Gate::allows('patient_create'),403);
+
         $patient=Patient::create($request->all());
+        if ( $request->photo )
+        {
+            $photo= UploadBySlim::uploadPhoto('photo','media/avatars');
+            $patient->addMedia(public_path('media/avatars/'.$photo['name']))->toMediaCollection('patient_photo');
+        }
+
+        return redirect()->route('admin.patient_managements.patients.index')->with('message_success',__('patient.patient_create_success'));
     }
 
-    public function show($id)
+    public function show(Patient $patient)
     {
-        //
+        abort_if(! Gate::allows('patient_show'),403);
+        return view('admin.patient_managements.patients.show', compact('patient'));
     }
 
     public function edit($id)
     {
-        //
+        abort_if(! Gate::allows('patient_update'),403);
+
+        $patient = Patient::findOrFail($id);
+        return view('admin.patient_managements.patients.edit', compact('patient'));
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, Patient $patient)
     {
-        //
+        abort_if(! Gate::allows('patient_update'),403);
+        $patient->update($request->all());
+        if ( $request->photo )
+        {
+            $photo= UploadBySlim::uploadPhoto('photo','media/avatars');
+            $patient->addMedia(public_path('media/avatars/'.$photo['name']))->toMediaCollection('patient_photo');
+        }
+
+        return redirect()->route('admin.patient_managements.patients.index')->with('message_success',__('patient.patient_update_success'));
     }
 
     public function destroy($id)

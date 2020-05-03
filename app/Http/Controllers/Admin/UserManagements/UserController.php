@@ -84,7 +84,7 @@ class UserController extends Controller
 
     public function store(UsersStoreRequest $request)
     {
-        abort_if(! Gate::allows('user_create'),401);
+        abort_if(! Gate::allows('user_create'),403);
 
         if ( $request->avatar )
         {
@@ -99,7 +99,7 @@ class UserController extends Controller
 
     public function show($id)
     {
-        abort_if(! Gate::allows('user_show'),401);
+        abort_if(! Gate::allows('user_show'),403);
 
         $user = User::findOrFail($id);
         return view('admin.user_managements.users.show', compact('user'));
@@ -117,7 +117,7 @@ class UserController extends Controller
 
     public function update(UsersUpdateRequest $request, $id)
     {
-        abort_if(! Gate::allows('user_update'),401);
+        abort_if(! Gate::allows('user_update'),403);
 
         $user=User::findOrFail($id);
         if ( $request->avatar )

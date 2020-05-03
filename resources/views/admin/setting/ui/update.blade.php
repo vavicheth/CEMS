@@ -133,7 +133,7 @@
                     <!-- Submit -->
                     <div class="row items-push ">
                         <div class="ml-2">
-                            <button type="submit" class="btn btn-primary">Submit</button>
+                            <button type="submit" class="btn btn-primary">Save</button>
                         </div>
                     </div>
                     <!-- END Submit -->

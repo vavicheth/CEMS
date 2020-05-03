@@ -55,6 +55,7 @@
                         <th >Gender</th>
                         <th >DOB</th>
                         <th >Address</th>
+                        <th >Active</th>
                         <th style="width: 15%;">Action</th>
                     </tr>
                     </thead>
@@ -171,6 +172,7 @@
                 columns: [
                     {data: 'name', name: 'name'},
                     {data: 'name_kh', name: 'name_kh'},
+                    {data: 'gender', name: 'gender'},
                     {data: 'dob', name: 'dob'},
                     {data: 'address', name: 'address'},
                     {data: 'active', name: 'active'},

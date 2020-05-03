@@ -13,13 +13,15 @@ return [
     |
     */
 
-    //Department
+    //Patient
     'patient_create_success' => 'Patient has been created !',
     'patient_update_success' => 'Patient has been updated !',
     'patient_delete_success' => 'Patient has been deleted !',
     'patient_restore_success' => 'Patient has been restored !',
     'patient_restore_error' => 'Patient can not restore !',
     'patient_delete_error' => 'Patient can not delete !',
+
+//    'gender' => '{0} No |[1] Male|[2,*] Male',
 
 
 
