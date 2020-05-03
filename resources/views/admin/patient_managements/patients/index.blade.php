@@ -16,30 +16,30 @@
         <!-- Dynamic Table with Export Buttons -->
         <div class="block">
             <div class="block-header">
-                <h3 class="block-title">Department List</h3>
+                <h3 class="block-title">Patient List</h3>
                 <nav class="flex-sm-00-auto ml-sm-3" aria-label="breadcrumb">
                     <ol class="breadcrumb breadcrumb-alt">
-                        <li class="breadcrumb-item">Setting</li>
+                        <li class="breadcrumb-item">Patient Management</li>
                         <li class="breadcrumb-item" aria-current="page">
-                            <a class="link-fx" href="">Department List</a>
+                            <a class="link-fx" href="">Patient List</a>
                         </li>
                     </ol>
                 </nav>
             </div>
             <div class="block-header">
-                @can('department_create')
-                    <a type="button" href="{{route('admin.setting.departments.create')}}" class="btn btn-sm btn-primary">Add
+                @can('patient_create')
+                    <a type="button" href="{{route('admin.patient_managements.patients.create')}}" class="btn btn-sm btn-primary">Add
                     New</a>
                 @endcan
 
-                @can('department_delete')
+                @can('patient_delete')
                     <div class="dropdown">
                         <button type="button" class="btn btn-sm {{ request('trash') == 1 ? 'btn-danger':'btn-primary' }}  dropdown-toggle" id="dropdown-default-primary" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             {{ request('trash') == 1 ? 'Trash':'Show All' }}
                         </button>
                         <div class="dropdown-menu font-size-sm primary" aria-labelledby="dropdown-default-primary">
-                            <a class="dropdown-item" href="{{ route('admin.setting.departments.index') }}?show_all=1"><i class="fa fa-list-alt"></i> Show All</a>
-                            <a class="dropdown-item" href="{{ route('admin.setting.departments.index') }}?trash=1"><i class="fa fa-trash-alt"></i> Trash</a>
+                            <a class="dropdown-item" href="{{ route('admin.patient_managements.patients.index') }}?show_all=1"><i class="fa fa-list-alt"></i> Show All</a>
+                            <a class="dropdown-item" href="{{ route('admin.patient_managements.patients.index') }}?trash=1"><i class="fa fa-trash-alt"></i> Trash</a>
                         </div>
                     </div>
                 @endcan
@@ -47,16 +47,14 @@
             </div>
             <div class="block-content block-content-full">
                 <table class="table table-striped table-hover table-vcenter dt-responsive table-vcenter js-dataTable"
-                       id="datatable_department" style="border-collapse: collapse;border-spacing: 0;width: 100%">
+                       id="datatable_patient" style="border-collapse: collapse;border-spacing: 0;width: 100%">
                     <thead>
                     <tr>
                         <th >Name</th>
                         <th >Name Khmer</th>
-                        <th >Abr</th>
-                        <th >Abr Khmer</th>
-{{--                        <th >Bed Total</th>--}}
-                        <th >Active</th>
-{{--                        <th >Description</th>--}}
+                        <th >Gender</th>
+                        <th >DOB</th>
+                        <th >Address</th>
                         <th style="width: 15%;">Action</th>
                     </tr>
                     </thead>
@@ -88,7 +86,6 @@
                                         class="fa fa-trash-alt mr-1"></i>Delete
                             </button>
                             <button type="button" class="btn btn-sm btn-light" data-dismiss="modal">Close</button>
-
 
                         </div>
                     </div>
@@ -156,7 +153,7 @@
 
         $(document).ready(function () {
 
-            $('#datatable_department').DataTable({
+            $('#datatable_patient').DataTable({
                 processing: true,
                 serverSide: true,
                 paging: 100,
@@ -169,47 +166,45 @@
                 //     'pdfHtml5',
                 // ],
                 ajax: {
-                    url: "{{route('admin.setting.departments.index')}}{{ request('trash') == 1 ? '?trash=1':'' }}",
+                    url: "{{route('admin.patient_managements.patients.index')}}{{ request('trash') == 1 ? '?trash=1':'' }}",
                 },
                 columns: [
                     {data: 'name', name: 'name'},
                     {data: 'name_kh', name: 'name_kh'},
-                    {data: 'abr', name: 'abr'},
-                    {data: 'abr_kh', name: 'abr_kh'},
-                    // {data: 'bed_total', name: 'bed_total'},
+                    {data: 'dob', name: 'dob'},
+                    {data: 'address', name: 'address'},
                     {data: 'active', name: 'active'},
-                    // {data: 'description', name: 'description'},
                     {data: 'action', name: 'action', orderable: false},
                 ],
                 // order: [[8, 'desc']]
             });
 
 
-            var department_id;
+            var patient_id;
 
             //Delete function
             $(document).on('click', '.delete', function () {
-                department_id = $(this).attr('id');
+                patient_id = $(this).attr('id');
                 $('#modal-confirm-delete').modal('show');
             });
             $('#ok_button').click(function () {
                 $.ajax({
                     data: {
-                        "id": department_id,
+                        "id": patient_id,
                         "_token": "{{ csrf_token() }}",
                     },
-                    url: "departments/{{ request('trash') == 1 ? 'per_del/':'' }}" + department_id,
+                    url: "patients/{{ request('trash') == 1 ? 'per_del/':'' }}" + patient_id,
                     type: 'DELETE',
                     success: function (data) {
                         $('#modal-confirm-delete').modal('hide');
-                        $('#datatable_department').DataTable().ajax.reload();
+                        $('#datatable_patient').DataTable().ajax.reload();
                         One.helpers('notify', {type: 'success', icon: 'fa fa-check mr-1', message: data});
                     },
                     error: function () {
                         One.helpers('notify', {
                             type: 'danger',
                             icon: 'fa fa-times mr-1',
-                            message: "{{__('setting.department_delete_error')}}"
+                            message: "{{__('patient.patient_delete_error')}}"
                         });
                     }
                 })
@@ -217,27 +212,27 @@
 
             //Restore function
             $(document).on('click', '.restore', function () {
-                department_id = $(this).attr('id');
+                patient_id = $(this).attr('id');
                 $('#modal-confirm-restore').modal('show');
             });
             $('#restore_button').click(function () {
                 $.ajax({
                     data: {
-                        "id": department_id,
+                        "id": patient_id,
                         "_token": "{{ csrf_token() }}",
                     },
-                    url: "departments/restore/" + department_id,
+                    url: "patients/restore/" + patient_id,
                     type: 'POST',
                     success: function (data) {
                         $('#modal-confirm-restore').modal('hide');
-                        $('#datatable_department').DataTable().ajax.reload();
+                        $('#datatable_patient').DataTable().ajax.reload();
                         One.helpers('notify', {type: 'success', icon: 'fa fa-check mr-1', message: data});
                     },
                     error: function () {
                         One.helpers('notify', {
                             type: 'danger',
                             icon: 'fa fa-times mr-1',
-                            message: "{{__('setting.department_restore_error')}}"
+                            message: "{{__('patient.patient_restore_error')}}"
                         });
                     }
                 })

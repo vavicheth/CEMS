@@ -34,8 +34,16 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'admin', 'as' => 'admin.'], 
 
     Route::get('/home', 'HomeController@index')->name('home');
 
-    /**Setting
-     *
+    /**
+     * Patient Management
+     */
+    //Patients
+    Route::resource('patient_managements/patients','Admin\PatientManagements\PatientController', ['as' => 'patient_managements']);
+    Route::delete('patient_managements/patients/per_del/{id}', 'Admin\PatientManagements\PatientController@per_del')->name('patient_managements.patients.per_del');
+    Route::post('patient_managements/patients/restore/{id}', 'Admin\PatientManagements\PatientController@restore')->name('patient_managements.patients.restore');
+
+    /**
+     * Setting
      */
     //Departments
     Route::resource('setting/departments','Admin\Setting\DepartmentController', ['as' => 'setting']);
@@ -49,11 +57,14 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'admin', 'as' => 'admin.'], 
     Route::get('setting/ui','Admin\Setting\UiController@index')->name('setting.ui');
     Route::post('setting/ui','Admin\Setting\UiController@update')->name('setting.ui')->middleware(['permission:ui_update']);
 
+
+    /**
+     * User Managements
+     */
     //User Managements
     Route::resource('user_managements/users','Admin\UserManagements\UserController', ['as' => 'user_managements']);
     Route::delete('user_managements/users/per_del/{id}', 'Admin\UserManagements\UserController@per_del')->name('user_managements.users.per_del');
     Route::post('user_managements/users/restore/{id}', 'Admin\UserManagements\UserController@restore')->name('user_managements.users.restore');
-
 
     // Permissions
     Route::resource('user_managements/permissions','Admin\UserManagements\PermissionController', ['as' => 'user_managements']);

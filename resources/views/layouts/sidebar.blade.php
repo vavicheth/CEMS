@@ -132,6 +132,28 @@
 
             <!-- Configuration -->
             <li class="nav-main-heading">Configurations</li>
+
+
+            <!-- Patient Management -->
+            <li class="nav-main-item{{ request()->is('admin/patient_managements/*') ? ' open' : '' }}">
+                <a class="nav-main-link nav-main-link-submenu" data-toggle="submenu" aria-haspopup="true" aria-expanded="true" href="#">
+                    <i class="nav-main-link-icon fa fa-user-injured"></i>
+                    <span class="nav-main-link-name">Patient Management</span>
+                </a>
+                @can('department_access')
+                    <ul class="nav-main-submenu">
+                        <li class="nav-main-item">
+                            <a class="nav-main-link{{ request()->is('admin/patient_managements/patients') || request()->is('admin/patient_managements/patients/*') ? ' active' : '' }}" href="{{route('admin.patient_managements.patients.index')}}">
+                                <i class="nav-main-link-icon fa fa-user-injured"></i>
+                                <span class="nav-main-link-name">Patients</span>
+                            </a>
+                        </li>
+                    </ul>
+                @endcan
+
+            </li>
+
+
             <!-- Setting -->
             <li class="nav-main-item{{ request()->is('admin/setting/*') ? ' open' : '' }}">
                 <a class="nav-main-link nav-main-link-submenu" data-toggle="submenu" aria-haspopup="true" aria-expanded="true" href="#">
@@ -157,6 +179,7 @@
                     </li>
                 </ul>
             </li>
+
             <!-- User Management -->
             @can('user_management_access')
             <li class="nav-main-item{{ request()->is('admin/user_managements/*') ? ' open' : '' }}">

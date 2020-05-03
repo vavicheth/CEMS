@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Admin\Setting;
 
 use App\Department;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\DepartmentsStoreRequest;
+use App\Http\Requests\DepartmentsUpdateRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use Yajra\DataTables\Facades\DataTables;
@@ -61,7 +63,7 @@ class DepartmentController extends Controller
         return view('admin.setting.departments.create');
     }
 
-    public function store(Request $request)
+    public function store(DepartmentsStoreRequest $request)
     {
         $permission = Department::create($request->all());
         return redirect()->route('admin.setting.departments.index')->with('message_success',__('setting.department_create_success'));
@@ -83,7 +85,7 @@ class DepartmentController extends Controller
         return view('admin.setting.departments.edit', compact('department'));
     }
 
-    public function update(Request $request, Department $department)
+    public function update(DepartmentsUpdateRequest $request, Department $department)
     {
         abort_if(! Gate::allows('permission_update'),403);
         $department->update($request->all());
@@ -111,7 +113,7 @@ class DepartmentController extends Controller
 
     public function restore($id)
     {
-        abort_if(! Gate::allows('permission_delete'),403);
+        abort_if(! Gate::allows('department_delete'),403);
         $permission=Department::onlyTrashed()->findOrFail($id);
         $permission->restore();
 

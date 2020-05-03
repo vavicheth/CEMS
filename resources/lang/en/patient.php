@@ -14,12 +14,12 @@ return [
     */
 
     //Department
-    'department_create_success' => 'Department has been created !',
-    'department_update_success' => 'Department has been updated !',
-    'department_delete_success' => 'Department has been deleted !',
-    'department_restore_success' => 'Department has been restored !',
-    'department_restore_error' => 'Department can not restore !',
-    'department_delete_error' => 'Department can not delete !',
+    'patient_create_success' => 'Patient has been created !',
+    'patient_update_success' => 'Patient has been updated !',
+    'patient_delete_success' => 'Patient has been deleted !',
+    'patient_restore_success' => 'Patient has been restored !',
+    'patient_restore_error' => 'Patient can not restore !',
+    'patient_delete_error' => 'Patient can not delete !',
 
 
 

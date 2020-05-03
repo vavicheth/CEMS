@@ -7,6 +7,9 @@
 
     <link rel="stylesheet" href="{{ asset('js/plugins/select2/css/select2.min.css') }}">
 
+    <link rel="stylesheet" href="{{ asset('js/plugins/bootstrap-datepicker/css/bootstrap-datepicker3.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('js/plugins/flatpickr/flatpickr.min.css') }}">
+
 @endsection
 
 @section('content')
@@ -17,12 +20,12 @@
         <!-- Dynamic Table with Export Buttons -->
         <div class="block">
             <div class="block-header">
-                <h3 class="block-title">Create Department</h3>
+                <h3 class="block-title">Create Patient</h3>
                 <nav class="flex-sm-00-auto ml-sm-3" aria-label="breadcrumb">
                     <ol class="breadcrumb breadcrumb-alt">
-                        <li class="breadcrumb-item">Setting</li>
+                        <li class="breadcrumb-item">Patient Management</li>
                         <li class="breadcrumb-item" aria-current="page">
-                            <a class="link-fx" href="">Create Department</a>
+                            <a class="link-fx" href="">Create Patient</a>
                         </li>
                     </ol>
                 </nav>
@@ -30,7 +33,7 @@
 
             <div class="block-content block-content-full">
 
-                {!! Form::open(['method' => 'POST', 'route' => ['admin.setting.departments.store'],'class'=>'js-validation', 'files' => true]) !!}
+                {!! Form::open(['method' => 'POST', 'route' => ['admin.patient_managements.patients.store'],'class'=>'js-validation', 'files' => true]) !!}
                 {{--                @csrf--}}
                 <div class="row">
                     <div class="col-lg-12 col-xl-10">
@@ -38,7 +41,7 @@
                             <label class="col-sm-2" for="name">Name<span class="text-danger">*</span></label>
                             <div class="col-sm-8 form-group">
                                 <input type="text" class="form-control" id="name" name="name"
-                                       placeholder="Type department name..." autofocus>
+                                       placeholder="Type patient name..." autofocus>
                                 @error('name')
                                 <span class="text-danger animated fadeIn">{{$message}}</span>
                                 @enderror
@@ -48,38 +51,47 @@
                             <label class="col-sm-2" for="name_kh">Name Khmer<span class="text-danger">*</span></label>
                             <div class="col-sm-8 form-group">
                                 <input type="text" class="form-control" id="name_kh" name="name_kh"
-                                       placeholder="Type department name in Khmer..." >
+                                       placeholder="Type patient name in Khmer...">
                                 @error('name_kh')
                                 <span class="text-danger animated fadeIn">{{$message}}</span>
                                 @enderror
                             </div>
                         </div>
                         <div class="row">
-                            <label class="col-sm-2" for="abr">Abr</label>
-                            <div class="col-sm-8 form-group">
-                                <input type="text" class="form-control" id="abr" name="abr"
-                                       placeholder="Type department abbreviation..." >
-                                @error('abr')
+                            <label class="col-sm-2" for="gender">Gender<span class="text-danger">*</span></label>
+                            <div class="col-sm-4 form-group">
+                                {!! Form::select('gender', ['male'=>'Male','female'=>'Female'], old('gender'), ['class' => 'js-select2 form-control']) !!}
+                                @error('gender')
                                 <span class="text-danger animated fadeIn">{{$message}}</span>
                                 @enderror
                             </div>
                         </div>
                         <div class="row">
-                            <label class="col-sm-2" for="abr_kh">Abr Khmer</label>
-                            <div class="col-sm-8 form-group">
-                                <input type="text" class="form-control" id="abr_kh" name="abr_kh"
-                                       placeholder="Type department abbreviation in Khmer...">
-                                @error('abr_kh')
+                            <label class="col-sm-2" for="dob">Age/DOB</label>
+                            <div class="col-sm-4 form-group">
+                                <input type="number" class="form-control" id="age" placeholder="Age...">
+                                <input type="text" class="js-datepicker form-control" id="dob" name="dob" data-week-start="1" data-autoclose="true" data-today-highlight="true" data-date-format="dd/mm/yyyy" placeholder="dd/mm/yyyy">
+                                @error('dob')
                                 <span class="text-danger animated fadeIn">{{$message}}</span>
                                 @enderror
                             </div>
                         </div>
                         <div class="row">
-                            <label class="col-sm-2" for="bed_total">Bed Total</label>
+                            <label class="col-sm-2" for="address">Address</label>
                             <div class="col-sm-8 form-group">
-                                <input type="number" class="form-control" id="bed_total" name="bed_total"
-                                       placeholder="Type total bed..." >
-                                @error('bed_total')
+                                <input type="text" class="form-control" id="address" name="address"
+                                       placeholder="Type patient address...">
+                                @error('address')
+                                <span class="text-danger animated fadeIn">{{$message}}</span>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="row">
+                            <label class="col-sm-2" for="phone">Phone</label>
+                            <div class="col-sm-8 form-group">
+                                <input type="text" class="form-control" id="phone" name="phone"
+                                       placeholder="Type patient phone...">
+                                @error('phone')
                                 <span class="text-danger animated fadeIn">{{$message}}</span>
                                 @enderror
                             </div>
@@ -108,7 +120,7 @@
                 </div>
 
                 {!! Form::submit('Save', ['class' => 'btn btn-primary']) !!}
-                <a class="btn btn-alt-secondary float-right" href="{{route('admin.setting.departments.index')}}">Cancel</a>
+                <a class="btn btn-alt-secondary float-right" href="{{route('admin.patient_managements.patients.index')}}">Cancel</a>
                 {!! Form::close() !!}
 
 
@@ -129,8 +141,12 @@
     <script src="{{asset('js/plugins/jquery-validation/jquery.validate.min.js')}}"></script>
     <script src="{{asset('js/plugins/jquery-validation/additional-methods.js')}}"></script>
 
+    <script src="{{asset('js/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js')}}"></script>
+    <script src="{{asset('js/plugins/flatpickr/flatpickr.min.js')}}"></script>
+
     <script>
         jQuery(function () {
+            One.helpers(['flatpickr', 'datepicker'])
             One.helpers("validation"), jQuery(".js-validation").validate({
                 ignore: [], rules: {
                     "name": {
