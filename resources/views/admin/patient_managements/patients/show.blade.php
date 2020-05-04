@@ -127,12 +127,26 @@
                         </ul>
                         <div class="block-content tab-content overflow-hidden">
                             <div class="tab-pane animated fadeInUp show active" id="tab_patient_accompany" role="tabpanel">
-                                <button type="button" class="btn btn-sm btn-primary" id="btn-new">Add New</button>
+                                @can('patient_accompany_create')
+                                    <button type="button" class="btn btn-sm btn-primary" id="btn-new">Add New</button>
+                                @endcan
+                                @can('patient_accompany_delete')
+                                    <div class="dropdown float-right">
+                                        <button type="button" class="btn btn-sm btn-primary dropdown-toggle" id="dropdown-default-primary" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            {{ request('trash') == 1 ? 'Trash':'Show All' }}
+                                        </button>
+                                        <div class="dropdown-menu font-size-sm primary" aria-labelledby="dropdown-default-primary">
+                                            <button class="dropdown-item" id="btn-show-all"><i class="fa fa-list-alt"></i> Show All</button>
+                                            <button class="dropdown-item" id="btn-show-trash"><i class="fa fa-trash-alt"></i> Trash</button>
+                                        </div>
+                                    </div>
+                                @endcan
                                 <table class="table table-striped table-hover table-vcenter dt-responsive table-vcenter js-dataTable"
                                        id="datatable_patient_accompany" style="border-collapse: collapse;border-spacing: 0;width: 100%">
                                     <thead>
                                     <tr>
                                         <th >Name</th>
+                                        <th >Photo</th>
                                         <th >Gender</th>
                                         <th >Phone</th>
                                         <th >Description</th>
@@ -161,7 +175,7 @@
             </div>
 
 
-            <!-- Vertically Centered Block Modal -->
+            <!-- Modal Create -->
             <div class="modal" id="modal-create" tabindex="-1" role="dialog" aria-labelledby="modal-block-vcenter" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered" role="document">
                     <div class="modal-content">
@@ -175,6 +189,7 @@
                                 </div>
                             </div>
                             {!! Form::open(['class'=>'js-validation','id'=>'form_patient_accompany', 'files' => true]) !!}
+{{--                            {!! Form::open(['method' => 'POST', 'route' => ['admin.patient_managements.patient_accompanies.store'],'class'=>'js-validation', 'files' => true]) !!}--}}
                             <div class="block-content font-size-sm">
                                 @csrf
                                 <input id="patient_id" name="patient_id" value="{{$patient->id}}" hidden>
@@ -244,7 +259,68 @@
                     </div>
                 </div>
             </div>
-            <!-- END Vertically Centered Block Modal -->
+            <!-- END Modal Create -->
+
+            <!-- Modal delete data -->
+            <div class="modal" id="modal-confirm-delete" tabindex="-1" role="dialog" aria-labelledby="modal-block-popin"
+                 aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="block block-themed block-transparent mb-0">
+                            <div class="block-header bg-danger">
+                                <h3 class="block-title">Confirmation</h3>
+                                <div class="block-options">
+                                    <button type="button" class="btn-block-option" data-dismiss="modal" aria-label="Close">
+                                        <i class="fa fa-fw fa-times"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="block-content font-size-sm">
+                                Are you sure to delete {{ request('trash') == 1 ? 'permanently':'' }} this department?
+                            </div>
+                            <div class="block-content block-content-full text-right border-top">
+                                <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal" id="ok_button"><i
+                                            class="fa fa-trash-alt mr-1"></i>Delete
+                                </button>
+                                <button type="button" class="btn btn-sm btn-light" data-dismiss="modal">Close</button>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- END Modal delete data -->
+
+
+            <!-- Modal restore data -->
+            <div class="modal" id="modal-confirm-restore" tabindex="-1" role="dialog" aria-labelledby="modal-block-popin"
+                 aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="block block-themed block-transparent mb-0">
+                            <div class="block-header bg-success">
+                                <h3 class="block-title">Confirmation Restore</h3>
+                                <div class="block-options">
+                                    <button type="button" class="btn-block-option" data-dismiss="modal" aria-label="Close">
+                                        <i class="fa fa-fw fa-times"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="block-content font-size-sm">
+                                Are you sure to restore this department?
+                            </div>
+                            <div class="block-content block-content-full text-right border-top">
+                                <button type="button" class="btn btn-sm btn-success" data-dismiss="modal" id="restore_button"><i
+                                            class="fa fa-backward mr-1"></i>Restore
+                                </button>
+                                <button type="button" class="btn btn-sm btn-light" data-dismiss="modal">Close</button>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- END Modal restore data -->
 
 
         </div>
@@ -277,11 +353,31 @@
             One.helpers(['table-tools-sections']);
 
             $(document).on('click', '#btn-new', function () {
-                $('#modal-create').modal('show');
+                // Limitation of Patient Accompany
+                @if($patient->patient_accompanies()->count() < config('panel.total_patient_accompany'))
+                        $('#modal-create').modal('show');
+                @else
+                     One.helpers('notify', {type: 'danger',icon: 'fa fa-times mr-1',message: "{{__('patient.patient_accompany_create_error_over')}}"});
+                @endif
             });
 
-            $('#datatable_patient_accompany').DataTable({
-                processing: true,
+            // Switch show all and show trash
+            $url_show="{{route('admin.patient_managements.patients.show',$patient->id)}}";
+            $per_del='';
+
+            $(document).on('click', '#btn-show-all', function () {
+                $d.ajax.url("{{route('admin.patient_managements.patients.show',$patient->id)}}").load();
+                $('#dropdown-default-primary').removeClass('btn-danger').text('Show All');
+                $per_del='';
+            });
+            $(document).on('click', '#btn-show-trash', function () {
+                $d.ajax.url("{{route('admin.patient_managements.patients.show',$patient->id)}}?trash=1").load();
+                $('#dropdown-default-primary').addClass('btn-danger').text('Trash');
+                $per_del='per_del/';
+            });
+
+            $d=$('#datatable_patient_accompany').DataTable({
+                processing: false,
                 serverSide: true,
                 paging: false,
                 searching: false,
@@ -293,10 +389,11 @@
                 //     'pdfHtml5',
                 // ],
                 ajax: {
-                    url: "{{route('admin.patient_managements.patients.show',$patient->id)}}{{ request('trash') == 1 ? '?trash=1':'' }}",
+                    url: $url_show,
                 },
                 columns: [
                     {data: 'name', name: 'name'},
+                    {data: 'photo', name: 'photo'},
                     {data: 'gender', name: 'gender'},
                     {data: 'phone', name: 'phone'},
                     {data: 'description', name: 'description'},
@@ -315,6 +412,7 @@
                     success: function (data) {
                         $('#modal-create').modal('hide');
                         $('#datatable_patient_accompany').DataTable().ajax.reload();
+                        $('#form_patient_accompany')[0].reset();
                         One.helpers('notify', {type: 'success', icon: 'fa fa-check mr-1', message: data});
                     },
                     error: function () {
@@ -326,6 +424,65 @@
                     }
                 })
 
+            })
+
+            var patient_accompany_id;
+
+            //Delete function
+            $(document).on('click', '.delete', function () {
+                patient_accompany_id = $(this).attr('id');
+                $('#modal-confirm-delete').modal('show');
+            });
+            $('#ok_button').click(function () {
+                $.ajax({
+                    data: {
+                        "id": patient_accompany_id,
+                        "_token": "{{ csrf_token() }}",
+                    },
+                    url: "../patient_accompanies/"+ $per_del + patient_accompany_id,
+                    {{--url: "patient_accompanies/{{ request('trash') == 1 ? 'per_del/':'' }}" + patient_accompany_id,--}}
+                    type: 'DELETE',
+                    success: function (data) {
+                        $('#modal-confirm-delete').modal('hide');
+                        $('#datatable_patient_accompany').DataTable().ajax.reload();
+                        One.helpers('notify', {type: 'success', icon: 'fa fa-check mr-1', message: data});
+                    },
+                    error: function () {
+                        One.helpers('notify', {
+                            type: 'danger',
+                            icon: 'fa fa-times mr-1',
+                            message: "{{__('patient.patient_accompany_delete_error')}}"
+                        });
+                    }
+                })
+            })
+
+            //Restore function
+            $(document).on('click', '.restore', function () {
+                patient_accompany_id = $(this).attr('id');
+                $('#modal-confirm-restore').modal('show');
+            });
+            $('#restore_button').click(function () {
+                $.ajax({
+                    data: {
+                        "id": patient_accompany_id,
+                        "_token": "{{ csrf_token() }}",
+                    },
+                    url: "../patient_accompanies/restore/" + patient_accompany_id,
+                    type: 'POST',
+                    success: function (data) {
+                        $('#modal-confirm-restore').modal('hide');
+                        $('#datatable_patient_accompany').DataTable().ajax.reload();
+                        One.helpers('notify', {type: 'success', icon: 'fa fa-check mr-1', message: data});
+                    },
+                    error: function () {
+                        One.helpers('notify', {
+                            type: 'danger',
+                            icon: 'fa fa-times mr-1',
+                            message: "{{__('patient.patient_accompany__restore_error')}}"
+                        });
+                    }
+                })
             })
 
 

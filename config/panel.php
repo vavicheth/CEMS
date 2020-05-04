@@ -7,4 +7,5 @@ return [
     'available_languages' => [
         'en' => 'English',
     ],
+    'total_patient_accompany'=>2,
 ];

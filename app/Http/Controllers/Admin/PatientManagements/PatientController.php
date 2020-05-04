@@ -87,25 +87,21 @@ class PatientController extends Controller
     {
         abort_if(! Gate::allows('patient_show'),403);
 
-
         if($request->ajax())
         {
             abort_if(! Gate::allows('patient_accompany_access'),403);
-
             $data=$patient->patient_accompanies();
-
             if (request('trash') == 1 && Gate::allows('patient_accompany_delete')){
                 $data=$data->onlyTrashed()->get();
             }
-
             return DataTables::of($data)
                 ->addColumn('action', function ($data) {
                     $button='';
                     if (Gate::allows('patient_accompany_show')){
-                        $button .='<a href="' . route('admin.patient_managements.patients.show', $data->id) . '" class="btn btn-sm btn-info mr-1 mb-1" data-toggle="tooltip" title="Show data"><i class="fa fa-eye"></i></a>';
+                        $button .='<a href="' . route('admin.patient_managements.patient_accompanies.show', $data->id) . '" class="btn btn-sm btn-info mr-1 mb-1" data-toggle="tooltip" title="Show data"><i class="fa fa-eye"></i></a>';
                     }
                     if (Gate::allows('patient_accompany_update')){
-                        $button .=' <a href="' . route('admin.patient_managements.patients.edit', $data->id) . '" class="btn btn-sm btn-success mr-1 mb-1" data-toggle="tooltip" title="Edit data"><i class="fa fa-edit"></i></a>';
+                        $button .=' <a href="' . route('admin.patient_managements.patient_accompanies.edit', $data->id) . '" class="btn btn-sm btn-success mr-1 mb-1" data-toggle="tooltip" title="Edit data"><i class="fa fa-edit"></i></a>';
                     }
                     if (Gate::allows('patient_accompany_delete')){
                         $button .=' <button type="button" name="delete" id="'.$data->id.'" class="btn btn-sm btn-danger mr-1 delete" data-toggle="tooltip" title="Delete data"><i class="fa fa-trash-alt"></i></button>';
@@ -120,10 +116,11 @@ class PatientController extends Controller
                         return $button;
                     }
                 })
-                ->editColumn('active', function ($data) {
-                    return $data->active == 1 ? '<span class="badge badge-success">Active</span>' : '<span class="badge badge-secondary">Inactive</span>';
+                ->addColumn('photo', function ($data) {
+                    $text='<img width="150" src="'. $data->getFirstMediaUrl('patient_accompany') .'">';
+                    return $text;
                 })
-                ->rawColumns(['action','active'])
+                ->rawColumns(['action','photo'])
                 ->make(true);
         }
 

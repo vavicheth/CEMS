@@ -26,6 +26,7 @@ return [
     //Patient Accompany
     'patient_accompany_create_success' => 'Patient accompany has been created !',
     'patient_accompany_create_error' => 'Patient accompany can not create !',
+    'patient_accompany_create_error_over' => 'អ្នកមិនអាចបង្កើតអ្នកកំដរទៀតបានទេ !',
     'patient_accompany_update_success' => 'Patient accompany has been updated !',
     'patient_accompany_delete_success' => 'Patient accompany has been deleted !',
     'patient_accompany_restore_success' => 'Patient accompany has been restored !',

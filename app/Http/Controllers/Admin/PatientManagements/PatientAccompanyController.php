@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin\PatientManagements;
 use App\Http\Controllers\Controller;
 use App\Patient;
 use App\PatientAccompany;
+use App\Traits\UploadBySlim;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use Yajra\DataTables\Facades\DataTables;
@@ -18,72 +19,68 @@ class PatientAccompanyController extends Controller
 //        return route('admin.patient_managements.patients.show', $data->id);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
         //
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
-        abort_if(! Gate::allows('patient_accompany_create'),403);
-        $patient=Patient::findOrFail($request->patient_id);
-        $patient->patient_accompanies->save($request->all());
-        return response(__('patient.patient_accompany_delete_success'));
+        abort_if(!Gate::allows('patient_accompany_create'), 403);
+        $patient = Patient::findOrFail($request->patient_id);
+
+        if($patient->patient_accompanies()->count() >= config('panel.total_patient_accompany')){
+          return  response(__('patient.patient_accompany_create_error_over'));
+        }
+
+        $pa=$patient->patient_accompanies()->create($request->all());
+        if ( $request->photo )
+        {
+            $photo= UploadBySlim::uploadPhoto('photo','media/avatars');
+            $pa->addMedia(public_path('media/avatars/'.$photo['name']))->toMediaCollection('patient_accompany');
+        }
+        return response(__('patient.patient_accompany_create_success'));
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
-        //
+        abort_if(! Gate::allows('patient_accompany_delete'),403);
+        $user=PatientAccompany::findOrFail($id);
+        $user->delete();
+
+        return response(__('patient_accompany_delete_success'));
+    }
+
+    public function per_del($id)
+    {
+        abort_if(! Gate::allows('patient_accompany_delete'),403);
+        $permission=PatientAccompany::onlyTrashed()->findOrFail($id);
+        $permission->forceDelete();
+
+        return response(__('patient.patient_accompany_delete_success'));
+    }
+
+    public function restore($id)
+    {
+        abort_if(! Gate::allows('patient_accompany_delete'),403);
+        $permission=PatientAccompany::onlyTrashed()->findOrFail($id);
+        $permission->restore();
+
+        return response(__('patient.patient_accompany_restore_success'));
     }
 }
