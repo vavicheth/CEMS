@@ -42,6 +42,11 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'admin', 'as' => 'admin.'], 
     Route::delete('patient_managements/patients/per_del/{id}', 'Admin\PatientManagements\PatientController@per_del')->name('patient_managements.patients.per_del');
     Route::post('patient_managements/patients/restore/{id}', 'Admin\PatientManagements\PatientController@restore')->name('patient_managements.patients.restore');
 
+    //Patients
+    Route::resource('patient_managements/patient_accompanies','Admin\PatientManagements\PatientAccompanyController', ['as' => 'patient_managements']);
+    Route::delete('patient_managements/patient_accompanies/per_del/{id}', 'Admin\PatientManagements\PatientAccompanyController@per_del')->name('patient_managements.patient_accompanies.per_del');
+    Route::post('patient_managements/patient_accompanies/restore/{id}', 'Admin\PatientManagements\PatientAccompanyController@restore')->name('patient_managements.patient_accompanies.restore');
+
     /**
      * Setting
      */

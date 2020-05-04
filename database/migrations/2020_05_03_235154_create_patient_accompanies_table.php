@@ -14,8 +14,14 @@ class CreatePatientAccompaniesTable extends Migration
     public function up()
     {
         Schema::create('patient_accompanies', function (Blueprint $table) {
-            $table->id();
+            $table->increments('id');
+            $table->unsignedInteger('patient_id');
+            $table->string('name');
+            $table->string('gender');
+            $table->string('phone')->nullable();
+            $table->Text('description')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

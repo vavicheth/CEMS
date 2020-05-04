@@ -9,6 +9,9 @@
     <link href="{{ URL::asset('js/plugins/datatables/responsive.bootstrap4.min.css') }}" rel="stylesheet"
           type="text/css"/>
 
+    <!-- Slim Image Cropper file CSS -->
+    <link href="{{asset('js/plugins/slim-image-cropper/slim.min.css')}}" rel="stylesheet" type="text/css"/>
+
 @endsection
 
 @section('content')
@@ -38,7 +41,7 @@
 
                             <table class="js-table-sections table table-hover table-vcenter">
                                 <tbody class="js-table-sections-header table-active">
-                                <tr>
+                                <tr class="bg-info text-white">
                                     <td class="text-center">
                                         <i class="fa fa-angle-right text-muted"></i>
                                     </td>
@@ -53,7 +56,7 @@
                                 <tbody class="font-size-sm">
                                 <tr>
                                     <td></td>
-                                    <td class="font-w600 text-left">Name Khmer</td>
+                                    <td class="font-w600 text-left">HN</td>
                                     <td>{{$patient->hn}}</td>
                                 </tr>
                                 <tr>
@@ -124,16 +127,15 @@
                         </ul>
                         <div class="block-content tab-content overflow-hidden">
                             <div class="tab-pane animated fadeInUp show active" id="tab_patient_accompany" role="tabpanel">
+                                <button type="button" class="btn btn-sm btn-primary" id="btn-new">Add New</button>
                                 <table class="table table-striped table-hover table-vcenter dt-responsive table-vcenter js-dataTable"
                                        id="datatable_patient_accompany" style="border-collapse: collapse;border-spacing: 0;width: 100%">
                                     <thead>
                                     <tr>
                                         <th >Name</th>
-                                        <th >Name Khmer</th>
-                                        <th class="d-none d-sm-table-cell">Gender</th>
-                                        <th >DOB</th>
-                                        <th >Address</th>
-                                        <th >Active</th>
+                                        <th >Gender</th>
+                                        <th >Phone</th>
+                                        <th >Description</th>
                                         <th style="width: 15%;">Action</th>
                                     </tr>
                                     </thead>
@@ -159,9 +161,93 @@
             </div>
 
 
+            <!-- Vertically Centered Block Modal -->
+            <div class="modal" id="modal-create" tabindex="-1" role="dialog" aria-labelledby="modal-block-vcenter" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="block block-themed block-transparent mb-0">
+                            <div class="block-header bg-primary">
+                                <h3 class="block-title">Create Patient Accompany</h3>
+                                <div class="block-options">
+                                    <button type="button" class="btn-block-option" data-dismiss="modal" aria-label="Close">
+                                        <i class="fa fa-fw fa-times"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            {!! Form::open(['class'=>'js-validation','id'=>'form_patient_accompany', 'files' => true]) !!}
+                            <div class="block-content font-size-sm">
+                                @csrf
+                                <input id="patient_id" name="patient_id" value="{{$patient->id}}" hidden>
+                                <div class="row">
+                                    <label class="col-sm-4" for="name">Name<span class="text-danger">*</span></label>
+                                    <div class="col-sm-8 form-group">
+                                        <input type="text" class="form-control" id="name" name="name"
+                                               placeholder="Type patient name...">
+                                        @error('name')
+                                        <span class="text-danger animated fadeIn">{{$message}}</span>
+                                        @enderror
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <label class="col-sm-4" for="gender">Gender<span class="text-danger">*</span></label>
+                                    <div class="col-sm-8 form-group">
+                                        {!! Form::select('gender', ['male'=>'Male','female'=>'Female'], old('gender'), ['class' => 'js-select2 form-control']) !!}
+                                        @error('gender')
+                                        <span class="text-danger animated fadeIn">{{$message}}</span>
+                                        @enderror
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <label class="col-sm-4" for="phone">Phone</label>
+                                    <div class="col-sm-8 form-group">
+                                        <input type="text" class="form-control" id="phone" name="phone"
+                                               placeholder="Type patient phone...">
+                                        @error('phone')
+                                        <span class="text-danger animated fadeIn">{{$message}}</span>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <label class="col-sm-4" for="description">Description</label>
+                                    <div class="col-sm-8 form-group">
+                                        <textarea class="form-control" id="description" name="description"></textarea>
+                                        @error('description')
+                                        <span class="text-danger animated fadeIn">{{$message}}</span>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <label class="col-sm-4" for="description">Photo</label>
+                                    <div class="col-sm-8 form-group">
+{{--                                        <div class="col-lg-4 col-xl-4">--}}
+                                            <div class="form-group">
+                                                <div class="slim" data-label="Drop your avatar here" data-fetcher="fetch.php" data-size="600,600" data-ratio="1:1" data-rotate-button="true" accept="image/jpeg, image/gif, image/png">
+                                                    <input name="photo" type="file"/>
+                                                </div>
+                                            </div>
+{{--                                        </div>--}}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="block-content block-content-full text-right border-top">
+                                <button type="button" class="btn btn-sm btn-light" data-dismiss="modal">Close</button>
+{{--                                <button type="submit" class="btn btn-sm btn-primary float-left" data-dismiss="modal"><i class="fa fa-save mr-1"></i>Save</button>--}}
+                                {!! Form::submit('Save', ['class' => 'btn btn-primary btn btn-sm btn-primary float-left']) !!}
+                            </div>
+
+
+                            {!! Form::close() !!}
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- END Vertically Centered Block Modal -->
+
+
         </div>
-
-
     </div>
     <!-- END Page Content -->
 @endsection
@@ -183,9 +269,16 @@
     <script src="{{ URL::asset('js/plugins/datatables/dataTables.responsive.min.js') }}"></script>
     <script src="{{ URL::asset('js/plugins/datatables/responsive.bootstrap4.min.js') }}"></script>
 
+    <!-- Bootstrap Input file -->
+    <script src="{{asset('js/plugins/slim-image-cropper/slim.kickstart.min.js')}}" crossorigin="anonymous"></script>
+
     <script>
         jQuery(function () {
             One.helpers(['table-tools-sections']);
+
+            $(document).on('click', '#btn-new', function () {
+                $('#modal-create').modal('show');
+            });
 
             $('#datatable_patient_accompany').DataTable({
                 processing: true,
@@ -200,19 +293,40 @@
                 //     'pdfHtml5',
                 // ],
                 ajax: {
-                    url: "{{route('admin.patient_managements.patients.index')}}{{ request('trash') == 1 ? '?trash=1':'' }}",
+                    url: "{{route('admin.patient_managements.patients.show',$patient->id)}}{{ request('trash') == 1 ? '?trash=1':'' }}",
                 },
                 columns: [
                     {data: 'name', name: 'name'},
-                    {data: 'name_kh', name: 'name_kh'},
                     {data: 'gender', name: 'gender'},
-                    {data: 'dob', name: 'dob'},
-                    {data: 'address', name: 'address'},
-                    {data: 'active', name: 'active'},
+                    {data: 'phone', name: 'phone'},
+                    {data: 'description', name: 'description'},
                     {data: 'action', name: 'action', orderable: false},
                 ],
                 // order: [[8, 'desc']]
             });
+
+            $('#form_patient_accompany').on('submit',function (event) {
+                event.preventDefault();
+                var form_ata=$(this).serialize();
+                $.ajax({
+                    data:form_ata,
+                    url: "{{route('admin.patient_managements.patient_accompanies.store')}}",
+                    type: 'POST',
+                    success: function (data) {
+                        $('#modal-create').modal('hide');
+                        $('#datatable_patient_accompany').DataTable().ajax.reload();
+                        One.helpers('notify', {type: 'success', icon: 'fa fa-check mr-1', message: data});
+                    },
+                    error: function () {
+                        One.helpers('notify', {
+                            type: 'danger',
+                            icon: 'fa fa-times mr-1',
+                            message: "{{__('patient.patient_accompany_create_error')}}"
+                        });
+                    }
+                })
+
+            })
 
 
         });

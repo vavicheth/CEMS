@@ -54,6 +54,11 @@ class Patient extends Model implements HasMedia
         return $date->format('d-M-Y H:i:s');
     }
 
+    public function patient_accompanies()
+    {
+        return $this->hasMany(PatientAccompany::class,'patient_id');
+    }
+
     /**
      * Media File
      */
@@ -61,7 +66,7 @@ class Patient extends Model implements HasMedia
     {
         $this->addMediaCollection('patient_photo')
             ->useDisk('public')
-            ->singleFile();
-//            ->useFallbackPath(public_path('/default.png'));
+            ->singleFile()
+            ->useFallbackPath(public_path('/default.png'));
     }
 }
