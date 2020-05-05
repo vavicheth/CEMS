@@ -136,7 +136,7 @@
 
                     <div class="col-lg-4 col-xl-4">
                         <div class="form-group">
-                            <div class="slim" data-label="Drop your avatar here" data-fetcher="fetch.php" data-size="600,600" data-ratio="1:1" data-rotate-button="true" accept="image/jpeg, image/gif, image/png">
+                            <div class="slim" data-label="Drop your avatar here" data-fetcher="fetch.php" data-size="600,600" data-ratio="1:1" data-rotate-button="true" accept="image/jpeg,image/jpg, image/gif, image/png">
                                 @if ( $user->avatar )
                                     <img src="{{asset('media/avatars/'.$user->avatar)}}" />
                                 @endif

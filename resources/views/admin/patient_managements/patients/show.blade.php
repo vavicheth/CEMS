@@ -86,7 +86,7 @@
                                 </tr>
                                 <tr>
                                     <td></td>
-                                    <td class="font-w600 text-left ">DOB</td>
+                                    <td class="font-w600 text-left ">Active</td>
                                     <td>
                                         <div class="custom-control custom-checkbox custom-control-primary custom-control-lg mb-1">
                                             <input type="checkbox" class="custom-control-input" name="active_user" disabled {{$patient->active == 1? 'checked' : ''}} >
@@ -145,11 +145,11 @@
                                        id="datatable_patient_accompany" style="border-collapse: collapse;border-spacing: 0;width: 100%">
                                     <thead>
                                     <tr>
-                                        <th >Name</th>
+                                        <th class="td-name" >Name</th>
                                         <th >Photo</th>
-                                        <th >Gender</th>
-                                        <th >Phone</th>
-                                        <th >Description</th>
+                                        <th class="td-gender">Gender</th>
+                                        <th class="td-phone">Phone</th>
+                                        <th class="td-description">Description</th>
                                         <th style="width: 15%;">Action</th>
                                     </tr>
                                     </thead>
@@ -207,7 +207,7 @@
                                 <div class="row">
                                     <label class="col-sm-4" for="gender">Gender<span class="text-danger">*</span></label>
                                     <div class="col-sm-8 form-group">
-                                        {!! Form::select('gender', ['male'=>'Male','female'=>'Female'], old('gender'), ['class' => 'js-select2 form-control']) !!}
+                                        {!! Form::select('gender', ['male'=>'Male','female'=>'Female'], old('gender'), ['class' => 'js-select2 form-control','id'=>'gender']) !!}
                                         @error('gender')
                                         <span class="text-danger animated fadeIn">{{$message}}</span>
                                         @enderror
@@ -352,27 +352,18 @@
         jQuery(function () {
             One.helpers(['table-tools-sections']);
 
-            $(document).on('click', '#btn-new', function () {
-                // Limitation of Patient Accompany
-                @if($patient->patient_accompanies()->count() < config('panel.total_patient_accompany'))
-                        $('#modal-create').modal('show');
-                @else
-                     One.helpers('notify', {type: 'danger',icon: 'fa fa-times mr-1',message: "{{__('patient.patient_accompany_create_error_over')}}"});
-                @endif
-            });
-
             // Switch show all and show trash
             $url_show="{{route('admin.patient_managements.patients.show',$patient->id)}}";
             $per_del='';
 
             $(document).on('click', '#btn-show-all', function () {
                 $d.ajax.url("{{route('admin.patient_managements.patients.show',$patient->id)}}").load();
-                $('#dropdown-default-primary').removeClass('btn-danger').text('Show All');
+                $('#dropdown-default-primary').removeClass('btn-danger').addClass('btn-primary').text('Show All');
                 $per_del='';
             });
             $(document).on('click', '#btn-show-trash', function () {
                 $d.ajax.url("{{route('admin.patient_managements.patients.show',$patient->id)}}?trash=1").load();
-                $('#dropdown-default-primary').addClass('btn-danger').text('Trash');
+                $('#dropdown-default-primary').removeClass('btn-primary').addClass('btn-danger').text('Trash');
                 $per_del='per_del/';
             });
 
@@ -402,13 +393,37 @@
                 // order: [[8, 'desc']]
             });
 
+            // Switch URL Create and Update form
+            $url_submit='';
+            $type_submit='';
+            $(document).on('click', '#btn-new', function () {
+                // Limitation of Patient Accompany
+                @if($patient->patient_accompanies()->count() < config('panel.total_patient_accompany'))
+                    $url_submit="{{route('admin.patient_managements.patient_accompanies.store')}}";
+                    $type_submit='POST';
+                    $('#modal-create').modal('show');
+                @else
+                One.helpers('notify', {type: 'danger',icon: 'fa fa-times mr-1',message: "{{__('patient.patient_accompany_create_error_over')}}"});
+                @endif
+            });
+            $(document).on('click', '.update', function () {
+                $url_submit="../patient_accompanies/"+ $(this).attr('id');
+                $type_submit='PATCH';
+                var tr = $(this).closest('tr');
+                $('#name').val(tr.find("td:eq(0)").text());
+                $('#gender').val((tr.find("td:eq(2)").text()).toLowerCase()).change();
+                $('#phone').val(tr.find("td:eq(3)").text());
+                $('#description').val(tr.find("td:eq(4)").text());
+                $('#modal-create').modal('show');
+            });
+
             $('#form_patient_accompany').on('submit',function (event) {
                 event.preventDefault();
                 var form_ata=$(this).serialize();
                 $.ajax({
                     data:form_ata,
-                    url: "{{route('admin.patient_managements.patient_accompanies.store')}}",
-                    type: 'POST',
+                    url: $url_submit,
+                    type: $type_submit,
                     success: function (data) {
                         $('#modal-create').modal('hide');
                         $('#datatable_patient_accompany').DataTable().ajax.reload();
@@ -423,8 +438,7 @@
                         });
                     }
                 })
-
-            })
+            });
 
             var patient_accompany_id;
 

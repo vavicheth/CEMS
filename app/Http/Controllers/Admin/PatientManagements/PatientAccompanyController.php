@@ -54,7 +54,10 @@ class PatientAccompanyController extends Controller
 
     public function update(Request $request, $id)
     {
-        //
+        abort_if(!Gate::allows('patient_accompany_update'), 403);
+        $pa=PatientAccompany::findOrFail($id);
+        $pa->update($request->all());
+        return response(__('patient_accompany_update_success'));
     }
 
     public function destroy($id)

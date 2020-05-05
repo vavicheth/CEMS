@@ -133,10 +133,10 @@
 
                     <div class="col-lg-4 col-xl-4">
                         <div class="form-group">
-                            <div class="slim" data-label="Drop your avatar here" data-fetcher="fetch.php" data-size="600,600" data-ratio="1:1" data-rotate-button="true" accept="image/jpeg, image/gif, image/png">
-                                @if ( $patient->getFirstMedia('patient_photo'))
-                                    <img src="{{$patient->getFirstMediaUrl('patient_photo')}}" />
-                                @endif
+                            <div class="slim" data-label="Drop your avatar here" data-fetcher="fetch.php" data-size="600,600" data-ratio="1:1" data-rotate-button="true" accept="image/jpeg , image/gif, image/png">
+{{--                                @if ( $patient->getFirstMediaUrl('patient_photo'))--}}
+                                <img src="{{$patient->getFirstMediaUrl('patient_photo')}}" />
+{{--                                @endif--}}
                                 <input name="photo" type="file"/>
                             </div>
                         </div>
