@@ -76,8 +76,10 @@ class PatientController extends Controller
         $patient=Patient::create($request->all());
         if ( $request->photo )
         {
-            $photo= UploadBySlim::uploadPhoto('photo','media/avatars');
-            $patient->addMedia(public_path('media/avatars/'.$photo['name']))->toMediaCollection('patient_photo');
+            $image=UploadBySlim::uploadSlimTo64($request->photo);
+            $patient->addMediaFromBase64($image['image'])
+                ->usingFileName(str_random(3).'_'.$patient->id.'_'.$image['name'])
+                ->toMediaCollection('patient_photo');
         }
 
         return redirect()->route('admin.patient_managements.patients.index')->with('message_success',__('patient.patient_create_success'));
@@ -141,8 +143,10 @@ class PatientController extends Controller
         $patient->update($request->all());
         if ( $request->photo )
         {
-            $photo= UploadBySlim::uploadPhoto('photo','media/avatars');
-            $patient->addMedia(public_path('media/avatars/'.$photo['name']))->toMediaCollection('patient_photo');
+            $image=UploadBySlim::uploadSlimTo64($request->photo);
+            $patient->addMediaFromBase64($image['image'])
+                ->usingFileName(str_random(3).'_'.$patient->id.'_'.$image['name'])
+                ->toMediaCollection('patient_photo');
         }
 
         return redirect()->route('admin.patient_managements.patients.index')->with('message_success',__('patient.patient_update_success'));

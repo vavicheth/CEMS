@@ -407,7 +407,9 @@
                 @endif
             });
             $(document).on('click', '.update', function () {
+                // var pa_id=$(this).attr('id');
                 $url_submit="../patient_accompanies/"+ $(this).attr('id');
+{{--                $url_submit='{{route("admin.patient_managements.patient_accompanies.update"," :pa_id")}}' ;--}}
                 $type_submit='PATCH';
                 var tr = $(this).closest('tr');
                 $('#name').val(tr.find("td:eq(0)").text());
@@ -425,12 +427,14 @@
                     url: $url_submit,
                     type: $type_submit,
                     success: function (data) {
+                        console.log(data);
                         $('#modal-create').modal('hide');
                         $('#datatable_patient_accompany').DataTable().ajax.reload();
                         $('#form_patient_accompany')[0].reset();
                         One.helpers('notify', {type: 'success', icon: 'fa fa-check mr-1', message: data});
                     },
-                    error: function () {
+                    error: function (data) {
+                        console.log(data);
                         One.helpers('notify', {
                             type: 'danger',
                             icon: 'fa fa-times mr-1',

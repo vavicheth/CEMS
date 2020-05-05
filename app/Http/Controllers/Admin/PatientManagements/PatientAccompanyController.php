@@ -36,8 +36,10 @@ class PatientAccompanyController extends Controller
         $pa=$patient->patient_accompanies()->create($request->all());
         if ( $request->photo )
         {
-            $photo= UploadBySlim::uploadPhoto('photo','media/avatars');
-            $pa->addMedia(public_path('media/avatars/'.$photo['name']))->toMediaCollection('patient_accompany');
+            $image=UploadBySlim::uploadSlimTo64($request->photo);
+            $pa->addMediaFromBase64($image['image'])
+                ->usingFileName(str_random(3).'_'.$pa->id.'_'.$image['name'])
+                ->toMediaCollection('patient_accompany');
         }
         return response(__('patient.patient_accompany_create_success'));
     }
@@ -57,6 +59,13 @@ class PatientAccompanyController extends Controller
         abort_if(!Gate::allows('patient_accompany_update'), 403);
         $pa=PatientAccompany::findOrFail($id);
         $pa->update($request->all());
+        if ( $request->photo )
+        {
+            $image=UploadBySlim::uploadSlimTo64($request->photo);
+            $pa->addMediaFromBase64($image['image'])
+                ->usingFileName(str_random(3).'_'.$id.'_'.$image['name'])
+                ->toMediaCollection('patient_accompany');
+        }
         return response(__('patient_accompany_update_success'));
     }
 

@@ -38,5 +38,15 @@ class UploadBySlim{
         }
     }
 
+    public static function uploadSlimTo64($request_photo)
+    {
+        $json_image=json_decode($request_photo);
+        $image=$json_image->output->image;
+        $name=$json_image->output->name;
+        list($type,$image)=explode(';',$image);
+        list(,$image)=explode(',',$image);
+
+        return (['image'=>$image,'name'=>$name]);
+    }
 
 }
