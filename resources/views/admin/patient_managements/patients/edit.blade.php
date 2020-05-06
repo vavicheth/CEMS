@@ -118,25 +118,26 @@
                                 @enderror
                             </div>
                         </div>
+
+                        @can('patient_status')
                         <div class="row">
-                            <div class="col-sm-4 "></div>
+                            <div class="col-sm-4 ">Status</div>
                             <div class="col-sm-8 form-group">
                                 <div class="custom-control custom-switch custom-control-primary mb-1">
                                     <input type="checkbox" class="custom-control-input" id="active" name="active"
                                         {{$patient->active == 1? 'checked' : ''}} >
-                                    <label class="custom-control-label" for="active">Active</label>
+                                    <label class="custom-control-label" for="active">Stay in hospital</label>
                                 </div>
                             </div>
                         </div>
+                        @endcan
 
                     </div>
 
                     <div class="col-lg-4 col-xl-4">
                         <div class="form-group">
                             <div class="slim" data-label="Drop your avatar here" data-fetcher="fetch.php" data-size="600,600" data-ratio="1:1" data-rotate-button="true" accept="image/jpeg , image/gif, image/png">
-{{--                                @if ( $patient->getFirstMediaUrl('patient_photo'))--}}
-                                <img src="{{$patient->getFirstMediaUrl('patient_photo')}}" />
-{{--                                @endif--}}
+                                   <img src="{{asset($patient->getFirstMediaUrl('patient_photo') )}}" />
                                 <input name="photo" type="file"/>
                             </div>
                         </div>

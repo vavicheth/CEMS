@@ -118,16 +118,19 @@
                                 @enderror
                             </div>
                         </div>
+
+                        @can('patient_status')
                         <div class="row">
-                            <div class="col-sm-4 "></div>
+                            <div class="col-sm-4 ">Status</div>
                             <div class="col-sm-8 form-group">
                                 <div class="custom-control custom-switch custom-control-primary mb-1">
                                     <input type="checkbox" class="custom-control-input" id="active" name="active"
                                            checked>
-                                    <label class="custom-control-label" for="active">Active</label>
+                                    <label class="custom-control-label" for="active">Stay in hospital</label>
                                 </div>
                             </div>
                         </div>
+                        @endcan
 
                     </div>
                     <div class="col-lg-4 col-xl-4">

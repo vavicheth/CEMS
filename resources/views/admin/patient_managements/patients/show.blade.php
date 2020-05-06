@@ -12,6 +12,8 @@
     <!-- Slim Image Cropper file CSS -->
     <link href="{{asset('js/plugins/slim-image-cropper/slim.min.css')}}" rel="stylesheet" type="text/css"/>
 
+    <link href="{{asset('js/plugins/magnific-popup/magnific-popup.css')}}" rel="stylesheet" type="text/css"/>
+
 @endsection
 
 @section('content')
@@ -86,11 +88,11 @@
                                 </tr>
                                 <tr>
                                     <td></td>
-                                    <td class="font-w600 text-left ">Active</td>
+                                    <td class="font-w600 text-left ">Status</td>
                                     <td>
                                         <div class="custom-control custom-checkbox custom-control-primary custom-control-lg mb-1">
                                             <input type="checkbox" class="custom-control-input" name="active_user" disabled {{$patient->active == 1? 'checked' : ''}} >
-                                            <label class="custom-control-label" for="active_user">{{$patient->active == 1? 'Activated' : 'Inactive'}}</label>
+                                            <label class="custom-control-label" for="active_user">{{$patient->active == 1? 'In Hospital' : 'Discharge'}}</label>
                                         </div>
                                     </td>
                                 </tr>
@@ -103,8 +105,14 @@
                     </div>
 
                     <div class="col-lg-4 col-xl-4 mb-2">
-                        <img width="100%" src="{{$patient->getFirstMediaUrl('patient_photo')}}" alt="">
+                        <div class="row items-push js-gallery img-fluid-100">
+                            <a class="img-link img-link-simple img-link-zoom-in img-lightbox" href="{{asset($patient->getFirstMediaUrl('patient_photo') )}}">
+                                <img href="" class="img-fluid" src="{{asset($patient->getFirstMediaUrl('patient_photo') )}}" alt="">
+                            </a>
+                        </div>
                     </div>
+
+
 
                 </div>
 
@@ -236,23 +244,19 @@
                                 <div class="row">
                                     <label class="col-sm-4" for="description">Photo</label>
                                     <div class="col-sm-8 form-group">
-{{--                                        <div class="col-lg-4 col-xl-4">--}}
                                             <div class="form-group">
-                                                <div class="slim" data-label="Drop your avatar here" data-fetcher="fetch.php" data-size="600,600" data-ratio="1:1" data-rotate-button="true" accept="image/jpeg, image/gif, image/png">
+                                                <div class="slim" data-label="Drop your avatar here" data-fetcher="fetch.php" data-size="600,600" data-ratio="1:1" data-rotate-button="true" accept="image/jpeg , image/gif, image/png">
+{{--                                                    <img id="img-accompany" src=""/>--}}
                                                     <input name="photo" type="file"/>
                                                 </div>
                                             </div>
-{{--                                        </div>--}}
                                     </div>
                                 </div>
                             </div>
                             <div class="block-content block-content-full text-right border-top">
                                 <button type="button" class="btn btn-sm btn-light" data-dismiss="modal">Close</button>
-{{--                                <button type="submit" class="btn btn-sm btn-primary float-left" data-dismiss="modal"><i class="fa fa-save mr-1"></i>Save</button>--}}
-                                {!! Form::submit('Save', ['class' => 'btn btn-primary btn btn-sm btn-primary float-left']) !!}
+                                {!! Form::submit('Save', ['class' => 'btn btn-primary btn btn-sm btn-primary float-left','id'=>'btn-save']) !!}
                             </div>
-
-
                             {!! Form::close() !!}
 
                         </div>
@@ -348,9 +352,11 @@
     <!-- Bootstrap Input file -->
     <script src="{{asset('js/plugins/slim-image-cropper/slim.kickstart.min.js')}}" crossorigin="anonymous"></script>
 
+    <script src="{{asset('js/plugins/magnific-popup/jquery.magnific-popup.min.js')}}" crossorigin="anonymous"></script>
+
     <script>
         jQuery(function () {
-            One.helpers(['table-tools-sections']);
+            One.helpers(['table-tools-sections','magnific-popup']);
 
             // Switch show all and show trash
             $url_show="{{route('admin.patient_managements.patients.show',$patient->id)}}";
@@ -407,12 +413,11 @@
                 @endif
             });
             $(document).on('click', '.update', function () {
-                // var pa_id=$(this).attr('id');
                 $url_submit="../patient_accompanies/"+ $(this).attr('id');
-{{--                $url_submit='{{route("admin.patient_managements.patient_accompanies.update"," :pa_id")}}' ;--}}
                 $type_submit='PATCH';
                 var tr = $(this).closest('tr');
                 $('#name').val(tr.find("td:eq(0)").text());
+                // $('#img-accompany').attr('src',$(this).data('img'));
                 $('#gender').val((tr.find("td:eq(2)").text()).toLowerCase()).change();
                 $('#phone').val(tr.find("td:eq(3)").text());
                 $('#description').val(tr.find("td:eq(4)").text());
