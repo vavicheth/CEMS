@@ -95,4 +95,14 @@ class PatientAccompanyController extends Controller
 
         return response(__('patient.patient_accompany_restore_success'));
     }
+
+    public function get_record($id)
+    {
+//        return response($id);
+        $pa=PatientAccompany::findOrFail($id);
+        $pa->image= asset($pa->getFirstMediaUrl('patient_accompany'));
+//        dd($pa);
+//        $pa->only('name');
+        return response($pa);
+    }
 }

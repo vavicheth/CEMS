@@ -255,8 +255,7 @@
                                     <label class="col-sm-4" for="description">Photo</label>
                                     <div class="col-sm-8 form-group">
                                             <div class="form-group">
-                                                <div class="slim" id="slim" data-label="Drop your avatar here" data-fetcher="fetch.php" data-size="600,600" data-ratio="1:1" data-rotate-button="true" accept="image/jpeg , image/gif, image/png">
-{{--                                                    <img id="img-accompany" src=""/>--}}
+                                                <div class="slim" id="img-accompany" data-label="Drop your avatar here" data-fetcher="fetch.php" data-size="600,600" data-ratio="1:1" data-rotate-button="true" accept="image/jpeg , image/gif, image/png">
                                                     <input name="photo" type="file"/>
                                                 </div>
                                             </div>
@@ -384,7 +383,7 @@
             });
 
             $d=$('#datatable_patient_accompany').DataTable({
-                processing: false,
+                processing: true,
                 serverSide: true,
                 paging: false,
                 searching: false,
@@ -424,19 +423,18 @@
                 @endif
             });
             $(document).on('click', '.update', function () {
-                var a =  $(this).data('id')
-                var d = "{{$patient->patient_accompanies()->findOrFail(" + a + ")->name}}";
-                alert(d);
+                $pa=getDataFromServer('../patient_accompanies/get_record/',$(this).attr('id'));
+
                 $url_submit="../patient_accompanies/"+ $(this).attr('id');
                 $type_submit='PATCH';
                 var tr = $(this).closest('tr');
 
-                $('#name').val($(this).data('img'));
-                // $('#img-accompany').attr('src',$(this).data('img'));
-                $('#gender').val((tr.find("td:eq(2)").text()).toLowerCase()).change();
-                $('#phone').val(tr.find("td:eq(3)").text());
-                $('#description').val(tr.find("td:eq(4)").text());
-                $('#status').val($(this).data('status')).change();
+                $('#name').val($pa['name']);
+                $('#gender').val(($pa['gender']).toLowerCase()).change();
+                $('#phone').val($pa['phone']);
+                $('#description').val($pa['description']);
+                $('#status').val(($pa['status'])).change();
+                $('#img-accompany img').attr('src',$pa['image']);
                 $('#modal-create').modal('show');
             });
 
@@ -526,6 +524,24 @@
                     }
                 })
             })
+            
+            function getDataFromServer($url,$id) {
+                $record='';
+                $.ajax({
+                    async: false,
+                    data: {
+                        "id": $id,
+                        "_token": "{{ csrf_token() }}",
+                    },
+                    url: $url + $id,
+                    type: 'POST',
+                    success: function (data) {
+                        $record=data;
+
+                    },
+                });
+                return $record;
+            }
 
 
         });
