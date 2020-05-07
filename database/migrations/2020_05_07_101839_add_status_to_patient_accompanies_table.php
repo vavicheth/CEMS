@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePatientStaysTable extends Migration
+class AddStatusToPatientAccompaniesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,8 @@ class CreatePatientStaysTable extends Migration
      */
     public function up()
     {
-        Schema::create('patient_stays', function (Blueprint $table) {
-            $table->id();
-            $table->integer('patient_id')->unsigned();
-
-            $table->timestamps();
+        Schema::table('patient_accompanies', function (Blueprint $table) {
+            $table->char('status',1)->default('0')->after('description');
         });
     }
 
@@ -28,6 +25,8 @@ class CreatePatientStaysTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('patient_stays');
+        Schema::table('patient_accompanies', function (Blueprint $table) {
+            $table->dropColumn('status');
+        });
     }
 }

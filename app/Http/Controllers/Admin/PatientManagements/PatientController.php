@@ -100,7 +100,7 @@ class PatientController extends Controller
 //                        $button .='<a href="' . route('admin.patient_managements.patient_accompanies.show', $data->id) . '" class="btn btn-sm btn-info mr-1 mb-1" data-toggle="tooltip" title="Show data"><i class="fa fa-eye"></i></a>';
 //                    }
                     if (Gate::allows('patient_accompany_update')) {
-                        $button .= ' <button type="button" name="update" id="' . $data->id . '" data-img="' . asset($data->getFirstMediaUrl('patient_accompany')) . '" class="btn btn-sm btn-success mr-1 update" data-toggle="tooltip" title="Edit data"><i class="fa fa-edit"></i></button>';
+                        $button .= ' <button type="button" name="update" id="' . $data->id . '" data-img="' . asset($data->getFirstMediaUrl('patient_accompany')) . '" data-status="' . $data->status . '" class="btn btn-sm btn-success mr-1 update" data-toggle="tooltip" title="Edit data"><i class="fa fa-edit"></i></button>';
                     }
                     if (Gate::allows('patient_accompany_delete')) {
                         $button .= ' <button type="button" name="delete" id="' . $data->id . '" class="btn btn-sm btn-danger mr-1 delete" data-toggle="tooltip" title="Delete data"><i class="fa fa-trash-alt"></i></button>';
@@ -115,11 +115,32 @@ class PatientController extends Controller
                         return $button;
                     }
                 })
+                ->editColumn('status', function ($data) {
+                    if ($data->status == 1){
+                        $status='<span class="badge badge-warning">In Hospital</span>';
+                    }elseif ($data->status == 2){
+                        $status='<span class="badge badge-danger">In Room</span>';
+                    }else{
+                        $status='<span class="badge badge-info">Outside</span>';
+                    }
+                    return $status;
+                })
+                ->setRowClass(function ($data) {
+                    $row_class='';
+                    if ($data->status == 1){
+                        $row_class='bg-warning-light';
+                    }elseif ($data->status == 2){
+                        $row_class='bg-danger-light';
+                    }else{
+                        $row_class='bg-info-light';
+                    }
+                    return $row_class;
+                })
                 ->addColumn('photo', function ($data) {
                     $text = '<div class="row items-push js-gallery img-fluid-100"><a class="img-link img-link-simple img-link-zoom-in img-lightbox" href="' . asset($data->getFirstMediaUrl('patient_accompany')) . '"><img width="130" src="' . asset($data->getFirstMediaUrl('patient_accompany')) . '"/></a></div>';
                     return $text;
                 })
-                ->rawColumns(['action', 'photo'])
+                ->rawColumns(['action', 'status','photo'])
                 ->make(true);
         }
 

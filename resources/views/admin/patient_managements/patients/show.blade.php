@@ -158,6 +158,7 @@
                                         <th class="td-gender">Gender</th>
                                         <th class="td-phone">Phone</th>
                                         <th class="td-description">Description</th>
+                                        <th class="td-phone">Status</th>
                                         <th style="width: 15%;">Action</th>
                                     </tr>
                                     </thead>
@@ -233,6 +234,15 @@
                                     </div>
                                 </div>
                                 <div class="row">
+                                    <label class="col-sm-4" for="status">Status</label>
+                                    <div class="col-sm-8 form-group">
+                                        {!! Form::select('status', ['0'=>'Outside','1'=>'In Hospital','2'=>'In Room'], old('status'), ['class' => 'js-select2 form-control','id'=>'status']) !!}
+                                        @error('status')
+                                        <span class="text-danger animated fadeIn">{{$message}}</span>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="row">
                                     <label class="col-sm-4" for="description">Description</label>
                                     <div class="col-sm-8 form-group">
                                         <textarea class="form-control" id="description" name="description"></textarea>
@@ -245,7 +255,7 @@
                                     <label class="col-sm-4" for="description">Photo</label>
                                     <div class="col-sm-8 form-group">
                                             <div class="form-group">
-                                                <div class="slim" data-label="Drop your avatar here" data-fetcher="fetch.php" data-size="600,600" data-ratio="1:1" data-rotate-button="true" accept="image/jpeg , image/gif, image/png">
+                                                <div class="slim" id="slim" data-label="Drop your avatar here" data-fetcher="fetch.php" data-size="600,600" data-ratio="1:1" data-rotate-button="true" accept="image/jpeg , image/gif, image/png">
 {{--                                                    <img id="img-accompany" src=""/>--}}
                                                     <input name="photo" type="file"/>
                                                 </div>
@@ -394,6 +404,7 @@
                     {data: 'gender', name: 'gender'},
                     {data: 'phone', name: 'phone'},
                     {data: 'description', name: 'description'},
+                    {data: 'status', name: 'status'},
                     {data: 'action', name: 'action', orderable: false},
                 ],
                 // order: [[8, 'desc']]
@@ -413,14 +424,19 @@
                 @endif
             });
             $(document).on('click', '.update', function () {
+                var a =  $(this).data('id')
+                var d = "{{$patient->patient_accompanies()->findOrFail(" + a + ")->name}}";
+                alert(d);
                 $url_submit="../patient_accompanies/"+ $(this).attr('id');
                 $type_submit='PATCH';
                 var tr = $(this).closest('tr');
-                $('#name').val(tr.find("td:eq(0)").text());
+
+                $('#name').val($(this).data('img'));
                 // $('#img-accompany').attr('src',$(this).data('img'));
                 $('#gender').val((tr.find("td:eq(2)").text()).toLowerCase()).change();
                 $('#phone').val(tr.find("td:eq(3)").text());
                 $('#description').val(tr.find("td:eq(4)").text());
+                $('#status').val($(this).data('status')).change();
                 $('#modal-create').modal('show');
             });
 
@@ -436,6 +452,9 @@
                         $('#modal-create').modal('hide');
                         $('#datatable_patient_accompany').DataTable().ajax.reload();
                         $('#form_patient_accompany')[0].reset();
+                        // Slim.destroy(document.getElementById('slim'));
+                        // Slim.parse(document.getElementById('slim'));
+
                         One.helpers('notify', {type: 'success', icon: 'fa fa-check mr-1', message: data});
                     },
                     error: function (data) {
