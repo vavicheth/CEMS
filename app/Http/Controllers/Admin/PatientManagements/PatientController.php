@@ -30,7 +30,7 @@ class PatientController extends Controller
                 ->addColumn('action', function ($data) {
                     $button = '';
                     if (Gate::allows('patient_show')) {
-                        $button .= '<a href="' . route('admin.patient_managements.patients.show', $data->id) . '" class="btn btn-sm btn-info mr-1 mb-1" data-toggle="tooltip" title="Show data"><i class="fa fa-eye"></i></a>';
+                        $button .= '<a href="' . route('admin.patient_managements.patients.show', $data->id) . '" class="btn btn-sm btn-info mr-1" data-toggle="tooltip" title="Show data"><i class="fa fa-eye"></i></a>';
                     }
                     if (Gate::allows('patient_update')) {
                         $button .= ' <a href="' . route('admin.patient_managements.patients.edit', $data->id) . '" class="btn btn-sm btn-success mr-1" data-toggle="tooltip" title="Edit data"><i class="fa fa-edit"></i></a>';

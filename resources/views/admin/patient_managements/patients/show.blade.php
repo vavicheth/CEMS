@@ -255,8 +255,11 @@
                                     <label class="col-sm-4" for="description">Photo</label>
                                     <div class="col-sm-8 form-group">
                                             <div class="form-group">
-                                                <div class="slim" id="img-accompany" data-label="Drop your avatar here" data-fetcher="fetch.php" data-size="600,600" data-ratio="1:1" data-rotate-button="true" accept="image/jpeg , image/gif, image/png">
+                                                <div class="slim" id="image-slim" data-label="Drop your image here" data-fetcher="fetch.php" data-size="600,600" data-ratio="1:1" data-rotate-button="true" accept="image/jpeg , image/gif, image/png">
+{{--                                                <div id="image-slim">--}}
+{{--                                                    <img src="{{asset($patient->getFirstMediaUrl('patient_photo') )}}" />--}}
                                                     <input name="photo" type="file"/>
+{{--                                                </div>--}}
                                                 </div>
                                             </div>
                                     </div>
@@ -365,6 +368,9 @@
 
     <script>
         jQuery(function () {
+            // Parameter for control slim when insert and update patient accompany
+            var slim_image = new Slim(document.getElementById('image-slim'));
+
             One.helpers(['table-tools-sections','magnific-popup']);
 
             // Switch show all and show trash
@@ -413,6 +419,9 @@
             $url_submit='';
             $type_submit='';
             $(document).on('click', '#btn-new', function () {
+                // Remove cache past image from slim
+                slim_image.remove();
+
                 // Limitation of Patient Accompany
                 @if($patient->patient_accompanies()->count() < config('panel.total_patient_accompany'))
                     $url_submit="{{route('admin.patient_managements.patient_accompanies.store')}}";
@@ -423,18 +432,23 @@
                 @endif
             });
             $(document).on('click', '.update', function () {
-                $pa=getDataFromServer('../patient_accompanies/get_record/',$(this).attr('id'));
+                // Remove cache past image from slim
+                slim_image.remove();
 
+
+                $pa=getDataFromServer('../patient_accompanies/get_record/',$(this).attr('id'));
                 $url_submit="../patient_accompanies/"+ $(this).attr('id');
                 $type_submit='PATCH';
                 var tr = $(this).closest('tr');
+                slim_image.load($pa['image']);
 
                 $('#name').val($pa['name']);
                 $('#gender').val(($pa['gender']).toLowerCase()).change();
                 $('#phone').val($pa['phone']);
                 $('#description').val($pa['description']);
                 $('#status').val(($pa['status'])).change();
-                $('#img-accompany img').attr('src',$pa['image']);
+                // $('#img-accompany img').attr('src',$pa['image']);
+
                 $('#modal-create').modal('show');
             });
 
@@ -450,8 +464,6 @@
                         $('#modal-create').modal('hide');
                         $('#datatable_patient_accompany').DataTable().ajax.reload();
                         $('#form_patient_accompany')[0].reset();
-                        // Slim.destroy(document.getElementById('slim'));
-                        // Slim.parse(document.getElementById('slim'));
 
                         One.helpers('notify', {type: 'success', icon: 'fa fa-check mr-1', message: data});
                     },
@@ -524,7 +536,7 @@
                     }
                 })
             })
-            
+
             function getDataFromServer($url,$id) {
                 $record='';
                 $.ajax({

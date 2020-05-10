@@ -136,7 +136,7 @@
 
                     <div class="col-lg-4 col-xl-4">
                         <div class="form-group">
-                            <div class="slim" data-label="Drop your avatar here" data-fetcher="fetch.php" data-size="600,600" data-ratio="1:1" data-rotate-button="true" accept="image/jpeg , image/gif, image/png">
+                            <div class="slim" data-label="Drop your image here" data-fetcher="fetch.php" data-size="600,600" data-ratio="1:1" data-rotate-button="true" accept="image/jpeg , image/gif, image/png">
                                    <img src="{{asset($patient->getFirstMediaUrl('patient_photo') )}}" />
                                 <input name="photo" type="file"/>
                             </div>
