@@ -440,7 +440,7 @@
                 $url_submit="../patient_accompanies/"+ $(this).attr('id');
                 $type_submit='PATCH';
                 var tr = $(this).closest('tr');
-                slim_image.load($pa['image']);
+                // slim_image.load($pa['image']);
 
                 $('#name').val($pa['name']);
                 $('#gender').val(($pa['gender']).toLowerCase()).change();

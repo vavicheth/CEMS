@@ -105,4 +105,16 @@ class PatientAccompanyController extends Controller
 //        $pa->only('name');
         return response($pa);
     }
+
+    public function scan_qr()
+    {
+        return 'Test';
+        return view('admin.patient_managements.patient_accompanies.scan_qr');
+    }
+
+    public function test()
+    {
+        return view('admin.patient_managements.patient_accompanies.scan_qr');
+
+    }
 }

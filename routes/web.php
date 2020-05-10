@@ -47,6 +47,8 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'admin', 'as' => 'admin.'], 
     Route::delete('patient_managements/patient_accompanies/per_del/{id}', 'Admin\PatientManagements\PatientAccompanyController@per_del')->name('patient_managements.patient_accompanies.per_del');
     Route::post('patient_managements/patient_accompanies/restore/{id}', 'Admin\PatientManagements\PatientAccompanyController@restore')->name('patient_managements.patient_accompanies.restore');
     Route::post('patient_managements/patient_accompanies/get_record/{id}', 'Admin\PatientManagements\PatientAccompanyController@get_record')->name('patient_managements.patient_accompanies.get_record');
+    Route::get('patient_managements/patient_accompanies/scan_qr', 'Admin\PatientManagements\PatientAccompanyController@scan_qr')->name('patient_managements.patient_accompanies.scan_qr');
+    Route::get('test', 'Admin\PatientManagements\PatientAccompanyController@test')->name('patient_managements.patient_accompanies.test');
 
     /**
      * Setting
