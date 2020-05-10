@@ -8,6 +8,7 @@ use App\PatientAccompany;
 use App\Traits\UploadBySlim;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
+use phpDocumentor\Reflection\Types\Compound;
 use Yajra\DataTables\Facades\DataTables;
 
 class PatientAccompanyController extends Controller
@@ -46,7 +47,15 @@ class PatientAccompanyController extends Controller
 
     public function show($id)
     {
-        //
+        abort_if(!Gate::allows('patient_accompany_show'), 403);
+        $patient_accompany=PatientAccompany::findOrFail($id);
+        $patient=$patient_accompany->patient;
+
+        return response($patient->id);
+
+//        return view('admin.patient_managements.patient.show',compact('patient'));
+//        return view('admin.patient_managements.patient_accompanies.show',compact('patient_accompany'));
+
     }
 
     public function edit($id)
@@ -106,15 +115,20 @@ class PatientAccompanyController extends Controller
         return response($pa);
     }
 
+    public function pre_scan()
+    {
+        return view('admin.patient_managements.patient_accompanies.pre_scan');
+    }
+
     public function scan_qr()
     {
-        return 'Test';
         return view('admin.patient_managements.patient_accompanies.scan_qr');
     }
 
-    public function test()
+    public function show_data($id)
     {
-        return view('admin.patient_managements.patient_accompanies.scan_qr');
+        $patient=Patient::findOrFail($id);
 
+        return view('admin.patient_managements.patient_accompanies.after_scan',compact('patient'));
     }
 }

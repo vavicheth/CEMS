@@ -25,14 +25,14 @@ Route::patch('change_password', 'Auth\ChangePasswordController@changePassword')-
 Route::group(['middleware' => ['auth'], 'prefix' => 'admin', 'as' => 'admin.'], function () {
 // Example Routes
     Route::view('/', 'landing');
-    Route::match(['get', 'post'], '/dashboard', function () {
-        return view('dashboard');
-    });
-    Route::view('/pages/slick', 'pages.slick');
-    Route::view('/pages/datatables', 'pages.datatables');
-    Route::view('/pages/blank', 'pages.blank');
-
-    Route::get('/home', 'HomeController@index')->name('home');
+//    Route::match(['get', 'post'], '/dashboard', function () {
+//        return view('dashboard');
+//    });
+//    Route::view('/pages/slick', 'pages.slick');
+//    Route::view('/pages/datatables', 'pages.datatables');
+//    Route::view('/pages/blank', 'pages.blank');
+//
+//    Route::get('/home', 'HomeController@index')->name('home');
 
     /**
      * Patient Management
@@ -47,8 +47,9 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'admin', 'as' => 'admin.'], 
     Route::delete('patient_managements/patient_accompanies/per_del/{id}', 'Admin\PatientManagements\PatientAccompanyController@per_del')->name('patient_managements.patient_accompanies.per_del');
     Route::post('patient_managements/patient_accompanies/restore/{id}', 'Admin\PatientManagements\PatientAccompanyController@restore')->name('patient_managements.patient_accompanies.restore');
     Route::post('patient_managements/patient_accompanies/get_record/{id}', 'Admin\PatientManagements\PatientAccompanyController@get_record')->name('patient_managements.patient_accompanies.get_record');
-    Route::get('patient_managements/patient_accompanies/scan_qr', 'Admin\PatientManagements\PatientAccompanyController@scan_qr')->name('patient_managements.patient_accompanies.scan_qr');
-    Route::get('test', 'Admin\PatientManagements\PatientAccompanyController@test')->name('patient_managements.patient_accompanies.test');
+    Route::get('patient_managements/pre_scan', 'Admin\PatientManagements\PatientAccompanyController@pre_scan')->name('patient_managements.patient_accompanies.pre_scan');
+    Route::get('patient_managements/scan_qr', 'Admin\PatientManagements\PatientAccompanyController@scan_qr')->name('patient_managements.patient_accompanies.scan_qr');
+    Route::get('patient_managements/show_data/{id}', 'Admin\PatientManagements\PatientAccompanyController@show_data')->name('patient_managements.patient_accompanies.show_data');
 
     /**
      * Setting
