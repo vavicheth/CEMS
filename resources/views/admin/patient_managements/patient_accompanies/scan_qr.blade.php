@@ -6,7 +6,7 @@
             font-family: 'Ropa Sans', sans-serif;
             color: #333;
             /*max-width: 640px;*/
-            
+
             margin: 0 auto;
             position: relative;
         }
@@ -16,7 +16,7 @@
             right: 0;
             top: 12px;
             color: #2D99FF;
-        }        
+        }
 
         #loadingMessage {
             text-align: center;
@@ -67,7 +67,6 @@
             <div class="block-content block-content-full text-center">
                 <button id="btn-try" class="btn btn-info">Try again</button>
             </div>
-
 
 
         <!-- Footer -->
@@ -185,9 +184,9 @@
             });
             return $record;
         }
-        
 
-        
+
+
     </script>
 @endsection
 

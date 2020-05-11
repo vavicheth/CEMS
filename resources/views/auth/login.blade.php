@@ -70,7 +70,7 @@
                                     </div>
                                     <div class="block-content">
                                         <div class="p-sm-3 px-lg-4 py-lg-5">
-                                            <h1 class="mb-2">OneUI</h1>
+                                            <h1 class="mb-2">CEMS</h1>
                                             <p>Welcome, please login.</p>
 
                                             <!-- Sign In Form -->

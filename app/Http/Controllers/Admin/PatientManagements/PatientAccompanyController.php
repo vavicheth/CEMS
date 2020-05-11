@@ -49,13 +49,9 @@ class PatientAccompanyController extends Controller
     {
         abort_if(!Gate::allows('patient_accompany_show'), 403);
         $patient_accompany=PatientAccompany::findOrFail($id);
-        $patient=$patient_accompany->patient;
+//        $patient=$patient_accompany->patient;
 
-        return response($patient->id);
-
-//        return view('admin.patient_managements.patient.show',compact('patient'));
-//        return view('admin.patient_managements.patient_accompanies.show',compact('patient_accompany'));
-
+        return response($patient_accompany->id);
     }
 
     public function edit($id)
@@ -127,8 +123,15 @@ class PatientAccompanyController extends Controller
 
     public function show_data($id)
     {
-        $patient=Patient::findOrFail($id);
+        $patient_accompany=PatientAccompany::findOrFail($id);
+        $patient=$patient_accompany->patient;
 
-        return view('admin.patient_managements.patient_accompanies.after_scan',compact('patient'));
+        return view('admin.patient_managements.patient_accompanies.after_scan',compact('patient','patient_accompany'));
+    }
+
+    public function print_qr($id)
+    {
+        $patient_accompany=PatientAccompany::findOrFail($id);
+        return view('admin.patient_managements.patient_accompanies.print_qr',compact('patient_accompany'));
     }
 }

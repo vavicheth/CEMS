@@ -96,14 +96,14 @@ class PatientController extends Controller
             return DataTables::of($data)
                 ->addColumn('action', function ($data) {
                     $button = '';
-//                    if (Gate::allows('patient_accompany_show')){
-//                        $button .='<a href="' . route('admin.patient_managements.patient_accompanies.show', $data->id) . '" class="btn btn-sm btn-info mr-1 mb-1" data-toggle="tooltip" title="Show data"><i class="fa fa-eye"></i></a>';
-//                    }
                     if (Gate::allows('patient_accompany_update')) {
                         $button .= ' <button type="button" name="update" id="' . $data->id . '" class="btn btn-sm btn-success mr-1 update" data-toggle="tooltip" title="Edit data"><i class="fa fa-edit"></i></button>';
                     }
                     if (Gate::allows('patient_accompany_delete')) {
                         $button .= ' <button type="button" name="delete" id="' . $data->id . '" class="btn btn-sm btn-danger mr-1 delete" data-toggle="tooltip" title="Delete data"><i class="fa fa-trash-alt"></i></button>';
+                    }
+                    if (Gate::allows('patient_accompany_show')){
+                        $button .='<a href="' . route('admin.patient_managements.patient_accompanies.print_qr', $data->id) . '" target="_blank" class="btn btn-sm btn-info m-1" data-toggle="tooltip" title="Show data"><i class="fa fa-print"></i> QR</a>';
                     }
 
                     $trash = ' <button type="button" name="restore" id="' . $data->id . '" class="btn btn-sm btn-success mr-1 mb-1 restore" data-toggle="tooltip" title="Restore data"><i class="fa fa-backward"></i></button>';
@@ -195,4 +195,6 @@ class PatientController extends Controller
 
         return response(__('patient.patient_restore_success'));
     }
+
+
 }

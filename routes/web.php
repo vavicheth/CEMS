@@ -41,15 +41,19 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'admin', 'as' => 'admin.'], 
     Route::resource('patient_managements/patients','Admin\PatientManagements\PatientController', ['as' => 'patient_managements']);
     Route::delete('patient_managements/patients/per_del/{id}', 'Admin\PatientManagements\PatientController@per_del')->name('patient_managements.patients.per_del');
     Route::post('patient_managements/patients/restore/{id}', 'Admin\PatientManagements\PatientController@restore')->name('patient_managements.patients.restore');
+    Route::get('patient_managements/patients/print_qr/{id}', 'Admin\PatientManagements\PatientController@print_qr')->name('patient_managements.patients.print_qr');
 
     //Patient Accompany
     Route::resource('patient_managements/patient_accompanies','Admin\PatientManagements\PatientAccompanyController', ['as' => 'patient_managements']);
     Route::delete('patient_managements/patient_accompanies/per_del/{id}', 'Admin\PatientManagements\PatientAccompanyController@per_del')->name('patient_managements.patient_accompanies.per_del');
     Route::post('patient_managements/patient_accompanies/restore/{id}', 'Admin\PatientManagements\PatientAccompanyController@restore')->name('patient_managements.patient_accompanies.restore');
     Route::post('patient_managements/patient_accompanies/get_record/{id}', 'Admin\PatientManagements\PatientAccompanyController@get_record')->name('patient_managements.patient_accompanies.get_record');
+    Route::get('patient_managements/patient_accompanies/print_qr/{id}', 'Admin\PatientManagements\PatientAccompanyController@print_qr')->name('patient_managements.patient_accompanies.print_qr');
+
     Route::get('patient_managements/pre_scan', 'Admin\PatientManagements\PatientAccompanyController@pre_scan')->name('patient_managements.patient_accompanies.pre_scan');
     Route::get('patient_managements/scan_qr', 'Admin\PatientManagements\PatientAccompanyController@scan_qr')->name('patient_managements.patient_accompanies.scan_qr');
     Route::get('patient_managements/show_data/{id}', 'Admin\PatientManagements\PatientAccompanyController@show_data')->name('patient_managements.patient_accompanies.show_data');
+
 
     /**
      * Setting

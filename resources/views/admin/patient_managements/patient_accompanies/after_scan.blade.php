@@ -49,50 +49,50 @@
                                     </td>
                                     <td class="font-w600 font-size-sm">
                                         <div class="py-1">
-                                            {{$patient->name}}
+                                            {{$patient_accompany->patient->name}}
                                         </div>
                                     </td>
-                                    <td>{{$patient->name_kh}}</td>
+                                    <td>{{$patient_accompany->patient->name_kh}}</td>
                                 </tr>
                                 </tbody>
                                 <tbody class="font-size-sm">
                                 <tr>
                                     <td></td>
                                     <td class="font-w600 text-left">HN</td>
-                                    <td>{{$patient->hn}}</td>
+                                    <td>{{$patient_accompany->patient->hn}}</td>
                                 </tr>
                                 <tr>
                                     <td></td>
                                     <td class="font-w600 text-left ">Gender</td>
-                                    <td>{{$patient->gender}}</td>
+                                    <td>{{$patient_accompany->patient->gender}}</td>
                                 </tr>
                                 <tr>
                                     <td></td>
                                     <td class="font-w600 text-left ">DOB</td>
-                                    <td>{{$patient->dob}}</td>
+                                    <td>{{$patient_accompany->patient->dob}}</td>
                                 </tr>
                                 <tr>
                                     <td></td>
                                     <td class="font-w600 text-left ">Address</td>
-                                    <td>{{$patient->address}}</td>
+                                    <td>{{$patient_accompany->patient->address}}</td>
                                 </tr>
                                 <tr>
                                     <td></td>
                                     <td class="font-w600 text-left ">Phone</td>
-                                    <td>{{$patient->phone}}</td>
+                                    <td>{{$patient_accompany->patient->phone}}</td>
                                 </tr>
                                 <tr>
                                     <td></td>
                                     <td class="font-w600 text-left ">Description</td>
-                                    <td>{{$patient->description}}</td>
+                                    <td>{{$patient_accompany->patient->description}}</td>
                                 </tr>
                                 <tr>
                                     <td></td>
                                     <td class="font-w600 text-left ">Status</td>
                                     <td>
                                         <div class="custom-control custom-checkbox custom-control-primary custom-control-lg mb-1">
-                                            <input type="checkbox" class="custom-control-input" name="active_user" disabled {{$patient->active == 1? 'checked' : ''}} >
-                                            <label class="custom-control-label" for="active_user">{{$patient->active == 1? 'In Hospital' : 'Discharge'}}</label>
+                                            <input type="checkbox" class="custom-control-input" name="active_user" disabled {{$patient_accompany->patient->active == 1? 'checked' : ''}} >
+                                            <label class="custom-control-label" for="active_user">{{$patient_accompany->patient->active == 1? 'In Hospital' : 'Discharge'}}</label>
                                         </div>
                                     </td>
                                 </tr>
@@ -106,8 +106,8 @@
 
                     <div class="col-lg-4 col-xl-4">
                         <div class="row items-push js-gallery img-fluid-100">
-                            <a class="img-link img-link-simple img-link-zoom-in img-lightbox" href="{{asset($patient->getFirstMediaUrl('patient_photo') )}}">
-                                <img href="" class="img-fluid" src="{{asset($patient->getFirstMediaUrl('patient_photo') )}}" alt="">
+                            <a class="img-link img-link-simple img-link-zoom-in img-lightbox" href="{{asset($patient_accompany->patient->getFirstMediaUrl('patient_photo') )}}">
+                                <img href="" class="img-fluid" src="{{asset($patient_accompany->patient->getFirstMediaUrl('patient_photo') )}}" alt="">
                             </a>
                         </div>
                     </div>
@@ -128,11 +128,37 @@
             </div>
             <div class="block-content">
 
+                <table class="table table-vcenter dt-responsive table-vcenter">
+                    <tbody>
+                    @foreach($patient->patient_accompanies as $patient_accompany)
+                        @if($patient_accompany->status ==1)
+                            <tr class="bg-warning-light">
+                        @elseif($patient_accompany->status==2)
+                            <tr class="bg-danger-light">
+                        @else
+                            <tr class="bg-info-light">
+                        @endif
 
-
-
-
-
+                        <td class="text-center">
+                            <button class="btn btn-sm btn-square btn-info m-1" onclick="saveData({{$patient_accompany->id}})"><i class="fa fa-file-import"></i> ចូលបរិវេណ </button><br>
+                            <button class="btn btn-sm btn-square btn-warning m-1"><i class="fa fa-file-export"></i>​ចេញបរិវេណ</button><br>
+                            <button class="btn btn-sm btn-square btn-info m-1"><i class="fa fa-file-import"></i> ចូលបន្ទប់ជំងឺ</button><br>
+                            <button class="btn btn-sm btn-square btn-warning m-1"><i class="fa fa-file-export"></i>​ចេញបន្ទប់ជំងឺ</button>
+                        </td>
+                        <td>
+                            <div class="row items-push js-gallery img-fluid-100">
+                                <a style="width: 150px" class="img-link img-link-simple img-link-zoom-in img-lightbox" href="{{asset($patient_accompany->getFirstMediaUrl('patient_accompany') )}}">
+                                    <img href="" class="img-fluid" src="{{asset($patient_accompany->getFirstMediaUrl('patient_accompany') )}}" alt="">
+                                </a>
+                            </div>
+                            <div class="text-center mt-1">
+                                <h5>{{$patient_accompany->name}}</h5>
+                            </div>
+                        </td>
+                    </tr>
+                    @endforeach
+                    </tbody>
+                </table>
             </div>
         </div>
 
@@ -171,9 +197,12 @@
     <script>
         jQuery(function () {
             One.helpers(['table-tools-sections','magnific-popup']);
-
-
         });
+
+        function saveData($id) {
+            alert($id);
+        }
+
     </script>
 
 @endsection

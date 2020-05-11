@@ -112,9 +112,8 @@
                         </div>
                     </div>
 
-
-
                 </div>
+                <a href="{{route('admin.patient_managements.patients.print_qr',$patient->id)}}" target="_blank" class="btn btn-success mb-3"><i class="fa fa-print"></i> Print QR Code</a>
 
                 <div class="row">
                     <div class="col-lg-12">
@@ -256,10 +255,7 @@
                                     <div class="col-sm-8 form-group">
                                             <div class="form-group">
                                                 <div class="slim" id="image-slim" data-label="Drop your image here" data-fetcher="fetch.php" data-size="600,600" data-ratio="1:1" data-rotate-button="true" accept="image/jpeg , image/gif, image/png">
-{{--                                                <div id="image-slim">--}}
-{{--                                                    <img src="{{asset($patient->getFirstMediaUrl('patient_photo') )}}" />--}}
-                                                    <input name="photo" type="file"/>
-{{--                                                </div>--}}
+                                                    <input name="photo" type="file"  />
                                                 </div>
                                             </div>
                                     </div>
@@ -292,7 +288,7 @@
                                 </div>
                             </div>
                             <div class="block-content font-size-sm">
-                                Are you sure to delete {{ request('trash') == 1 ? 'permanently':'' }} this department?
+                                Are you sure to delete {{ request('trash') == 1 ? 'permanently':'' }} this patient accompany?
                             </div>
                             <div class="block-content block-content-full text-right border-top">
                                 <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal" id="ok_button"><i
@@ -369,7 +365,31 @@
     <script>
         jQuery(function () {
             // Parameter for control slim when insert and update patient accompany
-            var slim_image = new Slim(document.getElementById('image-slim'));
+            // data-label="Drop your image here" data-fetcher="fetch.php" data-size="600,600" data-ratio="1:1" data-rotate-button="true" accept="image/jpeg , image/gif, image/png"
+            var slim_image = new Slim(document.getElementById('image-slim'),{ratio: '1:1',crop: {x: 0,y: 0,width: 600,height: 600},});
+            // var slim_image = new Slim(document.getElementById('image-slim'));
+
+            // var slim_image =new Slim(document.getElementById('image-slim'), {
+            //     ratio: '1:1',
+            //     // accept: "image/jpeg , image/gif, image/png",
+            //     // minSize: {
+            //     //     width: 640,
+            //     //     height: 480,
+            //     // },
+            //     crop: {
+            //         x: 0,
+            //         y: 0,
+            //         width: 600,
+            //         height: 600
+            //     },
+            //     service: 'fetch.php',
+            //     download: false,
+            //     label: 'Drop your image here.',
+            //     buttonConfirmLabel: 'Ok',
+            //     // meta: {
+            //     //     userId:'1234'
+            //     // }
+            // });
 
             One.helpers(['table-tools-sections','magnific-popup']);
 
@@ -435,7 +455,6 @@
                 // Remove cache past image from slim
                 slim_image.remove();
 
-
                 $pa=getDataFromServer('../patient_accompanies/get_record/',$(this).attr('id'));
                 $url_submit="../patient_accompanies/"+ $(this).attr('id');
                 $type_submit='PATCH';
@@ -447,7 +466,7 @@
                 $('#phone').val($pa['phone']);
                 $('#description').val($pa['description']);
                 $('#status').val(($pa['status'])).change();
-                // $('#img-accompany img').attr('src',$pa['image']);
+                // slim_image.load($pa['image']);
 
                 $('#modal-create').modal('show');
             });
