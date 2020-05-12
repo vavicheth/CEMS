@@ -22,9 +22,11 @@ Route::post('logout', 'Auth\LoginController@logout')->name('auth.logout');
 Route::get('change_password', 'Auth\ChangePasswordController@showChangePasswordForm')->name('auth.change_password');
 Route::patch('change_password', 'Auth\ChangePasswordController@changePassword')->name('auth.change_password');
 
+Route::view('/', 'admin.patient_managements.patient_accompanies.pre_scan')->name('/')->middleware('auth');;
+
 Route::group(['middleware' => ['auth'], 'prefix' => 'admin', 'as' => 'admin.'], function () {
 // Example Routes
-    Route::view('/', 'landing');
+
 //    Route::match(['get', 'post'], '/dashboard', function () {
 //        return view('dashboard');
 //    });

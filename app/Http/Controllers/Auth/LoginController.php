@@ -57,7 +57,7 @@ class LoginController extends Controller
         $fieldType = filter_var($request->username, FILTER_VALIDATE_EMAIL) ? 'email' : 'username';
         if(auth()->attempt(array($fieldType => $input['username'], 'password' => $input['password'])))
         {
-            return redirect()->route('admin.setting.ui')->with('message_info','Welcome CEMS system!');
+            return redirect()->route('/')->with('message_info','Welcome CEMS system!');
         }else{
 //            toast('Username or password is not correct!','error');
             return redirect()->route('login')
