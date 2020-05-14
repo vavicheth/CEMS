@@ -35,12 +35,13 @@
 {{--                </nav>--}}
 {{--            </div>--}}
 
+            @can('qr_checkin_room')
+
             <div class="block-content block-content-full">
 
                 <div class="row">
                     <div class="col-lg-10 col-xl-5">
                         <div class="table-responsive">
-
                             <table class="js-table-sections table table-hover table-vcenter">
                                 <tbody class="js-table-sections-header table-active">
                                 <tr class="bg-info text-white">
@@ -111,16 +112,10 @@
                             </a>
                         </div>
                     </div>
-
                 </div>
-
-
-
-
             </div>
-
-
         </div>
+        @endcan
 
         <div class="block">
             <div class="block-header block-header-default">
@@ -130,29 +125,44 @@
 
                 <table class="table table-vcenter dt-responsive table-vcenter">
                     <tbody>
-                    @foreach($patient->patient_accompanies as $patient_accompany)
-                        @if($patient_accompany->status ==1)
+
+
+                    @foreach($patient->patient_accompanies as $accompany)
+                        {{-- Condition show 1 item only if no permission qr_checkin_hospital --}}
+                        @cannot('qr_checkin_hospital')
+                            @if($accompany->id != $patient_accompany->id)
+                                @break
+                            @endif
+                        @endcannot
+
+                        @if($accompany->status ==1)
                             <tr class="bg-warning-light">
-                        @elseif($patient_accompany->status==2)
+                        @elseif($accompany->status==2)
                             <tr class="bg-danger-light">
                         @else
                             <tr class="bg-info-light">
                         @endif
 
                         <td class="text-center">
-                            <button class="btn btn-sm btn-square btn-info m-1" onclick="saveData({{$patient_accompany->id}})"><i class="fa fa-file-import"></i> ចូលបរិវេណ </button><br>
+                            @can('qr_checkin_hospital')
+                            <button class="btn btn-sm btn-square btn-info m-1" onclick="saveData({{$accompany->id}})"><i class="fa fa-file-import"></i> ចូលបរិវេណ </button><br>
                             <button class="btn btn-sm btn-square btn-warning m-1"><i class="fa fa-file-export"></i>​ចេញបរិវេណ</button><br>
+                            @endcan
+
+                            @can('qr_checkin_room')
                             <button class="btn btn-sm btn-square btn-info m-1"><i class="fa fa-file-import"></i> ចូលបន្ទប់ជំងឺ</button><br>
                             <button class="btn btn-sm btn-square btn-warning m-1"><i class="fa fa-file-export"></i>​ចេញបន្ទប់ជំងឺ</button>
+                            @endcan
+
                         </td>
                         <td>
-                            <div class="row items-push js-gallery img-fluid-100">
-                                <a style="width: 150px" class="img-link img-link-simple img-link-zoom-in img-lightbox" href="{{asset($patient_accompany->getFirstMediaUrl('patient_accompany') )}}">
-                                    <img href="" class="img-fluid" src="{{asset($patient_accompany->getFirstMediaUrl('patient_accompany') )}}" alt="">
+                            <div class="row items-push js-gallery img-fluid-100 ">
+                                <a style="width: 150px" class="img-link img-link-simple img-link-zoom-in img-lightbox" href="{{asset($accompany->getFirstMediaUrl('patient_accompany') )}}">
+                                    <img href="" class="img-fluid" src="{{asset($accompany->getFirstMediaUrl('patient_accompany') )}}" alt="">
                                 </a>
                             </div>
-                            <div class="text-center mt-1">
-                                <h5>{{$patient_accompany->name}}</h5>
+                            <div class="mt-1">
+                                <h5>{{$accompany->name}}</h5>
                             </div>
                         </td>
                     </tr>

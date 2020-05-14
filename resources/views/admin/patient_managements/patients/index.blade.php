@@ -54,6 +54,7 @@
                         <th >Name Khmer</th>
                         <th >Gender</th>
                         <th >DOB</th>
+                        <th >ID Card</th>
                         <th >Address</th>
                         <th >Active</th>
                         <th style="width: 15%;">Action</th>
@@ -174,6 +175,7 @@
                     {data: 'name_kh', name: 'name_kh'},
                     {data: 'gender', name: 'gender'},
                     {data: 'dob', name: 'dob'},
+                    {data: 'id_card', name: 'id_card'},
                     {data: 'address', name: 'address'},
                     {data: 'active', name: 'active'},
                     {data: 'action', name: 'action', orderable: false},

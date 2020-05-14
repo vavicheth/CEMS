@@ -90,6 +90,16 @@
                             </div>
                         </div>
                         <div class="row">
+                            <label class="col-sm-4" for="id_card">ID Card/Passport</label>
+                            <div class="col-sm-8 form-group">
+                                <input type="text" class="form-control" id="id_card" name="id_card" value="{{$patient->id_card}}"
+                                       placeholder="Type patient ID card or Passport...">
+                                @error('id_card')
+                                <span class="text-danger animated fadeIn">{{$message}}</span>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="row">
                             <label class="col-sm-4" for="address">Address</label>
                             <div class="col-sm-8 form-group">
                                 <input type="text" class="form-control" id="address" name="address" value="{{$patient->address}}"
@@ -136,7 +146,7 @@
 
                     <div class="col-lg-4 col-xl-4">
                         <div class="form-group">
-                            <div class="slim" data-label="Drop your image here" data-fetcher="fetch.php" data-size="600,600" data-ratio="1:1" data-rotate-button="true" accept="image/jpeg , image/gif, image/png">
+                            <div class="slim" data-label="Drop patient image here" data-fetcher="fetch.php" data-size="600,600" data-ratio="1:1" data-rotate-button="true" accept="image/jpeg , image/gif, image/png">
                                    <img src="{{asset($patient->getFirstMediaUrl('patient_photo') )}}" />
                                 <input name="photo" type="file"/>
                             </div>

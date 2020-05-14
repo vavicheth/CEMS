@@ -17,7 +17,7 @@ class Patient extends Model implements HasMedia
     use HasMediaTrait;
 
     protected $fillable = [
-        'hn', 'name', 'name_kh', 'gender', 'dob', 'address', 'phone', 'active', 'description'
+        'hn', 'name', 'name_kh','id_card', 'gender', 'dob', 'address', 'phone', 'active', 'description'
     ];
 
     protected $dates = [
@@ -65,8 +65,16 @@ class Patient extends Model implements HasMedia
     public function registerMediaCollections()
     {
         $this->addMediaCollection('patient_photo')
+        ->useDisk('public')
+        ->singleFile()
+        ->useFallbackPath(public_path('/default.png'));
+
+        $this->addMediaCollection('patient_id_card')
             ->useDisk('public')
             ->singleFile()
             ->useFallbackPath(public_path('/default.png'));
     }
+
+
+
 }

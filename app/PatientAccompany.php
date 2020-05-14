@@ -15,7 +15,7 @@ class PatientAccompany extends Model  implements HasMedia
     use SoftDeletes, HasMediaTrait;
 
     protected $fillable = [
-        'name', 'gender', 'phone', 'description','status'
+        'name', 'gender','id_card', 'phone', 'description','status'
     ];
 //    protected $guarded=[];
 

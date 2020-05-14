@@ -73,6 +73,11 @@
                                 </tr>
                                 <tr>
                                     <td></td>
+                                    <td class="font-w600 text-left ">ID Card/Passport</td>
+                                    <td>{{$patient->id_card}}</td>
+                                </tr>
+                                <tr>
+                                    <td></td>
                                     <td class="font-w600 text-left ">Address</td>
                                     <td>{{$patient->address}}</td>
                                 </tr>
@@ -155,6 +160,7 @@
                                         <th class="td-name" >Name</th>
                                         <th >Photo</th>
                                         <th class="td-gender">Gender</th>
+                                        <th class="td-idcard">ID Card</th>
                                         <th class="td-phone">Phone</th>
                                         <th class="td-description">Description</th>
                                         <th class="td-phone">Status</th>
@@ -221,12 +227,21 @@
                                         @enderror
                                     </div>
                                 </div>
-
+                                <div class="row">
+                                    <label class="col-sm-4" for="id_card">ID Card/Passport</label>
+                                    <div class="col-sm-8 form-group">
+                                        <input type="text" class="form-control" id="id_card" name="id_card"
+                                               placeholder="Type patient accompany ID Card...">
+                                        @error('id_card')
+                                        <span class="text-danger animated fadeIn">{{$message}}</span>
+                                        @enderror
+                                    </div>
+                                </div>
                                 <div class="row">
                                     <label class="col-sm-4" for="phone">Phone</label>
                                     <div class="col-sm-8 form-group">
                                         <input type="text" class="form-control" id="phone" name="phone"
-                                               placeholder="Type patient phone...">
+                                               placeholder="Type patient accompany phone...">
                                         @error('phone')
                                         <span class="text-danger animated fadeIn">{{$message}}</span>
                                         @enderror
@@ -254,7 +269,7 @@
                                     <label class="col-sm-4" for="description">Photo</label>
                                     <div class="col-sm-8 form-group">
                                             <div class="form-group">
-                                                <div class="slim" id="image-slim" data-label="Drop your image here" data-fetcher="fetch.php" data-size="600,600" data-ratio="1:1" data-rotate-button="true" accept="image/jpeg , image/gif, image/png">
+                                                <div class="slim" id="image-slim" data-label="Drop accompany image here" data-fetcher="fetch.php" data-size="600,600" data-ratio="1:1" data-rotate-button="true" accept="image/jpeg , image/gif, image/png">
                                                     <input name="photo" type="file"  />
                                                 </div>
                                             </div>
@@ -427,6 +442,7 @@
                     {data: 'name', name: 'name'},
                     {data: 'photo', name: 'photo'},
                     {data: 'gender', name: 'gender'},
+                    {data: 'id_card', name: 'id_card'},
                     {data: 'phone', name: 'phone'},
                     {data: 'description', name: 'description'},
                     {data: 'status', name: 'status'},
@@ -463,6 +479,7 @@
 
                 $('#name').val($pa['name']);
                 $('#gender').val(($pa['gender']).toLowerCase()).change();
+                $('#id_card').val($pa['id_card']);
                 $('#phone').val($pa['phone']);
                 $('#description').val($pa['description']);
                 $('#status').val(($pa['status'])).change();
