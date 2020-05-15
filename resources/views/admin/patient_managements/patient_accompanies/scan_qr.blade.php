@@ -178,7 +178,7 @@
                     One.helpers('notify', {
                         type: 'danger',
                         icon: 'fa fa-times mr-1',
-                        message: "QR Code is not correct, pleas try again !"
+                        message: "QR Code is not correct or expired, pleas try again !"
                     });
                 }
             });

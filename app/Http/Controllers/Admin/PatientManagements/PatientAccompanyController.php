@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Patient;
 use App\PatientAccompany;
 use App\Traits\UploadBySlim;
+use http\Env\Response;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use phpDocumentor\Reflection\Types\Compound;
@@ -47,7 +48,7 @@ class PatientAccompanyController extends Controller
 
     public function show($id)
     {
-        abort_if(!Gate::allows('patient_accompany_show'), 403);
+//        abort_if(!Gate::allows('patient_accompany_show'), 403);
         $patient_accompany=PatientAccompany::findOrFail($id);
 //        $patient=$patient_accompany->patient;
 
@@ -133,5 +134,12 @@ class PatientAccompanyController extends Controller
     {
         $patient_accompany=PatientAccompany::findOrFail($id);
         return view('admin.patient_managements.patient_accompanies.print_qr',compact('patient_accompany'));
+    }
+
+    public function change_status(Request $request,$id)
+    {
+        $patient_accompany=PatientAccompany::findOrFail($id);
+        $patient_accompany->update(['status'=>$request->status]);
+        return response(__('patient.patient_accompany_update_success'));
     }
 }

@@ -97,6 +97,11 @@
                                         </div>
                                     </td>
                                 </tr>
+                                <tr>
+                                    <td></td>
+                                    <td class="font-w600 text-left ">Service Stay</td>
+                                    <td bgcolor="#f0f8ff"><span class="text-success">ផ្នែកប្រសាទសាស្ត្រ</span> </td>
+                                </tr>
 
                                 </tbody>
                             </table>
@@ -129,7 +134,7 @@
 
                     @foreach($patient->patient_accompanies as $accompany)
                         {{-- Condition show 1 item only if no permission qr_checkin_hospital --}}
-                        @cannot('qr_checkin_hospital')
+                        @cannot('qr_checkin_room')
                             @if($accompany->id != $patient_accompany->id)
                                 @break
                             @endif
@@ -145,13 +150,13 @@
 
                         <td class="text-center">
                             @can('qr_checkin_hospital')
-                            <button class="btn btn-sm btn-square btn-info m-1" onclick="saveData({{$accompany->id}})"><i class="fa fa-file-import"></i> ចូលបរិវេណ </button><br>
-                            <button class="btn btn-sm btn-square btn-warning m-1"><i class="fa fa-file-export"></i>​ចេញបរិវេណ</button><br>
+                            <button class="btn btn-sm btn-square btn-warning m-1" onclick="saveData({{$accompany->id}},'1')"><i class="fa fa-file-import"></i> ចូលបរិវេណ </button><br>
+                            <button class="btn btn-sm btn-square btn-info m-1" onclick="saveData({{$accompany->id}},'0')"><i class="fa fa-file-export"></i>​ចេញបរិវេណ</button><br>
                             @endcan
 
                             @can('qr_checkin_room')
-                            <button class="btn btn-sm btn-square btn-info m-1"><i class="fa fa-file-import"></i> ចូលបន្ទប់ជំងឺ</button><br>
-                            <button class="btn btn-sm btn-square btn-warning m-1"><i class="fa fa-file-export"></i>​ចេញបន្ទប់ជំងឺ</button>
+                            <button class="btn btn-sm btn-square btn-danger m-1" onclick="saveData({{$accompany->id}},'2')"><i class="fa fa-file-import"></i> ចូលបន្ទប់ជំងឺ</button><br>
+                            <button class="btn btn-sm btn-square btn-warning m-1" onclick="saveData({{$accompany->id}},'1')"><i class="fa fa-file-export"></i>​ចេញបន្ទប់ជំងឺ</button>
                             @endcan
 
                         </td>
@@ -169,13 +174,15 @@
                     @endforeach
                     </tbody>
                 </table>
+                <div class="row">
+                    <a class="btn btn-secondary float-right m-2" href="{{route('admin.patient_managements.patients.index')}}">Back</a>
+                </div>
+
             </div>
+
         </div>
 
 
-            <div class="row">
-                <a class="btn btn-secondary float-right" href="{{route('admin.patient_managements.patients.index')}}">Back</a>
-            </div>
 
 
     </div>
@@ -209,8 +216,30 @@
             One.helpers(['table-tools-sections','magnific-popup']);
         });
 
-        function saveData($id) {
-            alert($id);
+        function saveData($id,$status) {
+            // alert($d);
+            $.ajax({
+                async: false,
+                data: {
+                        "status": $status,
+                        "_token": "{{ csrf_token() }}",
+                    },
+                url: '../patient_accompanies/change_status/' + $id,
+                type: 'POST',
+                success: function (data) {
+
+                    location.reload(true);
+                    One.helpers('notify', {type: 'success', icon: 'fa fa-check mr-1', message: "ស្ថានភាពទីតាំងអ្នកកំដរ ត្រូវបានផ្លាស់ប្តូរ !" });
+                },
+                error: function (data) {
+                    console.log(data);
+                    One.helpers('notify', {
+                        type: 'danger',
+                        icon: 'fa fa-times mr-1',
+                        message: "ស្ថានភាពទីតាំងអ្នកកំដរ មិនអាចផ្លាស់ប្តូរបានទេ !"
+                    });
+                }
+            });
         }
 
     </script>

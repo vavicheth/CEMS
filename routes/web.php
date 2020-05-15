@@ -51,6 +51,7 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'admin', 'as' => 'admin.'], 
     Route::post('patient_managements/patient_accompanies/restore/{id}', 'Admin\PatientManagements\PatientAccompanyController@restore')->name('patient_managements.patient_accompanies.restore');
     Route::post('patient_managements/patient_accompanies/get_record/{id}', 'Admin\PatientManagements\PatientAccompanyController@get_record')->name('patient_managements.patient_accompanies.get_record');
     Route::get('patient_managements/patient_accompanies/print_qr/{id}', 'Admin\PatientManagements\PatientAccompanyController@print_qr')->name('patient_managements.patient_accompanies.print_qr');
+    Route::post('patient_managements/patient_accompanies/change_status/{id}', 'Admin\PatientManagements\PatientAccompanyController@change_status')->name('patient_managements.patient_accompanies.change_status');
 
     Route::get('patient_managements/pre_scan', 'Admin\PatientManagements\PatientAccompanyController@pre_scan')->name('patient_managements.patient_accompanies.pre_scan');
     Route::get('patient_managements/scan_qr', 'Admin\PatientManagements\PatientAccompanyController@scan_qr')->name('patient_managements.patient_accompanies.scan_qr');

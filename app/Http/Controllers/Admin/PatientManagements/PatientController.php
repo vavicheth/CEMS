@@ -137,6 +137,7 @@ class PatientController extends Controller
                     return $row_class;
                 })
                 ->addColumn('photo', function ($data) {
+//                    $text='<div class="row items-push js-gallery img-fluid-100 "><a style="width: 150px" class="img-link img-link-simple img-link-zoom-in img-lightbox" href="' . asset($data->getFirstMediaUrl('patient_accompany')) . '"><img href="" class="img-fluid" src="' . asset($data->getFirstMediaUrl('patient_accompany')) . '" alt=""></a></div>';
                     $text = '<div class="row items-push js-gallery img-fluid-100"><a class="img-link img-link-simple img-link-zoom-in img-lightbox" href="' . asset($data->getFirstMediaUrl('patient_accompany')) . '"><img width="130" src="' . asset($data->getFirstMediaUrl('patient_accompany')) . '"/></a></div>';
                     return $text;
                 })
