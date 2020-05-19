@@ -97,7 +97,7 @@
         var canvasElement = document.getElementById("canvas");
         var canvas = canvasElement.getContext("2d");
         var loadingMessage = document.getElementById("loadingMessage");
-        var outputContainer = document.getElementById("output");
+        // var outputContainer = document.getElementById("output");
         var outputMessage = document.getElementById("outputMessage");
         var outputData = document.getElementById("outputData");
 
@@ -123,7 +123,7 @@
             if (video.readyState === video.HAVE_ENOUGH_DATA) {
                 loadingMessage.hidden = true;
                 canvasElement.hidden = false;
-                outputContainer.hidden = false;
+                // outputContainer.hidden = false;
 
                 canvasElement.height = video.videoHeight;
                 canvasElement.width = video.videoWidth;
@@ -139,8 +139,8 @@
                     drawLine(code.location.bottomLeftCorner, code.location.topLeftCorner, "#FF3B58");
                     outputMessage.hidden = true;
                     // window.location.href = "http://stackoverflow.com";
-                    outputData.parentElement.hidden = false;
-                    outputData.innerText = code.data;
+                    // outputData.parentElement.hidden = false;
+                    // outputData.innerText = code.data;
                     x.play();
                     getDataFromServer(code.data);
                     code.pause();
@@ -184,8 +184,6 @@
             });
             return $record;
         }
-
-
 
     </script>
 @endsection

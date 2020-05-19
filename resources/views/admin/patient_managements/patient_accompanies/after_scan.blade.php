@@ -136,7 +136,7 @@
                         {{-- Condition show 1 item only if no permission qr_checkin_hospital --}}
                         @cannot('qr_checkin_room')
                             @if($accompany->id != $patient_accompany->id)
-                                @break
+                                @continue
                             @endif
                         @endcannot
 
@@ -175,7 +175,7 @@
                     </tbody>
                 </table>
                 <div class="row">
-                    <a class="btn btn-secondary float-right m-2" href="{{route('admin.patient_managements.patients.index')}}">Back</a>
+                    <a class="btn btn-secondary float-right m-2" href="{{route('admin.patient_managements.patient_accompanies.scan_qr')}}">Back</a>
                 </div>
 
             </div>
