@@ -29,7 +29,7 @@
             <div class="block-content block-content-full">
 
                 {!! Form::open(['method' => 'PATCH', 'route' => ['auth.change_password'],'class'=>'js-validation']) !!}
-                <div class="col-lg-8 col-xl-5">
+                <div class="col-lg-10 col-xl-6">
 
                     <div class="row">
                         <label class="col-sm-4" for="current_password">Current Password <span

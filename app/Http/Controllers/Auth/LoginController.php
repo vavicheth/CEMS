@@ -61,7 +61,7 @@ class LoginController extends Controller
         }else{
 //            toast('Username or password is not correct!','error');
             return redirect()->route('login')
-                ->with('error','Email-Address And Password Are Wrong.');
+                ->with('message_error','Username or Password is not correct!');
         }
     }
 

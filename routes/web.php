@@ -18,11 +18,15 @@ Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
 Route::post('login', 'Auth\LoginController@login')->name('auth.login');
 Route::post('logout', 'Auth\LoginController@logout')->name('auth.logout');
 
-// Change Password Routes...
-Route::get('change_password', 'Auth\ChangePasswordController@showChangePasswordForm')->name('auth.change_password');
-Route::patch('change_password', 'Auth\ChangePasswordController@changePassword')->name('auth.change_password');
 
-Route::view('/', 'admin.patient_managements.patient_accompanies.pre_scan')->name('/')->middleware('auth');;
+Route::group(['middleware' => ['auth']], function () {
+    // Change Password Routes...
+    Route::get('change_password', 'Auth\ChangePasswordController@showChangePasswordForm')->name('auth.change_password');
+    Route::patch('change_password', 'Auth\ChangePasswordController@changePassword')->name('auth.change_password');
+
+    Route::view('/', 'admin.patient_managements.patient_accompanies.pre_scan')->name('/');
+});
+
 
 Route::group(['middleware' => ['auth'], 'prefix' => 'admin', 'as' => 'admin.'], function () {
 // Example Routes

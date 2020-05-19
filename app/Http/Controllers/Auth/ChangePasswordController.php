@@ -49,7 +49,7 @@ class ChangePasswordController extends Controller
         $user = Auth::getUser();
         $this->validator($request->all())->validate();
         if (Hash::check($request->get('current_password'), $user->password)) {
-            $user->password = bcrypt($request->get('new_password'));
+            $user->password = $request->get('new_password');
             $user->save();
 //            toast('Password change successfully!','success');
             return redirect($this->redirectTo)->with('message_success','Password change successfully!');
