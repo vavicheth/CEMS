@@ -19,16 +19,24 @@ Route::post('login', 'Auth\LoginController@login')->name('auth.login');
 Route::post('logout', 'Auth\LoginController@logout')->name('auth.logout');
 
 
-Route::group(['middleware' => ['auth']], function () {
+// Locked User
+Route::get('lockscreen', 'Auth\LockAccountController@lockscreen')->name('login.locked');
+Route::post('lockscreen', 'Auth\LockAccountController@unlock')->name('login.unlock');
+
+
+
+Route::group(['middleware' => ['auth','lock']], function () {
+
     // Change Password Routes...
     Route::get('change_password', 'Auth\ChangePasswordController@showChangePasswordForm')->name('auth.change_password');
     Route::patch('change_password', 'Auth\ChangePasswordController@changePassword')->name('auth.change_password');
 
     Route::view('/', 'admin.patient_managements.patient_accompanies.pre_scan')->name('/');
+
 });
 
 
-Route::group(['middleware' => ['auth'], 'prefix' => 'admin', 'as' => 'admin.'], function () {
+Route::group(['middleware' => ['auth','lock'], 'prefix' => 'admin', 'as' => 'admin.'], function () {
 // Example Routes
 
 //    Route::match(['get', 'post'], '/dashboard', function () {

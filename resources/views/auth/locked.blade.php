@@ -48,16 +48,19 @@
                                     <div class="block-header bg-danger">
                                         <h3 class="block-title">Account Locked</h3>
                                         <div class="block-options">
-                                            <a class="btn-block-option" href="op_auth_signin.html" data-toggle="tooltip" data-placement="left" title="Sign In with another account">
+                                            <a class="btn-block-option" href="{{ route('auth.logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" data-toggle="tooltip" data-placement="left" title="Sign In with another account">
                                                 <i class="fa fa-sign-in-alt"></i>
                                             </a>
+                                            <form id="logout-form" action="{{ route('auth.logout') }}" method="POST" style="display: none;">
+                                                @csrf
+                                            </form>
                                         </div>
                                     </div>
                                     <div class="block-content">
                                         <div class="p-sm-3 px-lg-4 py-lg-5 text-center">
-                                            <img class="img-avatar img-avatar96" src="assets/media/avatars/avatar10.jpg" alt="">
+                                            <img class="img-avatar img-avatar96" src="{{asset('media/avatars/'.auth()->user()->avatar)}}" alt="">
                                             <p class="font-w600 my-2">
-                                                user@example.com
+                                                {{auth()->user()->name}}
                                             </p>
 
                                             <!-- Unlock Form -->
@@ -66,13 +69,16 @@
                                             <form class="js-validation-lock" method="POST" action="{{ route('login.unlock') }}">
                                                 @csrf
                                                 <div class="form-group py-3">
-                                                    <input type="password" class="form-control form-control-lg form-control-alt {{ $errors->has('password') ? ' is-invalid' : '' }}" id="password" name="password" placeholder="{{ __('Password') }}" required >
-                                                    @if ($errors->has('password'))
-                                                        <span class="invalid-feedback" role="alert">
-                                                            <strong>{{ $errors->first('password') }}</strong>
-                                                        </span>
-                                                    @endif
+                                                    <input type="password"
+                                                           class="form-control form-control-alt form-control-lg"
+                                                           id="password" name="password"
+                                                           autocomplete="current-password"
+                                                           placeholder="{{__('Password')}}">
+                                                    @error('password')
+                                                    <span class="text-danger animated fadeIn">{{ $errors->first('password') }}</span>
+                                                    @enderror
                                                 </div>
+
                                                 <div class="form-group row justify-content-center">
                                                     <div class="col-md-6 col-xl-5">
                                                         <button type="submit" class="btn btn-block btn-light">
@@ -90,7 +96,7 @@
                         </div>
                     </div>
                     <div class="content content-full font-size-sm text-white text-center">
-                        <strong>OneUI 4.4</strong> &copy; <span data-toggle="year-copy"></span>
+                        <strong>{{env('COMPANY_NAME')}}</strong> &copy; <span data-toggle="year-copy"></span>
                     </div>
                 </div>
             </div>
@@ -99,5 +105,31 @@
         <!-- END Main Container -->
     </div>
 
-
 @endsection
+
+@section('after_js')
+    <!-- Page JS Plugins -->
+    <script src="{{asset('js/plugins/jquery-validation/jquery.validate.min.js')}}"></script>
+    <script src="{{asset('js/plugins/jquery-validation/additional-methods.js')}}"></script>
+
+    <script>
+        jQuery(function () {
+            One.helpers("validation"), jQuery(".js-validation").validate({
+                rules: {
+                    "password": {
+                        required: !0,
+                    }
+                },
+                messages: {
+                    "password": {
+                        required: "Please provide a password",
+                    }
+                }
+            })
+        });
+
+
+    </script>
+@endsection
+
+

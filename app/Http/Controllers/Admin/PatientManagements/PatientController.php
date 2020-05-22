@@ -18,6 +18,7 @@ class PatientController extends Controller
 {
     public function index(Request $request)
     {
+        dd($request->session()->all());
         abort_if(!Gate::allows('patient_access'), 403);
         if ($request->ajax()) {
             $data = Patient::query()->orderBy('name', 'asc');
