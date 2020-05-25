@@ -47,6 +47,7 @@ class PatientAccompany extends Model  implements HasMedia
             ->useDisk('public')
             ->singleFile()
             ->useFallbackPath(public_path('/default.png'));
+
         $this->addMediaCollection('patient_accompany_idcard')
             ->useDisk('public')
             ->singleFile()

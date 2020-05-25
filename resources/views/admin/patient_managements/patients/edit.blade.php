@@ -82,7 +82,7 @@
                         <div class="row">
                             <label class="col-sm-4" for="dob">Age/DOB</label>
                             <div class="col-sm-8 form-group">
-                                <input type="number" class="form-control" id="age" placeholder="Age..." >
+{{--                                <input type="number" class="form-control" id="age" placeholder="Age..." >--}}
                                 <input type="text" class="js-datepicker form-control" id="dob" name="dob" data-week-start="1" data-autoclose="true" data-today-highlight="true" data-date-format="dd/mm/yyyy" placeholder="dd/mm/yyyy" value="{{$patient->dob}}">
                                 @error('dob')
                                 <span class="text-danger animated fadeIn">{{$message}}</span>
@@ -95,10 +95,22 @@
                                 <input type="text" class="form-control" id="id_card" name="id_card" value="{{$patient->id_card}}"
                                        placeholder="Type patient ID card or Passport...">
 
+{{--                                <div class="form-group animated fadeInUp" id="pic_idcard" {{$patient->id_card ? '':'hidden'}}>--}}
+{{--                                    <div class="slim" data-label="Drop ID Card here" data-fetcher="fetch.php" data-size="600,600" data-ratio="1:1" data-rotate-button="true" accept="image/jpeg , image/gif, image/png">--}}
+{{--                                        <img src="{{asset($patient->getFirstMediaUrl('patient_id_card') )}}" />--}}
+{{--                                        <input name="patient_idcard" type="file"/>--}}
+{{--                                    </div>--}}
+{{--                                </div>--}}
+{{--                                <div class="slim" data-label="Drop patient image here" data-fetcher="fetch.php" data-size="600,600" data-ratio="1:1" data-rotate-button="true" accept="image/jpeg , image/gif, image/png">--}}
+{{--                                    <img src="{{asset($patient->getFirstMediaUrl('patient_id_card') )}}" />--}}
+{{--                                    <input name="photo" type="file"/>--}}
+{{--                                </div>--}}
+
                                 <div class="slim" data-label="Drop ID Card here" data-fetcher="fetch.php" data-size="600,600" data-ratio="1:1" data-rotate-button="true" accept="image/jpeg , image/gif, image/png">
                                     <img src="{{asset($patient->getFirstMediaUrl('patient_id_card') )}}" />
                                     <input name="patient_idcard" type="file"/>
                                 </div>
+
                                 @error('id_card')
                                 <span class="text-danger animated fadeIn">{{$message}}</span>
                                 @enderror
@@ -199,6 +211,16 @@
 
             $('#dob').focusout(function () {
 
+            });
+
+            /* If no ID card number, don't show upload
+            */
+            $('#id_card').focusout(function () {
+                if ($(this).val() != '' ){
+                    $('#pic_idcard').removeAttr('hidden');
+                }else {
+                    $('#pic_idcard').attr('hidden','hidden');
+                }
             });
 
             One.helpers(['flatpickr', 'datepicker'])

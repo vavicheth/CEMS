@@ -75,13 +75,13 @@
                                     <td></td>
                                     <td class="font-w600 text-left ">ID Card/Passport</td>
                                     <td>
-
+                                        @if($patient->id_card)
                                         <div class="row items-push js-gallery img-fluid-100">
-
                                             <a class="img-link img-link-simple img-link-zoom-in img-lightbox" href="{{asset($patient->getFirstMediaUrl('patient_id_card') )}}">
                                                 {{$patient->id_card}} <i class="fa fa-image"></i>
                                             </a>
                                         </div>
+                                        @endif
                                     </td>
                                 </tr>
                                 <tr>

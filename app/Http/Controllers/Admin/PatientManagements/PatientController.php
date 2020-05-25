@@ -86,6 +86,13 @@ class PatientController extends Controller
                 ->toMediaCollection('patient_id_card');
         }
 
+//        if ($request->patient_idcard){
+//            $filename = $request->file('patient_idcard')->getClientOriginalName();
+//            $patient->addMedia($request->patient_idcard)
+//                ->usingFileName('idcard_' . $patient->id.'_'.$filename)
+//                ->toMediaCollection('patient_id_card');
+//        }
+
         return redirect()->route('admin.patient_managements.patients.index')->with('message_success', __('patient.patient_create_success'));
     }
 
@@ -147,7 +154,15 @@ class PatientController extends Controller
                     $text = '<div class="row items-push js-gallery img-fluid-100"><a class="img-link img-link-simple img-link-zoom-in img-lightbox" href="' . asset($data->getFirstMediaUrl('patient_accompany')) . '"><img width="130" src="' . asset($data->getFirstMediaUrl('patient_accompany')) . '"/></a></div>';
                     return $text;
                 })
-                ->rawColumns(['action', 'status','photo'])
+                ->editColumn('id_card', function ($data) {
+                    $text='';
+
+                    if ($data->id_card){
+                        $text= '<a class="img-link img-link-simple" href="'. $data->getMedia('avatar')->count() > 0 ? asset($data->getFirstMediaUrl('patient_accompany_idcard')) : ""  .'">'. $data->id_card.'<i class="fa fa-image"></i></a></div>';
+                    }
+                    return $text;
+                })
+                ->rawColumns(['action', 'status','photo','id_card'])
                 ->make(true);
         }
 
@@ -177,7 +192,7 @@ class PatientController extends Controller
             $patient->addMediaFromBase64($image['image'])
                 ->usingFileName('idcard_' . $patient->id . '_' . $image['name'])
                 ->toMediaCollection('patient_id_card');
-        }
+        }else{$patient->clearMediaCollection('patient_id_card');}
 
         return redirect()->route('admin.patient_managements.patients.index')->with('message_success', __('patient.patient_update_success'));
     }

@@ -43,6 +43,12 @@ class PatientAccompanyController extends Controller
                 ->usingFileName(str_random(3).'_'.$pa->id.'_'.$image['name'])
                 ->toMediaCollection('patient_accompany');
         }
+        if ($request->patient_accompany_idcard){
+            $image=UploadBySlim::uploadSlimTo64($request->photo);
+            $pa->addMediaFromBase64($image['image'])
+                ->usingFileName(str_random(3).'_'.$pa->id.'_'.$image['name'])
+                ->toMediaCollection('patient_accompany_idcard');
+        }
 
         return response(__('patient.patient_accompany_create_success'));
     }
@@ -66,12 +72,17 @@ class PatientAccompanyController extends Controller
         abort_if(!Gate::allows('patient_accompany_update'), 403);
         $pa=PatientAccompany::findOrFail($id);
         $pa->update($request->all());
-        if ( $request->photo )
-        {
+        if ( $request->photo ){
             $image=UploadBySlim::uploadSlimTo64($request->photo);
             $pa->addMediaFromBase64($image['image'])
                 ->usingFileName(str_random(3).'_'.$id.'_'.$image['name'])
                 ->toMediaCollection('patient_accompany');
+        }
+        if ($request->patient_accompany_idcard){
+            $image=UploadBySlim::uploadSlimTo64($request->patient_accompany_idcard);
+            $pa->addMediaFromBase64($image['image'])
+                ->usingFileName('idcard'.'_'.$pa->id.'_'.$image['name'])
+                ->toMediaCollection('patient_accompany_idcard');
         }
         return response(__('patient_accompany_update_success'));
     }
