@@ -74,7 +74,15 @@
                                 <tr>
                                     <td></td>
                                     <td class="font-w600 text-left ">ID Card/Passport</td>
-                                    <td>{{$patient->id_card}}</td>
+                                    <td>
+
+                                        <div class="row items-push js-gallery img-fluid-100">
+
+                                            <a class="img-link img-link-simple img-link-zoom-in img-lightbox" href="{{asset($patient->getFirstMediaUrl('patient_id_card') )}}">
+                                                {{$patient->id_card}} <i class="fa fa-image"></i>
+                                            </a>
+                                        </div>
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td></td>
@@ -211,7 +219,7 @@
                                     <label class="col-sm-4" for="name">Name<span class="text-danger">*</span></label>
                                     <div class="col-sm-8 form-group">
                                         <input type="text" class="form-control" id="name" name="name"
-                                               placeholder="Type patient name...">
+                                               placeholder="Type patient accompany name...">
                                         @error('name')
                                         <span class="text-danger animated fadeIn">{{$message}}</span>
                                         @enderror
@@ -232,6 +240,9 @@
                                     <div class="col-sm-8 form-group">
                                         <input type="text" class="form-control" id="id_card" name="id_card"
                                                placeholder="Type patient accompany ID Card...">
+                                            <div class="slim" data-label="Drop ID Card here" data-fetcher="fetch.php" data-size="600,600" data-ratio="1:1" data-rotate-button="true" accept="image/jpeg, image/gif, image/png">
+                                                <input name="patient_accompany_idcard" type="file"/>
+                                            </div>
                                         @error('id_card')
                                         <span class="text-danger animated fadeIn">{{$message}}</span>
                                         @enderror
@@ -381,7 +392,7 @@
         jQuery(function () {
             // Parameter for control slim when insert and update patient accompany
             // data-label="Drop your image here" data-fetcher="fetch.php" data-size="600,600" data-ratio="1:1" data-rotate-button="true" accept="image/jpeg , image/gif, image/png"
-            var slim_image = new Slim(document.getElementById('image-slim'),{ratio: '1:1',crop: {x: 0,y: 0,width: 600,height: 600},});
+            var slim_image = new Slim(document.getElementById('image-slim'),{ratio: '1:1',crop: {x: 0,y: 0,width: 600,height: 600},label: 'Drop accompany image here',});
             // var slim_image = new Slim(document.getElementById('image-slim'));
 
             // var slim_image =new Slim(document.getElementById('image-slim'), {

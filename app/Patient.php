@@ -10,6 +10,7 @@ use Illuminate\Support\Str;
 use Spatie\MediaLibrary\HasMedia\HasMedia;
 use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 use Spatie\MediaLibrary\File;
+use Spatie\MediaLibrary\Models\Media;
 
 class Patient extends Model implements HasMedia
 {

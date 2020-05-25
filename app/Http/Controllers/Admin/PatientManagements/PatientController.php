@@ -18,7 +18,6 @@ class PatientController extends Controller
 {
     public function index(Request $request)
     {
-        dd($request->session()->all());
         abort_if(!Gate::allows('patient_access'), 403);
         if ($request->ajax()) {
             $data = Patient::query()->orderBy('name', 'asc');
@@ -79,6 +78,12 @@ class PatientController extends Controller
             $patient->addMediaFromBase64($image['image'])
                 ->usingFileName(str_random(3) . '_' . $patient->id . '_' . $image['name'])
                 ->toMediaCollection('patient_photo');
+        }
+        if ($request->patient_idcard) {
+            $image = UploadBySlim::uploadSlimTo64($request->patient_idcard);
+            $patient->addMediaFromBase64($image['image'])
+                ->usingFileName('idcard_' . $patient->id . '_' . $image['name'])
+                ->toMediaCollection('patient_id_card');
         }
 
         return redirect()->route('admin.patient_managements.patients.index')->with('message_success', __('patient.patient_create_success'));
@@ -166,6 +171,12 @@ class PatientController extends Controller
             $patient->addMediaFromBase64($image['image'])
                 ->usingFileName(str_random(3) . '_' . $patient->id . '_' . $image['name'])
                 ->toMediaCollection('patient_photo');
+        }
+        if ($request->patient_idcard) {
+            $image = UploadBySlim::uploadSlimTo64($request->patient_idcard);
+            $patient->addMediaFromBase64($image['image'])
+                ->usingFileName('idcard_' . $patient->id . '_' . $image['name'])
+                ->toMediaCollection('patient_id_card');
         }
 
         return redirect()->route('admin.patient_managements.patients.index')->with('message_success', __('patient.patient_update_success'));

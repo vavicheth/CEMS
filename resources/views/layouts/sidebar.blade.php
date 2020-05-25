@@ -99,12 +99,12 @@
     <!-- Side Navigation -->
     <div class="content-side content-side-full">
         <ul class="nav-main">
-            <li class="nav-main-item">
-                <a class="nav-main-link {{ request()->is('dashboard') ? ' active' : '' }}" href="/dashboard">
-                    <i class="nav-main-link-icon si si-cursor"></i>
-                    <span class="nav-main-link-name">Dashboard</span>
-                </a>
-            </li>
+{{--            <li class="nav-main-item">--}}
+{{--                <a class="nav-main-link {{ request()->is('dashboard') ? ' active' : '' }}" href="/dashboard">--}}
+{{--                    <i class="nav-main-link-icon si si-cursor"></i>--}}
+{{--                    <span class="nav-main-link-name">Dashboard</span>--}}
+{{--                </a>--}}
+{{--            </li>--}}
             <li class="nav-main-item">
                 <a class="nav-main-link {{ request()->is('qr_scan') ? ' active' : '' }}" href="/">
                     <i class="nav-main-link-icon fa fa-qrcode"></i>
@@ -141,12 +141,13 @@
 
 
             <!-- Patient Management -->
+            @can('department_access')
             <li class="nav-main-item{{ request()->is('admin/patient_managements/*') ? ' open' : '' }}">
                 <a class="nav-main-link nav-main-link-submenu" data-toggle="submenu" aria-haspopup="true" aria-expanded="true" href="#">
                     <i class="nav-main-link-icon fa fa-user-injured"></i>
                     <span class="nav-main-link-name">Patient Management</span>
                 </a>
-                @can('department_access')
+
                     <ul class="nav-main-submenu">
                         <li class="nav-main-item">
                             <a class="nav-main-link{{ request()->is('admin/patient_managements/patients') || request()->is('admin/patient_managements/patients/*') ? ' active' : '' }}" href="{{route('admin.patient_managements.patients.index')}}">
@@ -155,10 +156,8 @@
                             </a>
                         </li>
                     </ul>
-                @endcan
-
             </li>
-
+            @endcan
             <!-- User Management -->
             @can('user_management_access')
                 <li class="nav-main-item{{ request()->is('admin/user_managements/*') ? ' open' : '' }}">

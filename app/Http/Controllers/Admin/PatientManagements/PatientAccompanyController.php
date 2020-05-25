@@ -37,13 +37,13 @@ class PatientAccompanyController extends Controller
         }
 
         $pa=$patient->patient_accompanies()->create($request->all());
-        if ( $request->photo )
-        {
+        if ( $request->photo ){
             $image=UploadBySlim::uploadSlimTo64($request->photo);
             $pa->addMediaFromBase64($image['image'])
                 ->usingFileName(str_random(3).'_'.$pa->id.'_'.$image['name'])
                 ->toMediaCollection('patient_accompany');
         }
+
         return response(__('patient.patient_accompany_create_success'));
     }
 

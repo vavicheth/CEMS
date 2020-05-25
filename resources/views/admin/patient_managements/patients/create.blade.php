@@ -82,7 +82,7 @@
                         <div class="row">
                             <label class="col-sm-4" for="dob">Age/DOB</label>
                             <div class="col-sm-8 form-group">
-                                <input type="number" class="form-control" id="age" placeholder="Age...">
+{{--                                <input type="number" class="form-control" id="age" placeholder="Age...">--}}
                                 <input type="text" class="js-datepicker form-control" id="dob" name="dob" data-week-start="1" data-autoclose="true" data-today-highlight="true" data-date-format="dd/mm/yyyy" placeholder="dd/mm/yyyy">
                                 @error('dob')
                                 <span class="text-danger animated fadeIn">{{$message}}</span>
@@ -94,7 +94,11 @@
                             <div class="col-sm-8 form-group">
                                 <input type="text" class="form-control" id="id_card" name="id_card"
                                        placeholder="Type patient ID card or Passport...">
-                                <input type="file" name="photo_idcard">
+                                <div class="form-group">
+                                    <div class="slim" data-label="Drop ID Card here" data-fetcher="fetch.php" data-size="600,600" data-ratio="1:1" data-rotate-button="true" accept="image/jpeg, image/gif, image/png">
+                                        <input name="patient_idcard" type="file"/>
+                                    </div>
+                                </div>
                                 @error('id_card')
                                 <span class="text-danger animated fadeIn">{{$message}}</span>
                                 @enderror
