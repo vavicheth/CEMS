@@ -64,7 +64,7 @@ class PatientController extends Controller
 
     public function create()
     {
-        abort_if(!Gate::allows('department_create'), 403);
+        abort_if(!Gate::allows('patient_create'), 403);
 
         $departments = Department::get()->pluck('name', 'id')->prepend('Select patient department', '');
 
