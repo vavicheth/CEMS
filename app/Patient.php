@@ -18,7 +18,7 @@ class Patient extends Model implements HasMedia
     use HasMediaTrait;
 
     protected $fillable = [
-        'hn', 'name', 'name_kh','id_card', 'gender', 'dob', 'address', 'phone', 'active', 'description'
+        'hn', 'name', 'name_kh','id_card', 'gender', 'dob', 'address', 'phone', 'active', 'description','department_id'
     ];
 
     protected $dates = [
@@ -35,8 +35,10 @@ class Patient extends Model implements HasMedia
 
     public function setActiveAttribute($value)
     {
-        if ($value != null) {
+        if ($value != null || $value != "") {
             $this->attributes['active'] = '1';
+        }else{
+            $this->attributes['active'] = '0';
         }
     }
 
@@ -58,6 +60,11 @@ class Patient extends Model implements HasMedia
     public function patient_accompanies()
     {
         return $this->hasMany(PatientAccompany::class,'patient_id');
+    }
+
+    public function department()
+    {
+        return $this->belongsTo(Department::class,'department_id');
     }
 
     /**

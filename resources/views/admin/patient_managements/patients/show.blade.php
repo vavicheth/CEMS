@@ -94,6 +94,7 @@
                                     <td class="font-w600 text-left ">Phone</td>
                                     <td>{{$patient->phone}}</td>
                                 </tr>
+
                                 <tr>
                                     <td></td>
                                     <td class="font-w600 text-left ">Description</td>
@@ -108,6 +109,11 @@
                                             <label class="custom-control-label" for="active_user">{{$patient->active == 1? 'In Hospital' : 'Discharge'}}</label>
                                         </div>
                                     </td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td class="font-w600 text-left ">Department stay</td>
+                                    <td><span class="badge-primary">{{$patient->department->name}}</span></td>
                                 </tr>
 
                                 </tbody>
@@ -126,7 +132,37 @@
                     </div>
 
                 </div>
-                <a href="{{route('admin.patient_managements.patients.print_qr',$patient->id)}}" target="_blank" class="btn btn-success mb-3"><i class="fa fa-print"></i> Print QR Code</a>
+{{--                <a href="{{route('admin.patient_managements.patients.print_qr',$patient->id)}}" target="_blank" class="btn btn-danger mb-3"><i class="si si-logout"></i> Discharge</a>--}}
+
+                <!-- Button trigger modal -->
+                <button type="button" class="btn btn-danger mb-3" data-toggle="modal" data-target="#dischargeModal">
+                    <i class="si si-logout"></i> Discharge
+                </button>
+
+                <!-- Modal -->
+                <div class="modal fade" id="dischargeModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            {!! Form::open(['method' => 'PATCH', 'route' => ['admin.patient_managements.patients.update',$patient->id],'class'=>'js-validation', 'files' => true]) !!}
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Patient Discharge</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                Are you sure to Patient discharge?
+                            </div>
+                            <div class="modal-footer">
+                                <input type="text" name="active" value="" hidden>
+                                <button type="submit" class="btn btn-danger float-left">Discharge</button>
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+
+                            </div>
+                        </div>
+                        {!! Form::close() !!}
+                    </div>
+                </div>
 
                 <div class="row">
                     <div class="col-lg-12">

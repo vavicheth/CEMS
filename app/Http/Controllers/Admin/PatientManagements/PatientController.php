@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin\PatientManagements;
 
+use App\Department;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\PatientsStoreRequest;
 use App\Patient;
@@ -20,7 +21,7 @@ class PatientController extends Controller
     {
         abort_if(!Gate::allows('patient_access'), 403);
         if ($request->ajax()) {
-            $data = Patient::query()->orderBy('name', 'asc');
+            $data = Patient::query()->whereActive('1')->orderBy('name', 'asc');
 
             if (request('trash') == 1 && Gate::allows('patient_delete')) {
                 $data = $data->onlyTrashed()->get();
@@ -65,7 +66,9 @@ class PatientController extends Controller
     {
         abort_if(!Gate::allows('department_create'), 403);
 
-        return view('admin.patient_managements.patients.create');
+        $departments = Department::get()->pluck('name', 'id')->prepend('Select patient department', '');
+
+        return view('admin.patient_managements.patients.create',compact('departments'));
     }
 
     public function store(PatientsStoreRequest $request)
@@ -158,7 +161,7 @@ class PatientController extends Controller
                     $text='';
 
                     if ($data->id_card){
-                        $text= '<a class="img-link img-link-simple" href="'. $data->getMedia('avatar')->count() > 0 ? asset($data->getFirstMediaUrl('patient_accompany_idcard')) : ""  .'">'. $data->id_card.'<i class="fa fa-image"></i></a></div>';
+                        $text= '<a class="img-link img-link-simple" href="'. asset($data->getFirstMediaUrl('patient_accompany_idcard')).'">'. $data->id_card.' <i class="fa fa-image"></i></a></div>';
                     }
                     return $text;
                 })
@@ -173,8 +176,9 @@ class PatientController extends Controller
     {
         abort_if(!Gate::allows('patient_update'), 403);
 
+        $departments = Department::get()->pluck('name', 'id')->prepend('Select patient department', '');
         $patient = Patient::findOrFail($id);
-        return view('admin.patient_managements.patients.edit', compact('patient'));
+        return view('admin.patient_managements.patients.edit', compact('patient','departments'));
     }
 
     public function update(Request $request, Patient $patient)

@@ -138,6 +138,9 @@ class PatientAccompanyController extends Controller
     {
         $patient_accompany=PatientAccompany::findOrFail($id);
         $patient=$patient_accompany->patient;
+        if ($patient->active != '1'){
+         return redirect()->back();
+        }
 
         return view('admin.patient_managements.patient_accompanies.after_scan',compact('patient','patient_accompany'));
     }
@@ -146,6 +149,7 @@ class PatientAccompanyController extends Controller
     {
         $patient_accompany=PatientAccompany::findOrFail($id);
         return view('admin.patient_managements.patient_accompanies.print_qr',compact('patient_accompany'));
+
     }
 
     public function change_status(Request $request,$id)

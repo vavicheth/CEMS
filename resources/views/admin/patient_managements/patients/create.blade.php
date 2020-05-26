@@ -125,6 +125,17 @@
                                 @enderror
                             </div>
                         </div>
+
+                        <div class="row">
+                            <label class="col-sm-4" for="role_id">Department</label>
+                            <div class="col-sm-8 form-group">
+                                {!! Form::select('department_id', $departments, old('department_id'), ['class' => 'js-select2 form-control']) !!}
+                                @error('department_id')
+                                <span class="text-danger animated fadeIn">{{$message}}</span>
+                                @enderror
+                            </div>
+                        </div>
+
                         <div class="row">
                             <label class="col-sm-4" for="description">Description</label>
                             <div class="col-sm-8 form-group">
@@ -188,6 +199,7 @@
 
     <script>
         jQuery(function () {
+            One.helpers('select2');
 
             $('#age').focusout(function () {
                 var val = parseInt($(this).val());
