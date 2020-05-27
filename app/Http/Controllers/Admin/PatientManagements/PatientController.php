@@ -21,7 +21,7 @@ class PatientController extends Controller
     {
         abort_if(!Gate::allows('patient_access'), 403);
         if ($request->ajax()) {
-            $data = Patient::query()->whereActive('1')->orderBy('name', 'asc');
+            $data = Patient::query();
 
             if (request('trash') == 1 && Gate::allows('patient_delete')) {
                 $data = $data->onlyTrashed()->get();

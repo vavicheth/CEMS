@@ -84,7 +84,7 @@ class PatientAccompanyController extends Controller
                 ->usingFileName('idcard'.'_'.$pa->id.'_'.$image['name'])
                 ->toMediaCollection('patient_accompany_idcard');
         }
-        return response(__('patient_accompany_update_success'));
+        return response(__('patient.patient_accompany_update_success'));
     }
 
     public function destroy($id)
@@ -93,7 +93,7 @@ class PatientAccompanyController extends Controller
         $user=PatientAccompany::findOrFail($id);
         $user->delete();
 
-        return response(__('patient_accompany_delete_success'));
+        return response(__('patient.patient_accompany_delete_success'));
     }
 
     public function per_del($id)

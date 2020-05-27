@@ -113,7 +113,7 @@
                                 <tr>
                                     <td></td>
                                     <td class="font-w600 text-left ">Department stay</td>
-                                    <td><span class="badge-primary">{{$patient->department->name}}</span></td>
+                                    <td><span class="badge badge-primary">{{$patient->department['name']}}</span></td>
                                 </tr>
 
                                 </tbody>
@@ -547,7 +547,6 @@
                         $('#modal-create').modal('hide');
                         $('#datatable_patient_accompany').DataTable().ajax.reload();
                         $('#form_patient_accompany')[0].reset();
-
                         One.helpers('notify', {type: 'success', icon: 'fa fa-check mr-1', message: data});
                     },
                     error: function (data) {
