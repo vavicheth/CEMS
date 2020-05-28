@@ -140,14 +140,14 @@
                             @endif
                         @endcannot
 
-{{--                        @if($accompany->status ==1)--}}
-{{--                            <tr class="bg-warning-light">--}}
-{{--                        @elseif($accompany->status==2)--}}
-{{--                            <tr class="bg-danger-light">--}}
-{{--                        @else--}}
-{{--                            <tr class="bg-info-light">--}}
-{{--                        @endif--}}
-                        <tr>
+                        @if($accompany->status ==1)
+                            <tr class="bg-warning-light">
+                        @elseif($accompany->status==2)
+                            <tr class="bg-danger-light">
+                        @else
+                            <tr class="bg-info-light">
+                        @endif
+{{--                        <tr>--}}
 
                         <td class="text-center">
                             @can('qr_checkin_hospital')
@@ -218,9 +218,6 @@
         });
 
         function saveData($id,$status) {
-
-
-            // alert($d);
             $.ajax({
                 async: false,
                 data: {
@@ -230,6 +227,8 @@
                 url: '../patient_accompanies/change_status/' + $id,
                 type: 'POST',
                 success: function (data) {
+
+
 
                     // location.reload(true);
                     One.helpers('notify', {type: 'success', icon: 'fa fa-check mr-1', message: "ស្ថានភាពទីតាំងអ្នកកំដរ ត្រូវបានផ្លាស់ប្តូរ !" });

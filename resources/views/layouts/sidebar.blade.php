@@ -15,9 +15,9 @@
     <div class="content-header bg-white-5">
         <!-- Logo -->
         <a class="font-w600 text-dual" href="/">
-            <i class="fa fa-circle-notch text-primary"></i>
+            <img width="20px" src="{{asset('media/photos/logo-icon.png')}}">
             <span class="smini-hide">
-                            <span class="font-w700 font-size-h5">ne</span>
+                            <span class="font-w700 font-size-h5">CEMS</span>
                         </span>
         </a>
         <!-- END Logo -->
