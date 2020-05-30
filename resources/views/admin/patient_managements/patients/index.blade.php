@@ -170,6 +170,9 @@
                 ajax: {
                     url: "{{route('admin.patient_managements.patients.index')}}{{ request('trash') == 1 ? '?trash=1':'' }}",
                 },
+                language : {
+                    processing: "<div class='spinner-border text-primary' role='status'><span class='sr-only'>Loading...</span></div>"
+                },
                 columns: [
                     {data: 'name', name: 'name'},
                     {data: 'name_kh', name: 'name_kh'},
