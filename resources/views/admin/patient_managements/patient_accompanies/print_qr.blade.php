@@ -32,4 +32,13 @@
 
 @endsection
 
+@section('js_after')
+    <script>
+        window.onload = function () {
+            window.print();
+            window.onfocus=function(){ window.close();}
+        }
+    </script>
+@endsection
+
 

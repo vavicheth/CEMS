@@ -182,8 +182,9 @@
                     {data: 'address', name: 'address'},
                     {data: 'active', name: 'active'},
                     {data: 'action', name: 'action', orderable: false},
+                    {data: 'created_at', name: 'created_at',visible:false},
                 ],
-                // order: [[8, 'desc']]
+                order: [[8, 'desc']]
             });
 
 

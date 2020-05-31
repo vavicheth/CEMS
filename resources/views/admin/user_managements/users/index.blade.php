@@ -78,6 +78,7 @@
                         <th>Name</th>
                         <th>Username</th>
                         <th>Email</th>
+                        <th>Roles</th>
                         <th >Active</th>
                         <th style="width: 15%;">Action</th>
                     </tr>
@@ -193,7 +194,7 @@
                     {data: 'name', name: 'name'},
                     {data: 'username', name: 'username'},
                     {data: 'email', name: 'email'},
-                    // {data: 'abr_kh', name: 'abr_kh'},
+                    {data: 'roles', name: 'roles'},
                     // {data: 'bed', name: 'bed'},
                     // {data: 'description', name: 'description'},
                     {data: 'active', name: 'active'},

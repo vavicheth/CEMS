@@ -276,9 +276,11 @@
                                     <div class="col-sm-8 form-group">
                                         <input type="text" class="form-control" id="id_card" name="id_card"
                                                placeholder="Type patient accompany ID Card...">
-                                            <div class="slim" data-label="Drop ID Card here" data-fetcher="fetch.php" data-size="600,600" data-ratio="1:1" data-rotate-button="true" accept="image/jpeg, image/gif, image/png">
-                                                <input name="patient_accompany_idcard" type="file"/>
-                                            </div>
+{{--                                            <div class="slim" data-label="Drop ID Card here" data-fetcher="fetch.php" data-size="600,600" data-ratio="1:1" data-rotate-button="true" accept="image/jpeg, image/gif, image/png">--}}
+{{--                                                <input name="patient_accompany_idcard" type="file"/>--}}
+{{--                                            </div>--}}
+
+                                        <input type="file" id="patient_accompany_idcard" name="patient_accompany_idcard" />
                                         @error('id_card')
                                         <span class="text-danger animated fadeIn">{{$message}}</span>
                                         @enderror
@@ -316,9 +318,11 @@
                                     <label class="col-sm-4" for="description">Photo</label>
                                     <div class="col-sm-8 form-group">
                                             <div class="form-group">
-                                                <div class="slim" id="image-slim" data-label="Drop accompany image here" data-fetcher="fetch.php" data-size="600,600" data-ratio="1:1" data-rotate-button="true" accept="image/jpeg , image/gif, image/png">
-                                                    <input name="photo" type="file"  />
-                                                </div>
+{{--                                                <div class="slim" id="image-slim" data-label="Drop accompany image here" data-fetcher="fetch.php" data-size="600,600" data-ratio="1:1" data-rotate-button="true" accept="image/jpeg , image/gif, image/png">--}}
+{{--                                                    <input name="photo" type="file"  />--}}
+{{--                                                </div>--}}
+                                                <input type="file" id="photo" name="photo" />
+
                                             </div>
                                     </div>
                                 </div>
@@ -426,32 +430,10 @@
 
     <script>
         jQuery(function () {
-            // Parameter for control slim when insert and update patient accompany
-            // data-label="Drop your image here" data-fetcher="fetch.php" data-size="600,600" data-ratio="1:1" data-rotate-button="true" accept="image/jpeg , image/gif, image/png"
-            var slim_image = new Slim(document.getElementById('image-slim'),{ratio: '1:1',crop: {x: 0,y: 0,width: 600,height: 600},label: 'Drop accompany image here',});
-            // var slim_image = new Slim(document.getElementById('image-slim'));
 
-            // var slim_image =new Slim(document.getElementById('image-slim'), {
-            //     ratio: '1:1',
-            //     // accept: "image/jpeg , image/gif, image/png",
-            //     // minSize: {
-            //     //     width: 640,
-            //     //     height: 480,
-            //     // },
-            //     crop: {
-            //         x: 0,
-            //         y: 0,
-            //         width: 600,
-            //         height: 600
-            //     },
-            //     service: 'fetch.php',
-            //     download: false,
-            //     label: 'Drop your image here.',
-            //     buttonConfirmLabel: 'Ok',
-            //     // meta: {
-            //     //     userId:'1234'
-            //     // }
-            // });
+            // Parameter for control slim when insert and update patient accompany
+            var slim_idcard = new Slim(document.getElementById('patient_accompany_idcard'),{crop: {x: 0,y: 0,width: 600,height: 600},label: 'Drop accompany ID Card here',});
+            var slim_image = new Slim(document.getElementById('photo'),{ratio: '1:1',crop: {x: 0,y: 0,width: 600,height: 600},label: 'Drop accompany image here',});
 
             One.helpers(['table-tools-sections','magnific-popup']);
 
@@ -505,11 +487,14 @@
             $url_submit='';
             $type_submit='';
             $(document).on('click', '#btn-new', function () {
+                alert('{{App\PatientAccompany::where('patient_id',$patient->id)->count()}}');
                 // Remove cache past image from slim
                 slim_image.remove();
+                slim_idcard.remove();
+                $("#form_patient_accompany")[0].reset();
 
                 // Limitation of Patient Accompany
-                @if($patient->patient_accompanies()->count() < config('panel.total_patient_accompany'))
+                @if(App\PatientAccompany::where('patient_id',$patient->id)->count() < config('panel.total_patient_accompany'))
                     $url_submit="{{route('admin.patient_managements.patient_accompanies.store')}}";
                     $type_submit='POST';
                     $('#modal-create').modal('show');
@@ -533,7 +518,9 @@
                 $('#phone').val($pa['phone']);
                 $('#description').val($pa['description']);
                 $('#status').val(($pa['status'])).change();
-                // slim_image.load($pa['image']);
+                // slim_idcard.remove();
+                slim_idcard.load($pa['pic_idcard']);
+                slim_image.load($pa['image']);
 
                 $('#modal-create').modal('show');
             });
@@ -639,8 +626,6 @@
                 });
                 return $record;
             }
-
-
         });
     </script>
 

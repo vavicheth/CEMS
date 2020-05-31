@@ -128,53 +128,64 @@
             </div>
             <div class="block-content">
 
-                <table class="table table-vcenter dt-responsive table-vcenter">
-                    <tbody>
+{{--                <table class="table table-vcenter dt-responsive table-vcenter">--}}
+{{--                    <tbody>--}}
 
 
-                    @foreach($patient->patient_accompanies as $accompany)
-                        {{-- Condition show 1 item only if no permission qr_checkin_hospital --}}
-                        @cannot('qr_checkin_room')
-                            @if($accompany->id != $patient_accompany->id)
-                                @continue
-                            @endif
-                        @endcannot
+{{--                    @foreach($patient->patient_accompanies as $accompany)--}}
+{{--                        --}}{{-- Condition show 1 item only if no permission qr_checkin_hospital --}}
+{{--                        @cannot('qr_checkin_room')--}}
+{{--                            @if($accompany->id != $patient_accompany->id)--}}
+{{--                                @continue--}}
+{{--                            @endif--}}
+{{--                        @endcannot--}}
 
-                        @if($accompany->status ==1)
-                            <tr class="bg-warning-light">
-                        @elseif($accompany->status==2)
-                            <tr class="bg-danger-light">
-                        @else
-                            <tr class="bg-info-light">
-                        @endif
+{{--                        @if($accompany->status ==1)--}}
+{{--                            <tr class="bg-warning-light">--}}
+{{--                        @elseif($accompany->status==2)--}}
+{{--                            <tr class="bg-danger-light">--}}
+{{--                        @else--}}
+{{--                            <tr class="bg-info-light">--}}
+{{--                        @endif--}}
 {{--                        <tr>--}}
 
-                        <td class="text-center">
-                            @can('qr_checkin_hospital')
-                            <button class="btn btn-sm btn-square btn-warning m-1" onclick="saveData({{$accompany->id}},'1')"><i class="fa fa-file-import"></i> ចូលបរិវេណ </button><br>
-                            <button class="btn btn-sm btn-square btn-info m-1" onclick="saveData({{$accompany->id}},'0')"><i class="fa fa-file-export"></i>​ចេញបរិវេណ</button><br>
-                            @endcan
+{{--                        <td class="text-center">--}}
+{{--                            @can('qr_checkin_hospital')--}}
+{{--                            <button class="btn btn-sm btn-square btn-warning m-1" onclick="saveData({{$accompany->id}},'1')"><i class="fa fa-file-import"></i> ចូលបរិវេណ </button><br>--}}
+{{--                            <button class="btn btn-sm btn-square btn-info m-1" onclick="saveData({{$accompany->id}},'0')"><i class="fa fa-file-export"></i>​ចេញបរិវេណ</button><br>--}}
+{{--                            @endcan--}}
 
-                            @can('qr_checkin_room')
-                            <button class="btn btn-sm btn-square btn-danger m-1" onclick="saveData({{$accompany->id}},'2')"><i class="fa fa-file-import"></i> ចូលបន្ទប់ជំងឺ</button><br>
-                            <button class="btn btn-sm btn-square btn-warning m-1" onclick="saveData({{$accompany->id}},'1')"><i class="fa fa-file-export"></i>​ចេញបន្ទប់ជំងឺ</button>
-                            @endcan
+{{--                            @can('qr_checkin_room')--}}
+{{--                            <button class="btn btn-sm btn-square btn-danger m-1" onclick="saveData({{$accompany->id}},'2')"><i class="fa fa-file-import"></i> ចូលបន្ទប់ជំងឺ</button><br>--}}
+{{--                            <button class="btn btn-sm btn-square btn-warning m-1" onclick="saveData({{$accompany->id}},'1')"><i class="fa fa-file-export"></i>​ចេញបន្ទប់ជំងឺ</button>--}}
+{{--                            @endcan--}}
 
-                        </td>
-                        <td>
-                            <div class="row items-push js-gallery img-fluid-100 ">
-                                <a style="width: 150px" class="img-link img-link-simple img-link-zoom-in img-lightbox" href="{{asset($accompany->getFirstMediaUrl('patient_accompany') )}}">
-                                    <img href="" class="img-fluid" src="{{asset($accompany->getFirstMediaUrl('patient_accompany') )}}" alt="">
-                                </a>
-                            </div>
-                            <div class="mt-1">
-                                <h5>{{$accompany->name}}</h5>
-                            </div>
-                        </td>
+{{--                        </td>--}}
+{{--                        <td>--}}
+{{--                            <div class="row items-push js-gallery img-fluid-100 ">--}}
+{{--                                <a style="width: 150px" class="img-link img-link-simple img-link-zoom-in img-lightbox" href="{{asset($accompany->getFirstMediaUrl('patient_accompany') )}}">--}}
+{{--                                    <img href="" class="img-fluid" src="{{asset($accompany->getFirstMediaUrl('patient_accompany') )}}" alt="">--}}
+{{--                                </a>--}}
+{{--                            </div>--}}
+{{--                            <div class="mt-1">--}}
+{{--                                <h5>{{$accompany->name}}</h5>--}}
+{{--                            </div>--}}
+{{--                        </td>--}}
+{{--                    </tr>--}}
+{{--                    @endforeach--}}
+{{--                    </tbody>--}}
+{{--                </table>--}}
+
+                <table class="table table-striped table-hover table-vcenter dt-responsive table-vcenter js-dataTable"
+                       id="datatable_patient_accompany" style="border-collapse: collapse;border-spacing: 0;width: 100%">
+                    <thead>
+                    <tr>
+                        <th>Action</th>
+                        <th>Photo</th>
                     </tr>
-                    @endforeach
-                    </tbody>
+                    </thead>
                 </table>
+
                 <div class="row">
                     <a class="btn btn-secondary float-right m-2" href="{{route('admin.patient_managements.patient_accompanies.scan_qr')}}">Back</a>
                 </div>
@@ -227,11 +238,8 @@
                 url: '../patient_accompanies/change_status/' + $id,
                 type: 'POST',
                 success: function (data) {
-
-
-
-                    // location.reload(true);
-                    One.helpers('notify', {type: 'success', icon: 'fa fa-check mr-1', message: "ស្ថានភាពទីតាំងអ្នកកំដរ ត្រូវបានផ្លាស់ប្តូរ !" });
+                    One.helpers('notify', {type: 'success', icon: 'fa fa-check mr-1', message: "ស្ថានភាពទីតាំងអ្នកកំដរ ត្រូវបានផ្លាស់ប្តូរ ! " + data });
+                    $('#datatable_patient_accompany').DataTable().ajax.reload();
                 },
                 error: function (data) {
                     console.log(data);
@@ -243,6 +251,31 @@
                 }
             });
         }
+
+        $(document).ready(function () {
+            $('#datatable_patient_accompany').DataTable({
+                processing: true,
+                serverSide: true,
+                paging: false,
+                searching: false,
+                ajax: {
+                    {{--url: "{{route('admin.patient_managements.patient_accompanies.show_data',$patient_accompany->id)}}",--}}
+                    url: "/admin/patient_managements/show_data/9",
+                },
+                language : {
+                    processing: "<div class='spinner-border text-primary' role='status'><span class='sr-only'>Loading...</span></div>"
+                },
+                columns: [
+                    {data: 'action', name: 'action', orderable: false,className: "text-center"},
+                    {data: 'photo', name: 'photo', orderable: false},
+                    // {data: 'id', name: 'id'},
+                    // {data: 'name', name: 'name'},
+                ],
+                // order: [[8, 'desc']]
+            });
+        });
+
+
 
     </script>
 

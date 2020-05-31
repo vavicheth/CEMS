@@ -53,7 +53,14 @@ class UserController extends Controller
                 ->editColumn('active', function ($data) {
                     return $data->active == 1 ? '<span class="badge badge-success">Active</span>' : '<span class="badge badge-secondary">Inactive</span>';
                 })
-                ->rawColumns(['action','active'])
+                ->addColumn('roles', function ($data) {
+                    $text='';
+                    foreach ($data->roles as $role){
+                        $text .= '<span class="badge badge-primary mr-1">'. $role->name .'</span>';
+                    }
+                    return $text;
+                })
+                ->rawColumns(['action','active','roles'])
                 ->make(true);
         }
 

@@ -119,6 +119,7 @@ class PatientAccompanyController extends Controller
 //        return response($id);
         $pa=PatientAccompany::findOrFail($id);
         $pa->image= asset($pa->getFirstMediaUrl('patient_accompany'));
+        $pa->pic_idcard= asset($pa->getFirstMediaUrl('patient_accompany_idcard'));
 //        dd($pa);
 //        $pa->only('name');
         return response($pa);
@@ -134,12 +135,49 @@ class PatientAccompanyController extends Controller
         return view('admin.patient_managements.patient_accompanies.scan_qr');
     }
 
-    public function show_data($id)
+    public function show_data(Request $request,$id)
     {
         $patient_accompany=PatientAccompany::findOrFail($id);
         $patient=$patient_accompany->patient;
         if ($patient->active != '1'){
          return redirect()->back();
+        }
+
+        if ($request->ajax()) {
+//            abort_if(!Gate::allows('patient_accompany_access'), 403);
+            $data = $patient->patient_accompanies;
+//            $data=PatientAccompany::query();
+
+            return DataTables::of($data)
+                ->addColumn('action', function ($data) {
+                    $button = '';
+                    if (Gate::allows('qr_checkin_hospital')) {
+                        $button .= '<button class="btn btn-sm btn-square btn-warning m-1" onclick="saveData('. $data->id .',\'1\')"><i class="fa fa-file-import"></i> ចូលបរិវេណ </button><br>';
+                        $button .= '<button class="btn btn-sm btn-square btn-info m-1" onclick="saveData('. $data->id .',\'0\')"><i class="fa fa-file-export"></i>​ចេញបរិវេណ</button><br>';
+                    }
+                    if (Gate::allows('qr_checkin_room')) {
+                        $button .= '<button class="btn btn-sm btn-square btn-danger m-1" onclick="saveData('. $data->id .',\'2\')"><i class="fa fa-file-import"></i> ចូលបន្ទប់ជំងឺ</button><br>';
+                        $button .= '<button class="btn btn-sm btn-square btn-warning m-1" onclick="saveData('. $data->id .',\'1\')"><i class="fa fa-file-export"></i>​ចេញបន្ទប់ជំងឺ</button>';
+                    }
+                    return $button;
+                })
+                ->setRowClass(function ($data) {
+                    $row_class='';
+                    if ($data->status == 1){
+                        $row_class='bg-warning-light';
+                    }elseif ($data->status == 2){
+                        $row_class='bg-danger-light';
+                    }else{
+                        $row_class='bg-info-light';
+                    }
+                    return $row_class;
+                })
+                ->addColumn('photo', function ($data) {
+                    $text = '<div class="row items-push js-gallery img-fluid-100"><a class="img-link img-link-simple img-link-zoom-in img-lightbox" href="' . asset($data->getFirstMediaUrl('patient_accompany')) . '"><img width="130" src="' . asset($data->getFirstMediaUrl('patient_accompany')) . '"/></a></div><div class="mt-1"><h5>'.$data->name .'</h5></div>';
+                    return $text;
+                })
+                ->rawColumns(['action', 'photo'])
+                ->make(true);
         }
 
         return view('admin.patient_managements.patient_accompanies.after_scan',compact('patient','patient_accompany'));
@@ -149,13 +187,21 @@ class PatientAccompanyController extends Controller
     {
         $patient_accompany=PatientAccompany::findOrFail($id);
         return view('admin.patient_managements.patient_accompanies.print_qr',compact('patient_accompany'));
-
     }
 
     public function change_status(Request $request,$id)
     {
         $patient_accompany=PatientAccompany::findOrFail($id);
         $patient_accompany->update(['status'=>$request->status]);
-        return response(__('patient.patient_accompany_update_success'));
+        $text='';
+        if ($request->status == 1){
+            $text='(ក្នុងបរិវេណ)';
+        }elseif ($request->status == 2){
+            $text='(ក្នុងបន្ទប់)';
+        }else{
+            $text='(ក្រៅបរិវេណ)';
+        }
+
+        return response($text);
     }
 }
