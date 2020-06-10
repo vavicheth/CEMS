@@ -139,14 +139,17 @@ class PatientAccompanyController extends Controller
     {
         $patient_accompany=PatientAccompany::findOrFail($id);
         $patient=$patient_accompany->patient;
-        if ($patient->active != '1'){
-         return redirect()->back();
+        if ($patient['active'] != '1'){
+         return redirect()->route('admin.patient_managements.patient_accompanies.scan_qr')->with('message_error',__('អ្នកជំងឺ មិននៅក្នុងមន្ទីររេទ្យទេ!'));
         }
 
         if ($request->ajax()) {
 //            abort_if(!Gate::allows('patient_accompany_access'), 403);
-            $data = $patient->patient_accompanies;
-//            $data=PatientAccompany::query();
+            $data = PatientAccompany::whereId($id);
+
+            if (Gate::allows('patient_access')) {
+                $data = $patient->patient_accompanies;
+            }
 
             return DataTables::of($data)
                 ->addColumn('action', function ($data) {

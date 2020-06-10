@@ -35,7 +35,7 @@
 {{--                </nav>--}}
 {{--            </div>--}}
 
-            @can('qr_checkin_room')
+            @can('patient_access')
 
             <div class="block-content block-content-full">
 
@@ -259,8 +259,8 @@
                 paging: false,
                 searching: false,
                 ajax: {
-                    {{--url: "{{route('admin.patient_managements.patient_accompanies.show_data',$patient_accompany->id)}}",--}}
-                    url: "/admin/patient_managements/show_data/9",
+                    url: "{{route('admin.patient_managements.patient_accompanies.show_data',$patient_accompany->id)}}",
+                    // url: "/admin/patient_managements/show_data/9",
                 },
                 language : {
                     processing: "<div class='spinner-border text-primary' role='status'><span class='sr-only'>Loading...</span></div>"
@@ -274,8 +274,6 @@
                 // order: [[8, 'desc']]
             });
         });
-
-
 
     </script>
 

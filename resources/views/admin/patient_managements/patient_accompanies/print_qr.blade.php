@@ -37,6 +37,7 @@
         window.onload = function () {
             window.print();
             window.onfocus=function(){ window.close();}
+
         }
     </script>
 @endsection
