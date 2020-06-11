@@ -238,7 +238,11 @@
                 url: '../patient_accompanies/change_status/' + $id,
                 type: 'POST',
                 success: function (data) {
-                    One.helpers('notify', {type: 'success', icon: 'fa fa-check mr-1', message: "ស្ថានភាពទីតាំងអ្នកកំដរ ត្រូវបានផ្លាស់ប្តូរ ! " + data });
+                    if (data =='error'){
+                        One.helpers('notify', {type: 'danger', icon: 'fa fa-times mr-1', message: "អ្នកកំដរ មិនអាចនៅក្នុងបន្ទប់លើសពី ១នាក់ !" });
+                    }else{
+                        One.helpers('notify', {type: 'success', icon: 'fa fa-check mr-1', message: "ស្ថានភាពទីតាំងអ្នកកំដរ ត្រូវបានផ្លាស់ប្តូរ ! " + data });
+                    }
                     $('#datatable_patient_accompany').DataTable().ajax.reload();
                 },
                 error: function (data) {

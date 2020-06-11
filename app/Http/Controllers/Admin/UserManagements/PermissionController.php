@@ -81,7 +81,7 @@ class PermissionController extends Controller
         abort_if(! Gate::allows('permission_update'),403);
         $permission->update($request->all());
 
-        return redirect()->route('admin.user_managements.permissions.index');
+        return redirect()->route('admin.user_managements.permissions.index')->with('message_success',__('user.permission_update_success'));
     }
 
     public function show($id)

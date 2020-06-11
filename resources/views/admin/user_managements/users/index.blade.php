@@ -52,7 +52,7 @@
             </div>
             <div class="block-header">
                 @can('user_create')
-                    <a type="button" href="{{route('admin.user_managements.users.create')}}" class="btn btn-sm btn-primary">Add
+                    <a href="{{route('admin.user_managements.users.create')}}" class="btn btn-sm btn-primary">Add
                         New</a>
                 @endcan
 

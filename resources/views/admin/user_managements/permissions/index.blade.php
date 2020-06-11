@@ -28,7 +28,7 @@
             </div>
             <div class="block-header">
                 @can('permission_create')
-                    <a type="button" href="{{route('admin.user_managements.permissions.create')}}" class="btn btn-sm btn-primary">Add
+                    <a href="{{route('admin.user_managements.permissions.create')}}" class="btn btn-sm btn-primary">Add
                     New</a>
                 @endcan
 

@@ -195,6 +195,12 @@ class PatientAccompanyController extends Controller
     public function change_status(Request $request,$id)
     {
         $patient_accompany=PatientAccompany::findOrFail($id);
+        $patient=$patient_accompany->patient;
+
+        if ($patient->patient_accompanies()->whereStatus('2')->count() > 0 && $request->status == 2){
+            return response('error');
+        }
+
         $patient_accompany->update(['status'=>$request->status]);
         $text='';
         if ($request->status == 1){

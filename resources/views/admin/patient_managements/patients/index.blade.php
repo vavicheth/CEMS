@@ -28,8 +28,8 @@
             </div>
             <div class="block-header">
                 @can('patient_create')
-                    <a type="button" href="{{route('admin.patient_managements.patients.create')}}" class="btn btn-sm btn-primary">Add
-                    New</a>
+{{--                    <a href="{{route('admin.patient_managements.patients.create')}}" class="btn btn-sm btn-primary">Add New</a>--}}
+                    <button type="button" class="btn btn-sm btn-primary" onclick="location.href='{{route('admin.patient_managements.patients.create')}}'">Add New</button>
                 @endcan
 
                 @can('patient_delete')

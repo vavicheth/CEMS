@@ -33,7 +33,9 @@ class UserController extends Controller
                         $button .='<a href="' . route('admin.user_managements.users.show', $data->id) . '" class="btn btn-sm btn-info mr-1 mb-1" data-toggle="tooltip" title="Show data"><i class="fa fa-eye"></i></a>';
                     }
                     if (Gate::allows('user_update')){
-                        $button .=' <a href="' . route('admin.user_managements.users.edit', $data->id) . '" class="btn btn-sm btn-success mr-1 mb-1" data-toggle="tooltip" title="Edit data"><i class="fa fa-edit"></i></a>';
+                        if ($data->username != 'admin' || Gate::allows('user_grand_access')){
+                            $button .=' <a href="' . route('admin.user_managements.users.edit', $data->id) . '" class="btn btn-sm btn-success mr-1 mb-1" data-toggle="tooltip" title="Edit data"><i class="fa fa-edit"></i></a>';
+                        }
                     }
                     if (Gate::allows('user_delete')){
                         if ($data->username != 'admin'){
@@ -142,7 +144,7 @@ class UserController extends Controller
         $user->update($request->all());
         $user->syncRoles($request['roles']);
 
-        return redirect(route('admin.user_managements.users.index'))->with('message_success',__('user.user_create_success'));
+        return redirect(route('admin.user_managements.users.index'))->with('message_success',__('user.user_update_success'));
     }
 
     public function destroy($id)

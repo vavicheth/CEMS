@@ -11,6 +11,7 @@ use App\Traits\Slim;
 use App\Traits\UploadBySlim;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Gate;
 use Yajra\DataTables\Facades\DataTables;
 use Spatie\MediaLibrary\HasMedia\HasMedia;

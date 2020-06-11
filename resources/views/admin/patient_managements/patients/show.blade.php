@@ -487,7 +487,6 @@
             $url_submit='';
             $type_submit='';
             $(document).on('click', '#btn-new', function () {
-                alert('{{App\PatientAccompany::where('patient_id',$patient->id)->count()}}');
                 // Remove cache past image from slim
                 slim_image.remove();
                 slim_idcard.remove();

@@ -82,7 +82,7 @@
                         <div class="row">
                             <label class="col-sm-4" for="dob">Age/DOB</label>
                             <div class="col-sm-8 form-group">
-{{--                                <input type="number" class="form-control" id="age" placeholder="Age...">--}}
+                                <input type="number" class="form-control" id="age" placeholder="Age...">
                                 <input type="text" class="js-datepicker form-control" id="dob" name="dob" data-week-start="1" data-autoclose="true" data-today-highlight="true" data-date-format="dd/mm/yyyy" placeholder="dd/mm/yyyy">
                                 @error('dob')
                                 <span class="text-danger animated fadeIn">{{$message}}</span>

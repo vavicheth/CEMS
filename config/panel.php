@@ -8,4 +8,5 @@ return [
         'en' => 'English',
     ],
     'total_patient_accompany'=>2,
+    'test'=>'a',
 ];

@@ -28,7 +28,7 @@
             </div>
             <div class="block-header">
                 @can('department_create')
-                    <a type="button" href="{{route('admin.setting.departments.create')}}" class="btn btn-sm btn-primary">Add
+                    <a href="{{route('admin.setting.departments.create')}}" class="btn btn-sm btn-primary">Add
                     New</a>
                 @endcan
 
