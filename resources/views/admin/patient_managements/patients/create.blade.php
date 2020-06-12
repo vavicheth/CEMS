@@ -197,26 +197,17 @@
     <!-- Bootstrap Input file -->
     <script src="{{asset('js/plugins/slim-image-cropper/slim.kickstart.min.js')}}" crossorigin="anonymous"></script>
 
+    <!-- Calculate and format datetime -->
+    <script src="{{asset('js/plugins/moment/moment.min.js')}}"></script>
+
     <script>
         jQuery(function () {
             One.helpers('select2');
 
             $('#age').focusout(function () {
-                var a = parseInt($(this).val());
-                var date = deltaDate(new Date(), 0, 0, -a);
-                alert(date.toString("M/d/yyyy"));
-                // date.setMonth(date.getMonth() + 1);
-                // date.setFullYear( date.getFullYear() - a );
-                // $("#dob").val(date.toString('dd/MM/yy'));
-
-                // alert(deltaDate(new Date(), 0, 7, 0))
-
-
-
-            });
-
-            $('#dob').focusout(function () {
-
+                var y = parseInt($(this).val());
+                var dateSub = moment(new Date()).subtract(y , 'year');
+                $("#dob").val(dateSub.format("DD/MM/YYYY"));
             });
 
             /* If no ID card number, don't show upload

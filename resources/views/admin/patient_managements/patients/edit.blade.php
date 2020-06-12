@@ -82,7 +82,7 @@
                         <div class="row">
                             <label class="col-sm-4" for="dob">Age/DOB</label>
                             <div class="col-sm-8 form-group">
-{{--                                <input type="number" class="form-control" id="age" placeholder="Age..." >--}}
+                                <input type="number" class="form-control" id="age" placeholder="Age..." >
                                 <input type="text" class="js-datepicker form-control" id="dob" name="dob" data-week-start="1" data-autoclose="true" data-today-highlight="true" data-date-format="dd/mm/yyyy" placeholder="dd/mm/yyyy" value="{{$patient->dob}}">
                                 @error('dob')
                                 <span class="text-danger animated fadeIn">{{$message}}</span>
@@ -211,18 +211,17 @@
     <!-- Bootstrap Input file -->
     <script src="{{asset('js/plugins/slim-image-cropper/slim.kickstart.min.js')}}" crossorigin="anonymous"></script>
 
+    <!-- Calculate and format datetime -->
+    <script src="{{asset('js/plugins/moment/moment.min.js')}}"></script>
+
     <script>
         jQuery(function () {
             One.helpers('select2');
 
             $('#age').focusout(function () {
-                var val = parseInt($(this).val());
-                $dob="{{Carbon\Carbon::now()->subYears((int)" + val + ")->format(config('panel.date_format'))}}";
-                $('#dob').val($dob);
-            });
-
-            $('#dob').focusout(function () {
-
+                var y = parseInt($(this).val());
+                var dateSub = moment(new Date()).subtract(y , 'year');
+                $("#dob").val(dateSub.format("DD/MM/YYYY"));
             });
 
             /* If no ID card number, don't show upload
