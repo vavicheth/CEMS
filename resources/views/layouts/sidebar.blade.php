@@ -158,6 +158,26 @@
                     </ul>
             </li>
             @endcan
+
+        <!-- Pharmacy Management -->
+            @can('pharmacy_access')
+                <li class="nav-main-item{{ request()->is('admin/pharmacy/*') ? ' open' : '' }}">
+                    <a class="nav-main-link nav-main-link-submenu" data-toggle="submenu" aria-haspopup="true" aria-expanded="true" href="#">
+                        <i class="nav-main-link-icon fa fa-pills"></i>
+                        <span class="nav-main-link-name">Pharmacy</span>
+                    </a>
+
+                    <ul class="nav-main-submenu">
+                        <li class="nav-main-item">
+                            <a class="nav-main-link{{ request()->is('admin/pharmacy/products') || request()->is('admin/pharmacy/products/*') ? ' active' : '' }}" href="{{route('admin.patient_managements.patients.index')}}">
+                                <i class="nav-main-link-icon fa fa-band-aid"></i>
+                                <span class="nav-main-link-name">Products</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            @endcan
+
             <!-- User Management -->
             @can('user_management_access')
                 <li class="nav-main-item{{ request()->is('admin/user_managements/*') ? ' open' : '' }}">

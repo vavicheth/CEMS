@@ -48,6 +48,25 @@ Route::group(['middleware' => ['auth','lock'], 'prefix' => 'admin', 'as' => 'adm
 //
 //    Route::get('/home', 'HomeController@index')->name('home');
 
+
+    /**
+     * User Managements
+     */
+    //User Managements
+    Route::resource('user_managements/users','Admin\UserManagements\UserController', ['as' => 'user_managements']);
+    Route::delete('user_managements/users/per_del/{id}', 'Admin\UserManagements\UserController@per_del')->name('user_managements.users.per_del');
+    Route::post('user_managements/users/restore/{id}', 'Admin\UserManagements\UserController@restore')->name('user_managements.users.restore');
+
+    // Permissions
+    Route::resource('user_managements/permissions','Admin\UserManagements\PermissionController', ['as' => 'user_managements']);
+    Route::delete('user_managements/permissions/per_del/{id}', 'Admin\UserManagements\PermissionController@per_del')->name('user_managements.permissions.per_del');
+    Route::post('user_managements/permissions/restore/{id}', 'Admin\UserManagements\PermissionController@restore')->name('user_managements.permissions.restore');
+
+    // Roles
+    Route::resource('user_managements/roles','Admin\UserManagements\RoleController', ['as' => 'user_managements']);
+    Route::delete('user_managements/roles/per_del/{id}', 'Admin\UserManagements\RoleController@per_del')->name('user_managements.roles.per_del');
+    Route::post('user_managements/roles/restore/{id}', 'Admin\UserManagements\RoleController@restore')->name('user_managements.roles.restore');
+
     /**
      * Patient Management
      */
@@ -85,25 +104,17 @@ Route::group(['middleware' => ['auth','lock'], 'prefix' => 'admin', 'as' => 'adm
     Route::get('setting/ui','Admin\Setting\UiController@index')->name('setting.ui');
     Route::post('setting/ui','Admin\Setting\UiController@update')->name('setting.ui')->middleware(['permission:ui_update']);
 
-
     /**
-     * User Managements
+     * Pharmacy
      */
-    //User Managements
-    Route::resource('user_managements/users','Admin\UserManagements\UserController', ['as' => 'user_managements']);
-    Route::delete('user_managements/users/per_del/{id}', 'Admin\UserManagements\UserController@per_del')->name('user_managements.users.per_del');
-    Route::post('user_managements/users/restore/{id}', 'Admin\UserManagements\UserController@restore')->name('user_managements.users.restore');
+    //Products
+    Route::resource('pharmacy/products','Admin\Setting\DepartmentController', ['as' => 'pharmacy']);
+    Route::delete('pharmacy/products/per_del/{id}', 'Admin\Setting\DepartmentController@per_del')->name('pharmacy.products.per_del');
+    Route::post('pharmacy/products/restore/{id}', 'Admin\Setting\DepartmentController@restore')->name('pharmacy.products.restore');
 
-    // Permissions
-    Route::resource('user_managements/permissions','Admin\UserManagements\PermissionController', ['as' => 'user_managements']);
-    Route::delete('user_managements/permissions/per_del/{id}', 'Admin\UserManagements\PermissionController@per_del')->name('user_managements.permissions.per_del');
-    Route::post('user_managements/permissions/restore/{id}', 'Admin\UserManagements\PermissionController@restore')->name('user_managements.permissions.restore');
 
-    // Roles
-    Route::resource('user_managements/roles','Admin\UserManagements\RoleController', ['as' => 'user_managements']);
-    Route::delete('user_managements/roles/per_del/{id}', 'Admin\UserManagements\RoleController@per_del')->name('user_managements.roles.per_del');
-    Route::post('user_managements/roles/restore/{id}', 'Admin\UserManagements\RoleController@restore')->name('user_managements.roles.restore');
-//    Route::resource('roles', 'RolesController');
+
+
 
 
 
