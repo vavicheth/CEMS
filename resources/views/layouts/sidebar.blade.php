@@ -167,6 +167,7 @@
                         <span class="nav-main-link-name">Pharmacy</span>
                     </a>
 
+
                     <ul class="nav-main-submenu">
                         <li class="nav-main-item">
                             <a class="nav-main-link{{ request()->is('admin/pharmacy/products') || request()->is('admin/pharmacy/products/*') ? ' active' : '' }}" href="{{route('admin.patient_managements.patients.index')}}">
@@ -175,40 +176,43 @@
                             </a>
                         </li>
 
+                        @can('pharmacy_config')
                         <li class="nav-main-item">
                             <a class="nav-main-link nav-main-link-submenu {{ request()->is('admin/pharmacy/setting/*') ? ' open' : '' }}" data-toggle="submenu" aria-haspopup="true" aria-expanded="false" href="#">
                                 <i class="nav-main-link-icon fa fa-cog"></i>
-                                <span class="nav-main-link-name">Config</span>
+                                <span class="nav-main-link-name">Configurations</span>
                             </a>
                             <ul class="nav-main-submenu">
                                 <li class="nav-main-item">
-                                    <a class="nav-main-link{{ request()->is('admin/setting/ui') || request()->is('admin/setting/ui/*')? ' active' : '' }}" href="{{route('admin.setting.ui')}}">
+                                    <a class="nav-main-link{{ request()->is('admin/pharmacy/donors') || request()->is('admin/pharmacy/donors/*')? ' active' : '' }}" href="{{route('admin.pharmacy.donors.index')}}">
                                         <i class="nav-main-link-icon fa fa-briefcase"></i>
                                         <span class="nav-main-link-name">Donors</span>
                                     </a>
                                 </li>
                                 <li class="nav-main-item">
-                                    <a class="nav-main-link{{ request()->is('admin/setting/ui') || request()->is('admin/setting/ui/*')? ' active' : '' }}" href="{{route('admin.setting.ui')}}">
+                                    <a class="nav-main-link{{ request()->is('admin/pharmacy/suppliers') || request()->is('admin/pharmacy/suppliers/*')? ' active' : '' }}" href="{{route('admin.pharmacy.suppliers.index')}}">
                                         <i class="nav-main-link-icon fa fa-users"></i>
                                         <span class="nav-main-link-name">Suppliers</span>
                                     </a>
                                 </li>
                                 <li class="nav-main-item">
-                                    <a class="nav-main-link{{ request()->is('admin/setting/ui') || request()->is('admin/setting/ui/*')? ' active' : '' }}" href="{{route('admin.setting.ui')}}">
+                                    <a class="nav-main-link{{ request()->is('admin/pharmacy/categories') || request()->is('admin/pharmacy/categories/*')? ' active' : '' }}" href="{{route('admin.pharmacy.categories.index')}}">
                                         <i class="nav-main-link-icon fa fa-list-ol"></i>
                                         <span class="nav-main-link-name">Categories</span>
                                     </a>
                                 </li>
                                 <li class="nav-main-item">
-                                    <a class="nav-main-link{{ request()->is('admin/pharmacy/products') || request()->is('admin/pharmacy/products/*') ? ' active' : '' }}" href="{{route('admin.patient_managements.patients.index')}}">
+                                    <a class="nav-main-link{{ request()->is('admin/pharmacy/products') || request()->is('admin/pharmacy/products/*') ? ' active' : '' }}" href="{{route('admin.pharmacy.products.index')}}">
                                         <i class="nav-main-link-icon fa fa-capsules"></i>
                                         <span class="nav-main-link-name">Products</span>
                                     </a>
                                 </li>
                             </ul>
                         </li>
+                        @endcan
 
                     </ul>
+
                 </li>
             @endcan
 

@@ -107,10 +107,25 @@ Route::group(['middleware' => ['auth','lock'], 'prefix' => 'admin', 'as' => 'adm
     /**
      * Pharmacy
      */
+    //Donors
+    Route::resource('pharmacy/donors','Admin\Pharmacy\PhDonorController', ['as' => 'pharmacy']);
+    Route::delete('pharmacy/donors/per_del/{id}', 'Admin\Pharmacy\PhDonorController@per_del')->name('pharmacy.donors.per_del');
+    Route::post('pharmacy/donors/restore/{id}', 'Admin\Pharmacy\PhDonorController@restore')->name('pharmacy.donors.restore');
+
+    //Suppliers
+    Route::resource('pharmacy/suppliers','Admin\Pharmacy\PhSupplierController', ['as' => 'pharmacy']);
+    Route::delete('pharmacy/suppliers/per_del/{id}', 'Admin\Pharmacy\PhSupplierController@per_del')->name('pharmacy.suppliers.per_del');
+    Route::post('pharmacy/suppliers/restore/{id}', 'Admin\Pharmacy\PhSupplierController@restore')->name('pharmacy.suppliers.restore');
+
+    //Categories
+    Route::resource('pharmacy/categories','Admin\Pharmacy\PhCategoryController', ['as' => 'pharmacy']);
+    Route::delete('pharmacy/categories/per_del/{id}', 'Admin\Pharmacy\PhCategoryController@per_del')->name('pharmacy.categories.per_del');
+    Route::post('pharmacy/categories/restore/{id}', 'Admin\Pharmacy\PhCategoryController@restore')->name('pharmacy.categories.restore');
+
     //Products
-    Route::resource('pharmacy/products','Admin\Setting\DepartmentController', ['as' => 'pharmacy']);
-    Route::delete('pharmacy/products/per_del/{id}', 'Admin\Setting\DepartmentController@per_del')->name('pharmacy.products.per_del');
-    Route::post('pharmacy/products/restore/{id}', 'Admin\Setting\DepartmentController@restore')->name('pharmacy.products.restore');
+    Route::resource('pharmacy/products','Admin\Pharmacy\PhProductController', ['as' => 'pharmacy']);
+    Route::delete('pharmacy/products/per_del/{id}', 'Admin\Pharmacy\PhProductController@per_del')->name('pharmacy.products.per_del');
+    Route::post('pharmacy/products/restore/{id}', 'Admin\Pharmacy\PhProductController@restore')->name('pharmacy.products.restore');
 
 
 
