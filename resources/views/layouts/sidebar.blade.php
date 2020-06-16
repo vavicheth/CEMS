@@ -177,18 +177,20 @@
                         </li>
 
                         @can('pharmacy_config')
-                        <li class="nav-main-item">
-                            <a class="nav-main-link nav-main-link-submenu {{ request()->is('admin/pharmacy/setting/*') ? ' open' : '' }}" data-toggle="submenu" aria-haspopup="true" aria-expanded="false" href="#">
+                        <li class="nav-main-item {{ request()->is('admin/pharmacy/donors') || request()->is('admin/pharmacy/donors/*') || request()->is('admin/pharmacy/suppliers') || request()->is('admin/pharmacy/suppliers/*') || request()->is('admin/pharmacy/categories') || request()->is('admin/pharmacy/categories/*') || request()->is('admin/pharmacy/products') || request()->is('admin/pharmacy/products/*') ? ' open' : '' }}">
+                            <a class="nav-main-link nav-main-link-submenu" data-toggle="submenu" aria-haspopup="true" aria-expanded="true" href="#">
                                 <i class="nav-main-link-icon fa fa-cog"></i>
                                 <span class="nav-main-link-name">Configurations</span>
                             </a>
                             <ul class="nav-main-submenu">
+                                @can('donor_access')
                                 <li class="nav-main-item">
                                     <a class="nav-main-link{{ request()->is('admin/pharmacy/donors') || request()->is('admin/pharmacy/donors/*')? ' active' : '' }}" href="{{route('admin.pharmacy.donors.index')}}">
                                         <i class="nav-main-link-icon fa fa-briefcase"></i>
                                         <span class="nav-main-link-name">Donors</span>
                                     </a>
                                 </li>
+                                @endcan
                                 <li class="nav-main-item">
                                     <a class="nav-main-link{{ request()->is('admin/pharmacy/suppliers') || request()->is('admin/pharmacy/suppliers/*')? ' active' : '' }}" href="{{route('admin.pharmacy.suppliers.index')}}">
                                         <i class="nav-main-link-icon fa fa-users"></i>

@@ -2,34 +2,23 @@
 
 return [
     'pharmacy' => 'Pharmacy',
-    'abr' => 'ABR',
-    'abbreviation' => 'Abbreviation',
-    'description' => 'Description',
-    'active' => 'Active',
-
-
-
-    'add_new' => 'Add New',
-    'save' => 'Save',
-    'update' => 'Update',
-    'edit' => 'Edit',
-    'delete' => 'Delete',
-    'show' => 'Show',
-    'show_all' => 'Show All',
-    'trash' => 'Trash',
-    'back' => 'Back',
-    'cancel' => 'Cancel',
-    'restore' => 'Restore',
-
 
 
     //Donors
-    'permission_create_success' => 'Permission has been created !',
-    'permission_update_success' => 'Permission has been updated !',
-    'permission_delete_success' => 'Permission has been deleted !',
-    'permission_restore_success' => 'Permission has been restored !',
-    'permission_restore_error' => 'Permission can not restore !',
-    'permission_delete_error' => 'Permission can not delete !',
+    'donor_name' => 'Name',
+    'donor_abr' => 'ABR',
+    'donor_abbreviation' => 'Abbreviation',
+    'donor_description' => 'Description',
+    'donor_active' => 'Active',
+    'donor_action' => 'Action',
+    'donor_list' => 'Donor List',
+    'donor_create' => 'Donor Create',
+    'donor_create_success' => 'Donor has been created !',
+    'donor_update_success' => 'Donor has been updated !',
+    'donor_delete_success' => 'Donor has been deleted !',
+    'donor_restore_success' => 'Donor has been restored !',
+    'donor_restore_error' => 'Donor can not restore !',
+    'donor_delete_error' => 'Donor can not delete !',
 
 
 

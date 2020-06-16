@@ -4,6 +4,7 @@ namespace App\Model\Pharmacy;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use DateTimeInterface;
 
 class PhDonors extends Model
 {
