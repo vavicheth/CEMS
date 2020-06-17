@@ -24,6 +24,7 @@
                 <nav class="flex-sm-00-auto ml-sm-3" aria-label="breadcrumb">
                     <ol class="breadcrumb breadcrumb-alt">
                         <li class="breadcrumb-item">{{__('pharmacy.pharmacy')}}</li>
+                        <li class="breadcrumb-item">{{__('pharmacy.configurations')}}</li>
                         <li class="breadcrumb-item" aria-current="page">
                             <a class="link-fx" href="">{{__('pharmacy.donor_list')}}</a>
                         </li>
@@ -31,11 +32,11 @@
                 </nav>
             </div>
             <div class="block-header">
-                @can('donor_create')
+                @can('ph_donor_create')
                     <a href="{{route('admin.pharmacy.donors.create')}}" class="btn btn-sm btn-primary">{{__('general.add_new')}}</a>
                 @endcan
 
-                @can('donor_delete')
+                @can('ph_donor_delete')
                     <div class="dropdown">
                         <button type="button" class="btn btn-sm {{ request('trash') == 1 ? 'btn-danger':'btn-primary' }}  dropdown-toggle" id="dropdown-default-primary" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             {{ request('trash') == 1 ? __('general.trash'): __('general.show_all') }}
@@ -57,7 +58,7 @@
                         <th >{{__('pharmacy.donor_name')}}</th>
                         <th >{{__('pharmacy.donor_abbreviation')}}</th>
                         <th >{{__('pharmacy.donor_description')}}</th>
-                        <th >{{__('pharmacy.donor_active')}}</th>
+                        <th >{{__('pharmacy.donor_status')}}</th>
                         <th style="width: 15%;">{{__('pharmacy.donor_action')}}</th>
                     </tr>
                     </thead>
@@ -127,7 +128,6 @@
         </div>
         <!-- END Modal restore data -->
 
-
     </div>
     <!-- END Page Content -->
 @endsection
@@ -149,17 +149,14 @@
     <script src="{{ URL::asset('js/plugins/datatables/dataTables.responsive.min.js') }}"></script>
     <script src="{{ URL::asset('js/plugins/datatables/responsive.bootstrap4.min.js') }}"></script>
 
-
     <script>
-
         $(document).ready(function () {
 
             $('#datatable_ph_donor').DataTable({
-                // processing: true,
-                // serverSide: true,
-                // paging: false,
-                // searching: false,
-                // retrieve: true,
+                processing: true,
+                serverSide: true,
+                paging: 100,
+                searching: true,
 
                 // dom: 'Bfrtip',
                 // buttons: [
@@ -169,9 +166,6 @@
                 // ],
                 ajax: {
                     url: "{{route('admin.pharmacy.donors.index')}}{{ request('trash') == 1 ? '?trash=1':'' }}",
-                },
-                language : {
-                    processing: "<div class='spinner-border text-primary' role='status'><span class='sr-only'>Loading...</span></div>"
                 },
                 columns: [
                     {data: 'name', name: 'name'},
@@ -183,9 +177,6 @@
                 // order: [[8, 'desc']]
 
             });
-
-
-
 
             var donor_id;
 
@@ -246,7 +237,5 @@
             })
 
         });
-
     </script>
-
 @endsection

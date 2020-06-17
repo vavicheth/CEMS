@@ -87,7 +87,7 @@ class DepartmentController extends Controller
 
     public function update(DepartmentsUpdateRequest $request, Department $department)
     {
-        abort_if(! Gate::allows('permission_update'),403);
+        abort_if(! Gate::allows('department_update'),403);
         $department->update($request->all());
 
         return redirect()->route('admin.setting.departments.index')->with('message_success',__('setting.department_update_success'));

@@ -2,19 +2,32 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6d59e93e-3e6d-4755-8d35-1fa8f2556fbb" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/public/js/pages/be_tables_datatables.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/admin/pharmacy/categories/create.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/admin/pharmacy/categories/edit.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/admin/pharmacy/categories/index.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/admin/pharmacy/categories/show.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/cems.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/cems.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Department.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Department.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/Pharmacy/PhCategoryController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/Pharmacy/PhCategoryController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/Pharmacy/PhDonorController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/Pharmacy/PhDonorController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Requests/Pharmacy/PhDonorsStoreRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Requests/Pharmacy/PhDonorsStoreRequest.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Requests/Pharmacy/PhDonorsUpdateRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Requests/Pharmacy/PhDonorsUpdateRequest.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/Setting/DepartmentController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/Setting/DepartmentController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Model/Pharmacy/PhCategories.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Model/Pharmacy/PhCategories.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Model/Pharmacy/PhDonors.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Model/Pharmacy/PhDonors.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Patient.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Patient.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/js/pages/tables_datatables.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/pages/tables_datatables.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/lang/en/general.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/lang/en/general.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/lang/en/pharmacy.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/lang/en/pharmacy.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/admin/patient_managements/patients/edit.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/patient_managements/patients/edit.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/admin/patient_managements/patients/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/patient_managements/patients/index.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/admin/pharmacy/donors/create.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/pharmacy/donors/create.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/admin/pharmacy/donors/edit.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/pharmacy/donors/edit.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/admin/pharmacy/donors/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/pharmacy/donors/index.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/layouts/main.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/main.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/admin/pharmacy/donors/show.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/pharmacy/donors/show.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/admin/setting/departments/edit.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/setting/departments/edit.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/admin/user_managements/users/edit.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/user_managements/users/edit.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/layouts/sidebar.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/sidebar.blade.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -168,6 +181,7 @@
       <path value="$PROJECT_DIR$/vendor/symfony/deprecation-contracts" />
       <path value="$PROJECT_DIR$/vendor/symfony/string" />
       <path value="$PROJECT_DIR$/vendor/symfony/polyfill-php80" />
+      <path value="$PROJECT_DIR$/vendor/shiftonelabs/laravel-cascade-deletes" />
     </include_path>
   </component>
   <component name="ProjectId" id="1XxrLFUcVjC3sbosZ86I3bA6B67" />
@@ -183,25 +197,25 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/public/js/pages" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/resources/views/admin/pharmacy" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="nodejs_package_manager_path" value="yarn" />
     <property name="settings.editor.selected.configurable" value="web.server" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="D:\Working\Web\CEMS\cems\public\js\pages" />
-      <recent name="D:\Working\Web\CEMS\cems\resources\views\admin\pharmacy" />
-      <recent name="D:\Working\Web\CEMS\cems\public\media\photos" />
-      <recent name="D:\Working\Web\CEMS\cems\public\media\favicons" />
-      <recent name="D:\Working\Web\CEMS\cems\resources\views\admin\patient_managements\patient_accompanies" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="D:\Working\Web\CEMS\cems\resources\views\admin\patient_managements\" />
       <recent name="D:\Working\Web\CEMS\cems\resources\views\admin\patient_managements\patients\patient_accompanies" />
       <recent name="D:\Working\Web\CEMS\cems\app\Http\Controllers\Admin\Setting" />
       <recent name="D:\Working\Web\CEMS\cems\resources\views\admin\setting" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\Working\Web\CEMS\cems\resources\views\admin\pharmacy" />
+      <recent name="D:\Working\Web\CEMS\cems\public\js\pages" />
+      <recent name="D:\Working\Web\CEMS\cems\public\media\photos" />
+      <recent name="D:\Working\Web\CEMS\cems\public\media\favicons" />
+      <recent name="D:\Working\Web\CEMS\cems\resources\views\admin\patient_managements\patient_accompanies" />
     </key>
   </component>
   <component name="RunManager">
@@ -323,6 +337,8 @@
       <workItem from="1592036124323" duration="3680000" />
       <workItem from="1592102739208" duration="11754000" />
       <workItem from="1592277665822" duration="17575000" />
+      <workItem from="1592365831568" duration="26000" />
+      <workItem from="1592365888216" duration="16591000" />
     </task>
     <servers />
   </component>
@@ -330,10 +346,10 @@
     <option name="version" value="1" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="690" y="276" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1592141812444">
+    <state x="690" y="276" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1592388160994">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="690" y="276" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1592141812444" />
+    <state x="690" y="276" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1592388160994" />
     <state x="740" y="275" key="FileChooserDialogImpl" timestamp="1589855429868">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -346,13 +362,17 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="461" y="163" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1589853381124" />
-    <state x="1136" y="345" key="com.intellij.ide.util.TipDialog" timestamp="1592277949486">
+    <state x="1136" y="345" key="com.intellij.ide.util.TipDialog" timestamp="1592365948862">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="1136" y="345" key="com.intellij.ide.util.TipDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1592277949486" />
-    <state x="616" y="240" key="run.anything.popup" timestamp="1592284855428">
+    <state x="1136" y="345" key="com.intellij.ide.util.TipDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1592365948862" />
+    <state x="616" y="240" key="run.anything.popup" timestamp="1592377518188">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="616" y="240" key="run.anything.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1592284855428" />
+    <state x="616" y="240" key="run.anything.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1592377518188" />
+    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1592366598310">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1592366598310" />
   </component>
 </project>

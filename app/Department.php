@@ -16,7 +16,11 @@ class Department extends Model
 
     public function setActiveAttribute($value)
     {
-        if ($value != null) {$this->attributes['active']='1';  }
+        if ($value != null || $value != "") {
+            $this->attributes['active'] = '1';
+        }else{
+            $this->attributes['active'] = '0';
+        }
     }
 
     protected function serializeDate(DateTimeInterface $date)

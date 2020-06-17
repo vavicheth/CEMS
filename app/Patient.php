@@ -7,6 +7,7 @@ use DateTimeInterface;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Str;
+use ShiftOneLabs\LaravelCascadeDeletes\CascadesDeletes;
 use Spatie\MediaLibrary\HasMedia\HasMedia;
 use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 use Spatie\MediaLibrary\File;
@@ -14,12 +15,14 @@ use Spatie\MediaLibrary\Models\Media;
 
 class Patient extends Model implements HasMedia
 {
-    use SoftDeletes;
+    use SoftDeletes,CascadesDeletes;
     use HasMediaTrait;
 
     protected $fillable = [
         'hn', 'name', 'name_kh','id_card', 'gender', 'dob', 'address', 'phone', 'active', 'description','department_id'
     ];
+
+    protected $cascadeDeletes=['patient_accompanies'];
 
     protected $dates = [
         'dob',

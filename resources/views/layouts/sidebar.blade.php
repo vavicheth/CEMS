@@ -180,29 +180,33 @@
                         <li class="nav-main-item {{ request()->is('admin/pharmacy/donors') || request()->is('admin/pharmacy/donors/*') || request()->is('admin/pharmacy/suppliers') || request()->is('admin/pharmacy/suppliers/*') || request()->is('admin/pharmacy/categories') || request()->is('admin/pharmacy/categories/*') || request()->is('admin/pharmacy/products') || request()->is('admin/pharmacy/products/*') ? ' open' : '' }}">
                             <a class="nav-main-link nav-main-link-submenu" data-toggle="submenu" aria-haspopup="true" aria-expanded="true" href="#">
                                 <i class="nav-main-link-icon fa fa-cog"></i>
-                                <span class="nav-main-link-name">Configurations</span>
+                                <span class="nav-main-link-name">{{__('pharmacy.configurations')}}</span>
                             </a>
                             <ul class="nav-main-submenu">
-                                @can('donor_access')
+                                @can('ph_donor_access')
                                 <li class="nav-main-item">
                                     <a class="nav-main-link{{ request()->is('admin/pharmacy/donors') || request()->is('admin/pharmacy/donors/*')? ' active' : '' }}" href="{{route('admin.pharmacy.donors.index')}}">
                                         <i class="nav-main-link-icon fa fa-briefcase"></i>
-                                        <span class="nav-main-link-name">Donors</span>
+                                        <span class="nav-main-link-name">{{__('pharmacy.donors')}}</span>
                                     </a>
                                 </li>
                                 @endcan
+                                @can('ph_supplier_access')
                                 <li class="nav-main-item">
                                     <a class="nav-main-link{{ request()->is('admin/pharmacy/suppliers') || request()->is('admin/pharmacy/suppliers/*')? ' active' : '' }}" href="{{route('admin.pharmacy.suppliers.index')}}">
                                         <i class="nav-main-link-icon fa fa-users"></i>
                                         <span class="nav-main-link-name">Suppliers</span>
                                     </a>
                                 </li>
+                                @endcan
+                                @can('ph_category_access')
                                 <li class="nav-main-item">
                                     <a class="nav-main-link{{ request()->is('admin/pharmacy/categories') || request()->is('admin/pharmacy/categories/*')? ' active' : '' }}" href="{{route('admin.pharmacy.categories.index')}}">
                                         <i class="nav-main-link-icon fa fa-list-ol"></i>
                                         <span class="nav-main-link-name">Categories</span>
                                     </a>
                                 </li>
+                                @endcan
                                 <li class="nav-main-item">
                                     <a class="nav-main-link{{ request()->is('admin/pharmacy/products') || request()->is('admin/pharmacy/products/*') ? ' active' : '' }}" href="{{route('admin.pharmacy.products.index')}}">
                                         <i class="nav-main-link-icon fa fa-capsules"></i>

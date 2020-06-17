@@ -86,6 +86,7 @@
                                                 next: '<i class="fa fa-angle-right"></i>',
                                                 last: '<i class="fa fa-angle-double-right"></i>',
                                             },
+                                            processing: "<div class='spinner-border text-primary' role='status'><span class='sr-only'>Loading...</span></div>"
                                         },
                                     }),
                                     jQuery(".js-dataTable-full").dataTable({

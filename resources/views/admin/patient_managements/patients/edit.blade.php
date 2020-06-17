@@ -161,6 +161,7 @@
                         <div class="row">
                             <div class="col-sm-4 ">Status</div>
                             <div class="col-sm-8 form-group">
+                                {!! Form::hidden('active', '') !!}
                                 <div class="custom-control custom-switch custom-control-primary mb-1">
                                     <input type="checkbox" class="custom-control-input" id="active" name="active"
                                         {{$patient->active == 1? 'checked' : ''}} >
@@ -186,7 +187,6 @@
                 {!! Form::submit('Update', ['class' => 'btn btn-primary']) !!}
                 <a class="btn btn-alt-secondary float-right" href="{{route('admin.patient_managements.patients.index')}}">Cancel</a>
                 {!! Form::close() !!}
-
 
             </div>
 
