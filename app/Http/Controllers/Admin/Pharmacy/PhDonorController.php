@@ -64,7 +64,7 @@ class PhDonorController extends Controller
 
     public function store(PhDonorsStoreRequest $request)
     {
-        $permission = PhDonors::create($request->all());
+        $phDonor = PhDonors::create($request->all());
 
         return redirect()->route('admin.pharmacy.donors.index')->with('message_success',__('pharmacy.donor_create_success'));
     }
@@ -97,8 +97,8 @@ class PhDonorController extends Controller
     public function destroy($id)
     {
         abort_if(! Gate::allows('ph_donor_delete'),403);
-        $user=PhDonors::findOrFail($id);
-        $user->delete();
+        $phDonors=PhDonors::findOrFail($id);
+        $phDonors->delete();
 
         return response(__('pharmacy.donor_delete_success'));
     }
@@ -106,8 +106,8 @@ class PhDonorController extends Controller
     public function per_del($id)
     {
         abort_if(! Gate::allows('ph_donor_delete'),403);
-        $permission=PhDonors::onlyTrashed()->findOrFail($id);
-        $permission->forceDelete();
+        $phDonors=PhDonors::onlyTrashed()->findOrFail($id);
+        $phDonors->forceDelete();
 
         return response(__('pharmacy.donor_delete_success'));
     }
@@ -115,8 +115,8 @@ class PhDonorController extends Controller
     public function restore($id)
     {
         abort_if(! Gate::allows('ph_donor_delete'),403);
-        $permission=PhDonors::onlyTrashed()->findOrFail($id);
-        $permission->restore();
+        $phDonors=PhDonors::onlyTrashed()->findOrFail($id);
+        $phDonors->restore();
 
         return response(__('pharmacy.donor_restore_success'));
     }

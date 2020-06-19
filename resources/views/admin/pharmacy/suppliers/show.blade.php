@@ -41,23 +41,23 @@
                             <tbody>
                             <tr>
                                 <td class="font-w600 text-left">{{__('pharmacy.category_name')}}</td>
-                                <td>{{$phCategory->name}}</td>
+                                <td>{{$phSupplier->name}}</td>
                             </tr>
                             <tr>
                                 <td class="font-w600 text-left">{{__('pharmacy.category_abbreviation')}}</td>
-                                <td>{{$phCategory->abr}}</td>
+                                <td>{{$phSupplier->abr}}</td>
                             </tr>
                             <tr>
                                 <td class="font-w600 text-left">{{__('pharmacy.category_description')}}</td>
-                                <td>{{$phCategory->description}}</td>
+                                <td>{{$phSupplier->description}}</td>
                             </tr>
                             <tr>
                                 <td class="font-w600 text-left">{{__('pharmacy.category_status')}}</td>
                                 <td>
                                     <div class="custom-control custom-switch custom-control-primary mb-1">
                                         <input type="checkbox" class="custom-control-input" id="active" name="active" disabled
-                                            {{$phCategory->active == 1? 'checked' : ''}}>
-                                        <label class="custom-control-label" for="active">{{$phCategory->active == 1? __('pharmacy.category_active') : __('pharmacy.category_inactive')}}</label>
+                                            {{$phSupplier->active == 1? 'checked' : ''}}>
+                                        <label class="custom-control-label" for="active">{{$phSupplier->active == 1? __('pharmacy.category_active') : __('pharmacy.category_inactive')}}</label>
                                     </div>
                                 </td>
                             </tr>

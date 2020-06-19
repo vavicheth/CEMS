@@ -34,15 +34,15 @@
             </div>
 
             <div class="block-content block-content-full">
-                {!! Form::open(['method' => 'PATCH', 'route' => ['admin.pharmacy.categories.update',$phDonor->id],'class'=>'js-validation', 'files' => true]) !!}
+                {!! Form::open(['method' => 'PATCH', 'route' => ['admin.pharmacy.categories.update',$phCategory->id],'class'=>'js-validation', 'files' => true]) !!}
                 {{--                @csrf--}}
                 <div class="row">
                     <div class="col-lg-12 col-xl-10">
                         <div class="row">
                             <label class="col-sm-2" for="name">{{__('pharmacy.category_name')}}<span class="text-danger">*</span></label>
                             <div class="col-sm-8 form-group">
-                                <input type="text" class="form-control" id="name" name="name" value="{{$phDonor->name}}"
-                                       placeholder="Type department name..." autofocus>
+                                <input type="text" class="form-control" id="name" name="name" value="{{$phCategory->name}}"
+                                       placeholder="{{__('general.placeholder')}}{{__('pharmacy.category_name')}}..."  autofocus>
                                 @error('name')
                                 <span class="text-danger animated fadeIn">{{$message}}</span>
                                 @enderror
@@ -51,8 +51,8 @@
                         <div class="row">
                             <label class="col-sm-2" for="abr">{{__('pharmacy.category_abbreviation')}}</label>
                             <div class="col-sm-8 form-group">
-                                <input type="text" class="form-control" id="abr" name="abr" value="{{$phDonor->abr}}"
-                                       placeholder="Type department abbreviation..." >
+                                <input type="text" class="form-control" id="abr" name="abr" value="{{$phCategory->abr}}"
+                                       placeholder="{{__('general.placeholder')}}{{__('pharmacy.category_abbreviation')}}...">
                                 @error('abr')
                                 <span class="text-danger animated fadeIn">{{$message}}</span>
                                 @enderror
@@ -62,7 +62,7 @@
                         <div class="row">
                             <label class="col-sm-2" for="description">{{__('pharmacy.category_description')}}</label>
                             <div class="col-sm-8 form-group">
-                                <textarea class="form-control" id="description" name="description">{{$phDonor->description}}</textarea>
+                                <textarea class="form-control" id="description" name="description">{{$phCategory->description}}</textarea>
                                 @error('description')
                                 <span class="text-danger animated fadeIn">{{$message}}</span>
                                 @enderror
@@ -74,7 +74,7 @@
                                 {!! Form::hidden('active', '') !!}
                                 <div class="custom-control custom-switch custom-control-primary mb-1">
                                     <input type="checkbox" class="custom-control-input" id="active" name="active"
-                                        {{$phDonor->active == 1? 'checked' : ''}}>
+                                        {{$phCategory->active == 1? 'checked' : ''}}>
                                     <label class="custom-control-label" for="active">{{__('pharmacy.category_status')}}</label>
                                 </div>
 

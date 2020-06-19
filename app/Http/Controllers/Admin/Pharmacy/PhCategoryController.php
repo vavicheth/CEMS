@@ -63,7 +63,7 @@ class PhCategoryController extends Controller
 
     public function store(PhCategoriesStoreRequest $request)
     {
-        $permission = PhCategories::create($request->all());
+        $phCategory = PhCategories::create($request->all());
 
         return redirect()->route('admin.pharmacy.categories.index')->with('message_success',__('pharmacy.category_create_success'));
     }
@@ -71,24 +71,24 @@ class PhCategoryController extends Controller
     public function show($id)
     {
         abort_if(! Gate::allows('ph_category_show'),403);
-        $phDonor=PhCategories::findOrFail($id);
+        $phCategory=PhCategories::findOrFail($id);
 
-        return view('admin.pharmacy.categories.show', compact('phDonor'));
+        return view('admin.pharmacy.categories.show', compact('phCategory'));
     }
 
     public function edit($id)
     {
         abort_if(! Gate::allows('ph_category_update'),403);
-        $phDonor=PhCategories::findOrFail($id);
+        $phCategory=PhCategories::findOrFail($id);
 
-        return view('admin.pharmacy.categories.edit', compact('phDonor'));
+        return view('admin.pharmacy.categories.edit', compact('phCategory'));
     }
 
-    public function update(PhCategories $request, $id)
+    public function update(PhCategoriesStoreRequest $request, $id)
     {
         abort_if(! Gate::allows('ph_category_update'),403);
-        $phDonors=PhCategories::findOrFail($id);
-        $phDonors->update($request->all());
+        $phCategory=PhCategories::findOrFail($id);
+        $phCategory->update($request->all());
 
         return redirect()->route('admin.pharmacy.categories.index')->with('message_success',__('pharmacy.category_update_success'));
     }
@@ -96,8 +96,8 @@ class PhCategoryController extends Controller
     public function destroy($id)
     {
         abort_if(! Gate::allows('ph_category_delete'),403);
-        $user=PhCategories::findOrFail($id);
-        $user->delete();
+        $phCategory=PhCategories::findOrFail($id);
+        $phCategory->delete();
 
         return response(__('pharmacy.category_delete_success'));
     }
@@ -105,8 +105,8 @@ class PhCategoryController extends Controller
     public function per_del($id)
     {
         abort_if(! Gate::allows('ph_category_delete'),403);
-        $permission=PhCategories::onlyTrashed()->findOrFail($id);
-        $permission->forceDelete();
+        $phCategory=PhCategories::onlyTrashed()->findOrFail($id);
+        $phCategory->forceDelete();
 
         return response(__('pharmacy.category_delete_success'));
     }
@@ -114,8 +114,8 @@ class PhCategoryController extends Controller
     public function restore($id)
     {
         abort_if(! Gate::allows('ph_category_delete'),403);
-        $permission=PhCategories::onlyTrashed()->findOrFail($id);
-        $permission->restore();
+        $phCategory=PhCategories::onlyTrashed()->findOrFail($id);
+        $phCategory->restore();
 
         return response(__('pharmacy.category_restore_success'));
     }

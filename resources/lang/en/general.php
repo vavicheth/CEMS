@@ -21,6 +21,7 @@ return [
     'confirm_delete_permanently' => 'Are you sure to delete permanently?',
     'confirm_restore' => 'Are you sure to restore?',
 
-
+    'please_select' => 'Please select...',
+    'placeholder' => 'Input the ',
 
 ];

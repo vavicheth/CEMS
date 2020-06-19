@@ -21,7 +21,6 @@ return [
     'donor_create' => 'Donor Create',
     'donor_edit' => 'Donor Edit',
     'donor_update' => 'Donor Update',
-
     'donor_create_success' => 'Donor has been created !',
     'donor_update_success' => 'Donor has been updated !',
     'donor_delete_success' => 'Donor has been deleted !',
@@ -44,7 +43,6 @@ return [
     'category_create' => 'Category Create',
     'category_edit' => 'Category Edit',
     'category_update' => 'Category Update',
-
     'category_create_success' => 'Category has been created !',
     'category_update_success' => 'Category has been updated !',
     'category_delete_success' => 'Category has been deleted !',
@@ -52,6 +50,34 @@ return [
     'category_restore_error' => 'Category can not restore !',
     'category_delete_error' => 'Category can not delete !',
 
+    //Suppliers
+    'supplier' => 'Supplier',
+    'suppliers' => 'Suppliers',
+    'supplier_name' => 'Name',
+    'supplier_abr' => 'ABR',
+    'supplier_abbreviation' => 'Abbreviation',
+    'supplier_description' => 'Description',
+    'supplier_status' => 'Status',
+    'supplier_active' => 'Active',
+    'supplier_inactive' => 'inactive',
+    'supplier_action' => 'Action',
+    'supplier_phone' => 'Phone',
+    'supplier_contact_name' => 'Contact Name',
+    'supplier_address' => 'Address',
+    'supplier_email' => 'Email',
+    'supplier_website' => 'Website',
+    'supplier_country' => 'Country',
+
+    'supplier_list' => 'Supplier List',
+    'supplier_create' => 'Supplier Create',
+    'supplier_edit' => 'Supplier Edit',
+    'supplier_update' => 'Supplier Update',
+    'supplier_create_success' => 'Supplier has been created !',
+    'supplier_update_success' => 'Supplier has been updated !',
+    'supplier_delete_success' => 'Supplier has been deleted !',
+    'supplier_restore_success' => 'Supplier has been restored !',
+    'supplier_restore_error' => 'Supplier can not restore !',
+    'supplier_delete_error' => 'Supplier can not delete !',
 
 
 ];

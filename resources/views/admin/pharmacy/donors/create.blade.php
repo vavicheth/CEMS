@@ -42,7 +42,7 @@
                             <label class="col-sm-2" for="name">{{__('pharmacy.donor_name')}}<span class="text-danger">*</span></label>
                             <div class="col-sm-8 form-group">
                                 <input type="text" class="form-control" id="name" name="name"
-                                       placeholder="Type department name..." autofocus>
+                                    placeholder="{{__('general.placeholder')}}{{__('pharmacy.donor_name')}}..."  autofocus>
                                 @error('name')
                                 <span class="text-danger animated fadeIn">{{$message}}</span>
                                 @enderror
@@ -52,7 +52,7 @@
                             <label class="col-sm-2" for="abr">{{__('pharmacy.donor_abbreviation')}}</label>
                             <div class="col-sm-8 form-group">
                                 <input type="text" class="form-control" id="abr" name="abr"
-                                       placeholder="Type department abbreviation..." >
+                                       placeholder="{{__('general.placeholder')}}{{__('pharmacy.donor_abbreviation')}}..." >
                                 @error('abr')
                                 <span class="text-danger animated fadeIn">{{$message}}</span>
                                 @enderror
