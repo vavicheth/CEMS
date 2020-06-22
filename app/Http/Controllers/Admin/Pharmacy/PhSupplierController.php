@@ -8,6 +8,8 @@ use App\Model\Pharmacy\PhDonors;
 use App\Model\Pharmacy\PhSuppliers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
+
+use PragmaRX\Countries\Package\Countries;
 use Yajra\DataTables\Facades\DataTables;
 
 class PhSupplierController extends Controller
@@ -60,11 +62,15 @@ class PhSupplierController extends Controller
         abort_if(! Gate::allows('ph_supplier_create'),403);
         $phDonors = PhDonors::get()->pluck('name', 'id')->prepend(__('general.please_select'), '');
 
-        return view('admin.pharmacy.suppliers.create',compact('phDonors'));
+        $all=new Countries();
+        $countries=$all->all();
+
+        return view('admin.pharmacy.suppliers.create',compact('phDonors','countries'));
     }
 
     public function store(PhSuppliersStoreRequest $request)
     {
+        dd($request->all());
         $phSupplier = PhSuppliers::create($request->all());
 
         return redirect()->route('admin.pharmacy.suppliers.index')->with('message_success',__('pharmacy.supplier_create_success'));

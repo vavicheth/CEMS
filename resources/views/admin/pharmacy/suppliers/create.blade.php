@@ -39,7 +39,7 @@
                 <div class="row">
                     <div class="col-lg-12 col-xl-10">
                         <div class="row">
-                            <label class="col-sm-2" for="status">Donor</label>
+                            <label class="col-sm-2" for="status">{{__('pharmacy.donor')}}<span class="text-danger">*</span></label>
                             <div class="col-sm-8 form-group">
                                 {!! Form::select('donor_id', $phDonors, old('status'), ['class' => 'js-select2 form-control','id'=>'donor_id']) !!}
                                 @error('donor_id')
@@ -118,7 +118,20 @@
                             </div>
                         </div>
 
-
+                        <div class="row">
+                            <label class="col-sm-2" for="abr">{{__('pharmacy.supplier_country')}}</label>
+                            <div class="col-sm-8 form-group">
+                                    <select class="js-select2 form-control" data-flag="true"  id="country" name="country" style="width: 100%;" data-placeholder="{{__('general.please_select')}}" data-select2-id="KH" tabindex="-1" aria-hidden="true">
+                                        <option data-select2-id="2"></option><!-- Required for data-placeholder attribute to work with Select2 plugin -->
+                                        @foreach($countries as $country)
+                                            <option value="{{$country->alt_spellings}}">{{$country->name->common}}</option>
+                                        @endforeach
+                                    </select>
+                                @error('country')
+                                <span class="text-danger animated fadeIn">{{$message}}</span>
+                                @enderror
+                            </div>
+                        </div>
 
 
                         <div class="row">
@@ -149,6 +162,7 @@
                 {!! Form::close() !!}
 
             </div>
+
         </div>
     </div>
     <!-- END Page Content -->
@@ -164,6 +178,21 @@
     <script>
         jQuery(function () {
             One.helpers('select2');
+
+            {{--function formatState (state) {--}}
+            {{--    if (!state.id) {--}}
+            {{--        return state.text;--}}
+            {{--    }--}}
+            {{--    var baseUrl = "/user/pages/images/flags";--}}
+            {{--    var $state = $(--}}
+            {{--        '<span>{!! $country->flag->flag_icon !!}' + state.text + '</span>'--}}
+            {{--    );--}}
+            {{--    return $state;--}}
+            {{--};--}}
+
+            {{--$("#country").select2({--}}
+            {{--    templateResult: formatState--}}
+            {{--});--}}
 
         });
     </script>
