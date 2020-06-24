@@ -1,7 +1,7 @@
 @extends('layouts.backend')
 
 @section('title')
-    | {{__('pharmacy.category_update')}}
+    | {{__('pharmacy.supplier_create')}}
 @endsection
 
 @section('css_before')
@@ -21,48 +21,133 @@
         <!-- Dynamic Table with Export Buttons -->
         <div class="block">
             <div class="block-header">
-                <h3 class="block-title">{{__('pharmacy.category_update')}}</h3>
+                <h3 class="block-title">{{__('pharmacy.supplier_update')}}</h3>
                 <nav class="flex-sm-00-auto ml-sm-3" aria-label="breadcrumb">
                     <ol class="breadcrumb breadcrumb-alt">
                         <li class="breadcrumb-item">{{__('pharmacy.pharmacy')}}</li>
                         <li class="breadcrumb-item">{{__('pharmacy.configurations')}}</li>
                         <li class="breadcrumb-item" aria-current="page">
-                            <a class="link-fx" href="">{{__('pharmacy.category_create')}}</a>
+                            <a class="link-fx" href="">{{__('pharmacy.supplier_update')}}</a>
                         </li>
                     </ol>
                 </nav>
             </div>
 
             <div class="block-content block-content-full">
-                {!! Form::open(['method' => 'PATCH', 'route' => ['admin.pharmacy.categories.update',$phDonor->id],'class'=>'js-validation', 'files' => true]) !!}
+                {!! Form::open(['method' => 'PATCH', 'route' => ['admin.pharmacy.suppliers.update',$phSupplier->id],'class'=>'js-validation', 'files' => true]) !!}
                 {{--                @csrf--}}
                 <div class="row">
                     <div class="col-lg-12 col-xl-10">
                         <div class="row">
-                            <label class="col-sm-2" for="name">{{__('pharmacy.category_name')}}<span class="text-danger">*</span></label>
+                            <label class="col-sm-2" for="status">{{__('pharmacy.donor')}}<span class="text-danger">*</span></label>
                             <div class="col-sm-8 form-group">
-                                <input type="text" class="form-control" id="name" name="name" value="{{$phDonor->name}}"
-                                       placeholder="Type department name..." autofocus>
+                                {!! Form::select('donor_id', $phDonors, $phSupplier->donor_id, ['class' => 'js-select2 form-control','id'=>'donor_id']) !!}
+                                @error('donor_id')
+                                <span class="text-danger animated fadeIn">{{$message}}</span>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="row">
+                            <label class="col-sm-2" for="name">{{__('pharmacy.supplier_name')}}<span class="text-danger">*</span></label>
+                            <div class="col-sm-8 form-group">
+                                <input type="text" class="form-control" id="name" name="name" value="{{$phSupplier->name}}"
+                                       placeholder="{{__('general.placeholder')}}{{__('pharmacy.supplier_name')}}..." autofocus>
                                 @error('name')
                                 <span class="text-danger animated fadeIn">{{$message}}</span>
                                 @enderror
                             </div>
                         </div>
                         <div class="row">
-                            <label class="col-sm-2" for="abr">{{__('pharmacy.category_abbreviation')}}</label>
+                            <label class="col-sm-2" for="abr">{{__('pharmacy.supplier_abbreviation')}}</label>
                             <div class="col-sm-8 form-group">
-                                <input type="text" class="form-control" id="abr" name="abr" value="{{$phDonor->abr}}"
-                                       placeholder="Type department abbreviation..." >
+                                <input type="text" class="form-control" id="abr" name="abr"  value="{{$phSupplier->abr}}"
+                                       placeholder="{{__('general.placeholder')}}{{__('pharmacy.donor_abbreviation')}}...">
                                 @error('abr')
                                 <span class="text-danger animated fadeIn">{{$message}}</span>
                                 @enderror
                             </div>
                         </div>
+                        <div class="row">
+                            <label class="col-sm-2" for="abr">{{__('pharmacy.supplier_contact_name')}}</label>
+                            <div class="col-sm-8 form-group">
+                                <input type="text" class="form-control" id="contact_name" name="contact_name" value="{{$phSupplier->contact_name}}"
+                                       placeholder="{{__('general.placeholder')}}{{__('pharmacy.supplier_contact_name')}}...">
+                                @error('contact_name')
+                                <span class="text-danger animated fadeIn">{{$message}}</span>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="row">
+                            <label class="col-sm-2" for="abr">{{__('pharmacy.supplier_phone')}}</label>
+                            <div class="col-sm-8 form-group">
+                                <input type="text" class="form-control" id="phone" name="phone" value="{{$phSupplier->phone}}"
+                                       placeholder="{{__('general.placeholder')}}{{__('pharmacy.supplier_phone')}}...">
+                                @error('phone')
+                                <span class="text-danger animated fadeIn">{{$message}}</span>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="row">
+                            <label class="col-sm-2" for="abr">{{__('pharmacy.supplier_address')}}</label>
+                            <div class="col-sm-8 form-group">
+                                <input type="text" class="form-control" id="address" name="address" value="{{$phSupplier->address}}"
+                                       placeholder="{{__('general.placeholder')}}{{__('pharmacy.supplier_address')}}...">
+                                @error('address')
+                                <span class="text-danger animated fadeIn">{{$message}}</span>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="row">
+                            <label class="col-sm-2" for="abr">{{__('pharmacy.supplier_email')}}</label>
+                            <div class="col-sm-8 form-group">
+                                <input type="email" class="form-control" id="email" name="email"  value="{{$phSupplier->email}}"
+                                       placeholder="{{__('general.placeholder')}}{{__('pharmacy.supplier_email')}}...">
+                                @error('email')
+                                <span class="text-danger animated fadeIn">{{$message}}</span>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="row">
+                            <label class="col-sm-2" for="abr">{{__('pharmacy.supplier_website')}}</label>
+                            <div class="col-sm-8 form-group">
+                                <input type="text" class="form-control" id="website" name="website"  value="{{$phSupplier->website}}"
+                                       placeholder="{{__('general.placeholder')}}{{__('pharmacy.supplier_website')}}...">
+                                @error('website')
+                                <span class="text-danger animated fadeIn">{{$message}}</span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        {{--                        <div class="row">--}}
+                        {{--                            <label class="col-sm-2" for="abr">{{__('pharmacy.supplier_country')}}</label>--}}
+                        {{--                            <div class="col-sm-8 form-group">--}}
+                        {{--                                    <select class="js-select2 form-control" data-flag="true"  id="country" name="country" style="width: 100%;" data-placeholder="{{__('general.please_select')}}" data-select2-id="KH" tabindex="-1" aria-hidden="true">--}}
+                        {{--                                        <option data-select2-id="2"></option><!-- Required for data-placeholder attribute to work with Select2 plugin -->--}}
+                        {{--                                        @foreach($countries as $country)--}}
+                        {{--                                            <option value="{{$country->name->common}}">{{$country->name->common}}</option>--}}
+                        {{--                                        @endforeach--}}
+                        {{--                                    </select>--}}
+                        {{--                                @error('country')--}}
+                        {{--                                <span class="text-danger animated fadeIn">{{$message}}</span>--}}
+                        {{--                                @enderror--}}
+                        {{--                            </div>--}}
+                        {{--                        </div>--}}
 
                         <div class="row">
-                            <label class="col-sm-2" for="description">{{__('pharmacy.category_description')}}</label>
+                            <label class="col-sm-2" for="status">{{__('pharmacy.supplier_country')}}</label>
                             <div class="col-sm-8 form-group">
-                                <textarea class="form-control" id="description" name="description">{{$phDonor->description}}</textarea>
+                                {!! Form::select('country', $countries,  $phSupplier->country, ['class' => 'js-select2 form-control','id'=>'donor_id']) !!}
+                                @error('country')
+                                <span class="text-danger animated fadeIn">{{$message}}</span>
+                                @enderror
+                            </div>
+                        </div>
+
+
+                        <div class="row">
+                            <label class="col-sm-2" for="description">{{__('pharmacy.supplier_description')}}</label>
+                            <div class="col-sm-8 form-group">
+                                <textarea class="form-control" id="description" name="description"> {{$phSupplier->description}}</textarea>
                                 @error('description')
                                 <span class="text-danger animated fadeIn">{{$message}}</span>
                                 @enderror
@@ -74,10 +159,9 @@
                                 {!! Form::hidden('active', '') !!}
                                 <div class="custom-control custom-switch custom-control-primary mb-1">
                                     <input type="checkbox" class="custom-control-input" id="active" name="active"
-                                        {{$phDonor->active == 1? 'checked' : ''}}>
-                                    <label class="custom-control-label" for="active">{{__('pharmacy.category_status')}}</label>
+                                          {{$phSupplier->active == 1? 'checked' : ''}}>
+                                    <label class="custom-control-label" for="active">{{__('pharmacy.supplier_status')}}</label>
                                 </div>
-
                             </div>
                         </div>
 
@@ -85,10 +169,11 @@
                 </div>
 
                 {!! Form::submit(__('general.update'), ['class' => 'btn btn-primary']) !!}
-                <a class="btn btn-alt-secondary float-right" href="{{route('admin.pharmacy.categories.index')}}">{{__('general.cancel')}}</a>
+                <a class="btn btn-alt-secondary float-right" href="{{route('admin.pharmacy.suppliers.index')}}">{{__('general.cancel')}}</a>
                 {!! Form::close() !!}
 
             </div>
+
         </div>
     </div>
     <!-- END Page Content -->
@@ -103,6 +188,22 @@
 
     <script>
         jQuery(function () {
+            One.helpers('select2');
+
+            {{--function formatState (state) {--}}
+            {{--    if (!state.id) {--}}
+            {{--        return state.text;--}}
+            {{--    }--}}
+            {{--    var baseUrl = "/user/pages/images/flags";--}}
+            {{--    var $state = $(--}}
+            {{--        '<span>{!! $country->flag->flag_icon !!}' + state.text + '</span>'--}}
+            {{--    );--}}
+            {{--    return $state;--}}
+            {{--};--}}
+
+            {{--$("#country").select2({--}}
+            {{--    templateResult: formatState--}}
+            {{--});--}}
 
         });
     </script>

@@ -1,7 +1,7 @@
 @extends('layouts.backend')
 
 @section('title')
-    | {{__('pharmacy.category_update')}}
+    | {{__('pharmacy.category_show')}}
 @endsection
 
 @section('css_before')
@@ -21,13 +21,13 @@
         <!-- Dynamic Table with Export Buttons -->
         <div class="block">
             <div class="block-header">
-                <h3 class="block-title">{{__('pharmacy.category_update')}}</h3>
+                <h3 class="block-title">{{__('pharmacy.category_show')}}</h3>
                 <nav class="flex-sm-00-auto ml-sm-3" aria-label="breadcrumb">
                     <ol class="breadcrumb breadcrumb-alt">
                         <li class="breadcrumb-item">{{__('pharmacy.pharmacy')}}</li>
                         <li class="breadcrumb-item">{{__('pharmacy.configurations')}}</li>
                         <li class="breadcrumb-item" aria-current="page">
-                            <a class="link-fx" href="">{{__('pharmacy.category_create')}}</a>
+                            <a class="link-fx" href="">{{__('pharmacy.category_show')}}</a>
                         </li>
                     </ol>
                 </nav>

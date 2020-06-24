@@ -41,7 +41,7 @@
                         <div class="row">
                             <label class="col-sm-2" for="status">{{__('pharmacy.donor')}}<span class="text-danger">*</span></label>
                             <div class="col-sm-8 form-group">
-                                {!! Form::select('donor_id', $phDonors, old('status'), ['class' => 'js-select2 form-control','id'=>'donor_id']) !!}
+                                {!! Form::select('donor_id', $phDonors, old('donor_id'), ['class' => 'js-select2 form-control','id'=>'donor_id']) !!}
                                 @error('donor_id')
                                 <span class="text-danger animated fadeIn">{{$message}}</span>
                                 @enderror
@@ -100,7 +100,7 @@
                         <div class="row">
                             <label class="col-sm-2" for="abr">{{__('pharmacy.supplier_email')}}</label>
                             <div class="col-sm-8 form-group">
-                                <input type="text" class="form-control" id="email" name="email"
+                                <input type="email" class="form-control" id="email" name="email"
                                        placeholder="{{__('general.placeholder')}}{{__('pharmacy.supplier_email')}}...">
                                 @error('email')
                                 <span class="text-danger animated fadeIn">{{$message}}</span>
@@ -118,15 +118,25 @@
                             </div>
                         </div>
 
+{{--                        <div class="row">--}}
+{{--                            <label class="col-sm-2" for="abr">{{__('pharmacy.supplier_country')}}</label>--}}
+{{--                            <div class="col-sm-8 form-group">--}}
+{{--                                    <select class="js-select2 form-control" data-flag="true"  id="country" name="country" style="width: 100%;" data-placeholder="{{__('general.please_select')}}" data-select2-id="KH" tabindex="-1" aria-hidden="true">--}}
+{{--                                        <option data-select2-id="2"></option><!-- Required for data-placeholder attribute to work with Select2 plugin -->--}}
+{{--                                        @foreach($countries as $country)--}}
+{{--                                            <option value="{{$country->name->common}}">{{$country->name->common}}</option>--}}
+{{--                                        @endforeach--}}
+{{--                                    </select>--}}
+{{--                                @error('country')--}}
+{{--                                <span class="text-danger animated fadeIn">{{$message}}</span>--}}
+{{--                                @enderror--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
+
                         <div class="row">
-                            <label class="col-sm-2" for="abr">{{__('pharmacy.supplier_country')}}</label>
+                            <label class="col-sm-2" for="status">{{__('pharmacy.supplier_country')}}</label>
                             <div class="col-sm-8 form-group">
-                                    <select class="js-select2 form-control" data-flag="true"  id="country" name="country" style="width: 100%;" data-placeholder="{{__('general.please_select')}}" data-select2-id="KH" tabindex="-1" aria-hidden="true">
-                                        <option data-select2-id="2"></option><!-- Required for data-placeholder attribute to work with Select2 plugin -->
-                                        @foreach($countries as $country)
-                                            <option value="{{$country->alt_spellings}}">{{$country->name->common}}</option>
-                                        @endforeach
-                                    </select>
+                                {!! Form::select('country', $countries, old('country'), ['class' => 'js-select2 form-control','id'=>'donor_id']) !!}
                                 @error('country')
                                 <span class="text-danger animated fadeIn">{{$message}}</span>
                                 @enderror
@@ -146,6 +156,7 @@
                         <div class="row">
                             <div class="col-sm-2 "></div>
                             <div class="col-sm-8 form-group">
+                                {!! Form::hidden('active', '') !!}
                                 <div class="custom-control custom-switch custom-control-primary mb-1">
                                     <input type="checkbox" class="custom-control-input" id="active" name="active"
                                            checked>

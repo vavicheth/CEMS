@@ -133,6 +133,8 @@ function () {
           search: "_INPUT_",
           searchPlaceholder: "Search..",
           info: "Page <strong>_PAGE_</strong> of <strong>_PAGES_</strong>",
+            processing: "<div class='spinner-border text-primary' role='status'><span class='sr-only'>Loading...</span></div>",
+
           paginate: {
             first: '<i class="fa fa-angle-double-left"></i>',
             previous: '<i class="fa fa-angle-left"></i>',

@@ -33,4 +33,9 @@ class PhSuppliers extends Model
     {
         return $date->format('d-M-Y H:i:s');
     }
+
+    public function donor()
+    {
+        return $this->belongsTo(PhDonors::class);
+    }
 }

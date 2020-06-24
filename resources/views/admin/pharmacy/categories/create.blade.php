@@ -71,6 +71,7 @@
                         <div class="row">
                             <div class="col-sm-2 "></div>
                             <div class="col-sm-8 form-group">
+                                {!! Form::hidden('active', '') !!}
                                 <div class="custom-control custom-switch custom-control-primary mb-1">
                                     <input type="checkbox" class="custom-control-input" id="active" name="active"
                                            checked>

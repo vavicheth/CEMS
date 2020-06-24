@@ -33,4 +33,9 @@ class PhDonors extends Model
     {
         return $date->format('d-M-Y H:i:s');
     }
+
+    public function suppliers()
+    {
+        return $this->hasMany(PhSuppliers::class);
+    }
 }

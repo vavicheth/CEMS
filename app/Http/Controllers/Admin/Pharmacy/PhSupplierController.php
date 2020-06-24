@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin\Pharmacy;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Pharmacy\PhSuppliersStoreRequest;
+use App\Http\Requests\Pharmacy\PhSuppliersUpdateRequest;
 use App\Model\Pharmacy\PhDonors;
 use App\Model\Pharmacy\PhSuppliers;
 use Illuminate\Http\Request;
@@ -50,7 +51,10 @@ class PhSupplierController extends Controller
                 ->editColumn('active', function ($data) {
                     return $data->active == 1 ? '<span class="badge badge-success">Active</span>' : '<span class="badge badge-secondary">Inactive</span>';
                 })
-                ->rawColumns(['action','active'])
+                ->editColumn('donor_id', function ($data) {
+                    return $data->donor->name;
+                })
+                ->rawColumns(['donor_id','action','active'])
                 ->make(true);
         }
 
@@ -63,14 +67,13 @@ class PhSupplierController extends Controller
         $phDonors = PhDonors::get()->pluck('name', 'id')->prepend(__('general.please_select'), '');
 
         $all=new Countries();
-        $countries=$all->all();
+        $countries=$all->all()->pluck('name.common','name.common')->prepend(__('general.please_select'), '');
 
         return view('admin.pharmacy.suppliers.create',compact('phDonors','countries'));
     }
 
     public function store(PhSuppliersStoreRequest $request)
     {
-        dd($request->all());
         $phSupplier = PhSuppliers::create($request->all());
 
         return redirect()->route('admin.pharmacy.suppliers.index')->with('message_success',__('pharmacy.supplier_create_success'));
@@ -90,10 +93,13 @@ class PhSupplierController extends Controller
         $phDonors = PhDonors::get()->pluck('name', 'id')->prepend('Select donor', '');
         $phSupplier=PhSuppliers::findOrFail($id);
 
-        return view('admin.pharmacy.suppliers.edit', compact('phSupplier','phDonors'));
+        $all=new Countries();
+        $countries=$all->all()->pluck('name.common','name.common')->prepend(__('general.please_select'), '');
+
+        return view('admin.pharmacy.suppliers.edit', compact('phSupplier','phDonors','countries'));
     }
 
-    public function update(PhSuppliers $request, $id)
+    public function update(PhSuppliersUpdateRequest $request, $id)
     {
         abort_if(! Gate::allows('ph_supplier_update'),403);
         $phSupplier=PhSuppliers::findOrFail($id);
