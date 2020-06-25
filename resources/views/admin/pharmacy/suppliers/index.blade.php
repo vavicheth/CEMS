@@ -52,7 +52,7 @@
             <div class="block-content block-content-full">
                 <table class="table table-striped table-hover table-vcenter dt-responsive table-vcenter js-dataTable"
 {{--                <table class="table table-bordered table-striped table-vcenter js-dataTable-buttons"--}}
-                       id="datatable_ph_category" style="border-collapse: collapse;border-spacing: 0;width: 100%">
+                       id="datatable_ph_supplier" style="border-collapse: collapse;border-spacing: 0;width: 100%">
                     <thead>
                     <tr>
                         <th >{{__('pharmacy.donor')}}</th>
@@ -159,7 +159,7 @@
     <script>
         $(document).ready(function () {
 
-            $('#datatable_ph_category').DataTable({
+            $('#datatable_ph_supplier').DataTable({
                 processing: true,
                 serverSide: true,
                 paging: 100,
@@ -187,6 +187,7 @@
                     {data: 'description', name: 'description'},
                     {data: 'active', name: 'active'},
                     {data: 'action', name: 'action', orderable: false},
+                    {data: 'created_at', name: 'created_at',visible:false},
                 ],
                 // order: [[8, 'desc']]
 
@@ -209,7 +210,7 @@
                     type: 'DELETE',
                     success: function (data) {
                         $('#modal-confirm-delete').modal('hide');
-                        $('#datatable_ph_category').DataTable().ajax.reload();
+                        $('#datatable_ph_supplier').DataTable().ajax.reload();
                         One.helpers('notify', {type: 'success', icon: 'fa fa-check mr-1', message: data});
                     },
                     error: function () {
@@ -237,7 +238,7 @@
                     type: 'POST',
                     success: function (data) {
                         $('#modal-confirm-restore').modal('hide');
-                        $('#datatable_ph_category').DataTable().ajax.reload();
+                        $('#datatable_ph_supplier').DataTable().ajax.reload();
                         One.helpers('notify', {type: 'success', icon: 'fa fa-check mr-1', message: data});
                     },
                     error: function () {

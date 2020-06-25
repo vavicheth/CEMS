@@ -20,11 +20,13 @@ class PhSupplierController extends Controller
         abort_if(! Gate::allows('ph_supplier_access'),403);
         if($request->ajax())
         {
-            $data=PhSuppliers::query()->orderBy('id','desc');
+            $data=PhSuppliers::query();
 
             if (request('trash') == 1 && Gate::allows('ph_supplier_delete')){
                 $data=$data->onlyTrashed()->get();
             }
+
+//            $data=$data->with('donor')->select('ph_suppliers.*');
 
             return DataTables::of($data)
                 ->addColumn('action', function ($data) {
@@ -54,7 +56,11 @@ class PhSupplierController extends Controller
                 ->editColumn('donor_id', function ($data) {
                     return $data->donor->name;
                 })
-                ->rawColumns(['donor_id','action','active'])
+
+//                ->filterColumn('donor_id', function ($query, $keyword) {
+//                    $query->whereRaw("donor.name like ?", ["%$keyword%"]);
+//                })
+                ->rawColumns(['action','active'])
                 ->make(true);
         }
 
