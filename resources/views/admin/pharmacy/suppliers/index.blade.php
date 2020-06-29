@@ -175,7 +175,7 @@
                     url: "{{route('admin.pharmacy.suppliers.index')}}{{ request('trash') == 1 ? '?trash=1':'' }}",
                 },
                 columns: [
-                    {data: 'donor_id', name: 'donor_id'},
+                    {data: 'donor', name: 'donor.name'},
                     {data: 'name', name: 'name'},
                     {data: 'abr', name: 'abr'},
                     {data: 'contact_name', name: 'contact_name'},

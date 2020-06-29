@@ -4,15 +4,15 @@ namespace App\Model\Pharmacy;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Support\Str;
 use DateTimeInterface;
+use Illuminate\Support\Str;
 
-class PhSuppliers extends Model
+class PhDonor extends Model
 {
     use SoftDeletes;
 
     protected $fillable = [
-        'name', 'abr','phone','contact_name','address','email','website','country','description','active','donor_id'
+        'name', 'abr','description','active'
     ];
 
     public function setNameAttribute($value)
@@ -34,8 +34,8 @@ class PhSuppliers extends Model
         return $date->format('d-M-Y H:i:s');
     }
 
-    public function donor()
+    public function suppliers()
     {
-        return $this->belongsTo(PhDonors::class);
+        return $this->hasMany(PhSupplier::class);
     }
 }

@@ -5,8 +5,8 @@ namespace App\Http\Controllers\Admin\Pharmacy;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Pharmacy\PhSuppliersStoreRequest;
 use App\Http\Requests\Pharmacy\PhSuppliersUpdateRequest;
-use App\Model\Pharmacy\PhDonors;
-use App\Model\Pharmacy\PhSuppliers;
+use App\Model\Pharmacy\PhDonor;
+use App\Model\Pharmacy\PhSupplier;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 
@@ -20,13 +20,11 @@ class PhSupplierController extends Controller
         abort_if(! Gate::allows('ph_supplier_access'),403);
         if($request->ajax())
         {
-            $data=PhSuppliers::query();
+            $data=PhSupplier::with('donor')->select('ph_suppliers.*');
 
             if (request('trash') == 1 && Gate::allows('ph_supplier_delete')){
-                $data=$data->onlyTrashed()->get();
+                $data=PhSupplier::onlyTrashed()->with('donor')->select('ph_suppliers.*');
             }
-
-//            $data=$data->with('donor')->select('ph_suppliers.*');
 
             return DataTables::of($data)
                 ->addColumn('action', function ($data) {
@@ -57,8 +55,12 @@ class PhSupplierController extends Controller
                     return $data->donor->name;
                 })
 
+                ->addColumn('donor', function (PhSupplier $supplier) {
+                    return $supplier->donor->name;
+                })
+
 //                ->filterColumn('donor_id', function ($query, $keyword) {
-//                    $query->whereRaw("donor.name like ?", ["%$keyword%"]);
+//                    $query->whereRaw("ph_donors.name like ?", ["%$keyword%"]);
 //                })
                 ->rawColumns(['action','active'])
                 ->make(true);
@@ -70,7 +72,7 @@ class PhSupplierController extends Controller
     public function create()
     {
         abort_if(! Gate::allows('ph_supplier_create'),403);
-        $phDonors = PhDonors::get()->pluck('name', 'id')->prepend(__('general.please_select'), '');
+        $phDonors = PhDonor::get()->pluck('name', 'id')->prepend(__('general.please_select'), '');
 
         $all=new Countries();
         $countries=$all->all()->pluck('name.common','name.common')->prepend(__('general.please_select'), '');
@@ -80,7 +82,7 @@ class PhSupplierController extends Controller
 
     public function store(PhSuppliersStoreRequest $request)
     {
-        $phSupplier = PhSuppliers::create($request->all());
+        $phSupplier = PhSupplier::create($request->all());
 
         return redirect()->route('admin.pharmacy.suppliers.index')->with('message_success',__('pharmacy.supplier_create_success'));
     }
@@ -88,7 +90,7 @@ class PhSupplierController extends Controller
     public function show($id)
     {
         abort_if(! Gate::allows('ph_supplier_show'),403);
-        $phSupplier=PhSuppliers::findOrFail($id);
+        $phSupplier=PhSupplier::findOrFail($id);
 
         return view('admin.pharmacy.suppliers.show', compact('phSupplier'));
     }
@@ -96,8 +98,8 @@ class PhSupplierController extends Controller
     public function edit($id)
     {
         abort_if(! Gate::allows('ph_supplier_update'),403);
-        $phDonors = PhDonors::get()->pluck('name', 'id')->prepend('Select donor', '');
-        $phSupplier=PhSuppliers::findOrFail($id);
+        $phDonors = PhDonor::get()->pluck('name', 'id')->prepend('Select donor', '');
+        $phSupplier=PhSupplier::findOrFail($id);
 
         $all=new Countries();
         $countries=$all->all()->pluck('name.common','name.common')->prepend(__('general.please_select'), '');
@@ -108,7 +110,7 @@ class PhSupplierController extends Controller
     public function update(PhSuppliersUpdateRequest $request, $id)
     {
         abort_if(! Gate::allows('ph_supplier_update'),403);
-        $phSupplier=PhSuppliers::findOrFail($id);
+        $phSupplier=PhSupplier::findOrFail($id);
         $phSupplier->update($request->all());
 
         return redirect()->route('admin.pharmacy.suppliers.index')->with('message_success',__('pharmacy.supplier_update_success'));
@@ -117,7 +119,7 @@ class PhSupplierController extends Controller
     public function destroy($id)
     {
         abort_if(! Gate::allows('ph_supplier_delete'),403);
-        $phSupplier=PhSuppliers::findOrFail($id);
+        $phSupplier=PhSupplier::findOrFail($id);
         $phSupplier->delete();
 
         return response(__('pharmacy.supplier_delete_success'));
@@ -126,7 +128,7 @@ class PhSupplierController extends Controller
     public function per_del($id)
     {
         abort_if(! Gate::allows('ph_supplier_delete'),403);
-        $phSupplier=PhSuppliers::onlyTrashed()->findOrFail($id);
+        $phSupplier=PhSupplier::onlyTrashed()->findOrFail($id);
         $phSupplier->forceDelete();
 
         return response(__('pharmacy.supplier_delete_success'));
@@ -135,7 +137,7 @@ class PhSupplierController extends Controller
     public function restore($id)
     {
         abort_if(! Gate::allows('ph_supplier_delete'),403);
-        $phSupplier=PhSuppliers::onlyTrashed()->findOrFail($id);
+        $phSupplier=PhSupplier::onlyTrashed()->findOrFail($id);
         $phSupplier->restore();
 
         return response(__('pharmacy.supplier_restore_success'));

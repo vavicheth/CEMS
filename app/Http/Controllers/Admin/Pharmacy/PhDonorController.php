@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin\Pharmacy;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Pharmacy\PhDonorsStoreRequest;
 use App\Http\Requests\Pharmacy\PhDonorsUpdateRequest;
-use App\Model\Pharmacy\PhDonors;
+use App\Model\Pharmacy\PhDonor;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use Yajra\DataTables\Facades\DataTables;
@@ -17,7 +17,7 @@ class PhDonorController extends Controller
         abort_if(! Gate::allows('ph_donor_access'),403);
         if($request->ajax())
         {
-            $data=PhDonors::query()->orderBy('id','desc');
+            $data=PhDonor::query()->orderBy('id','desc');
 
             if (request('trash') == 1 && Gate::allows('ph_donor_delete')){
                 $data=$data->onlyTrashed()->get();
@@ -64,7 +64,7 @@ class PhDonorController extends Controller
 
     public function store(PhDonorsStoreRequest $request)
     {
-        $phDonor = PhDonors::create($request->all());
+        $phDonor = PhDonor::create($request->all());
 
         return redirect()->route('admin.pharmacy.donors.index')->with('message_success',__('pharmacy.donor_create_success'));
     }
@@ -72,7 +72,7 @@ class PhDonorController extends Controller
     public function show($id)
     {
         abort_if(! Gate::allows('ph_donor_show'),403);
-        $phDonor=PhDonors::findOrFail($id);
+        $phDonor=PhDonor::findOrFail($id);
 
         return view('admin.pharmacy.donors.show', compact('phDonor'));
     }
@@ -80,7 +80,7 @@ class PhDonorController extends Controller
     public function edit($id)
     {
         abort_if(! Gate::allows('ph_donor_update'),403);
-        $phDonor=PhDonors::findOrFail($id);
+        $phDonor=PhDonor::findOrFail($id);
 
         return view('admin.pharmacy.donors.edit', compact('phDonor'));
     }
@@ -88,7 +88,7 @@ class PhDonorController extends Controller
     public function update(PhDonorsUpdateRequest $request, $id)
     {
         abort_if(! Gate::allows('ph_donor_update'),403);
-        $phDonors=PhDonors::findOrFail($id);
+        $phDonors=PhDonor::findOrFail($id);
         $phDonors->update($request->all());
 
         return redirect()->route('admin.pharmacy.donors.index')->with('message_success',__('pharmacy.donor_update_success'));
@@ -97,7 +97,7 @@ class PhDonorController extends Controller
     public function destroy($id)
     {
         abort_if(! Gate::allows('ph_donor_delete'),403);
-        $phDonors=PhDonors::findOrFail($id);
+        $phDonors=PhDonor::findOrFail($id);
         $phDonors->delete();
 
         return response(__('pharmacy.donor_delete_success'));
@@ -106,7 +106,7 @@ class PhDonorController extends Controller
     public function per_del($id)
     {
         abort_if(! Gate::allows('ph_donor_delete'),403);
-        $phDonors=PhDonors::onlyTrashed()->findOrFail($id);
+        $phDonors=PhDonor::onlyTrashed()->findOrFail($id);
         $phDonors->forceDelete();
 
         return response(__('pharmacy.donor_delete_success'));
@@ -115,7 +115,7 @@ class PhDonorController extends Controller
     public function restore($id)
     {
         abort_if(! Gate::allows('ph_donor_delete'),403);
-        $phDonors=PhDonors::onlyTrashed()->findOrFail($id);
+        $phDonors=PhDonor::onlyTrashed()->findOrFail($id);
         $phDonors->restore();
 
         return response(__('pharmacy.donor_restore_success'));

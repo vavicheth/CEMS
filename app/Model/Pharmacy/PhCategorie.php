@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Str;
 use DateTimeInterface;
 
-class PhCategories extends Model
+class PhCategorie extends Model
 {
     use SoftDeletes;
 
