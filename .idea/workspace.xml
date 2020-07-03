@@ -3,13 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="6d59e93e-3e6d-4755-8d35-1fa8f2556fbb" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/Pharmacy/PhCategoryController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/Pharmacy/PhCategoryController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/Pharmacy/PhDonorController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/Pharmacy/PhDonorController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/Pharmacy/PhSupplierController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/Pharmacy/PhSupplierController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Model/Pharmacy/PhCategories.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Model/Pharmacy/PhCategorie.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Model/Pharmacy/PhDonors.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Model/Pharmacy/PhDonor.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Model/Pharmacy/PhSuppliers.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Model/Pharmacy/PhSupplier.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/admin/pharmacy/suppliers/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/pharmacy/suppliers/index.blade.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -326,7 +319,10 @@
       <workItem from="1593136410959" duration="778000" />
       <workItem from="1593137878164" duration="119000" />
       <workItem from="1593142575362" duration="6551000" />
-      <workItem from="1593393278027" duration="936000" />
+      <workItem from="1593393278027" duration="1545000" />
+      <workItem from="1593479016910" duration="2331000" />
+      <workItem from="1593581393802" duration="1211000" />
+      <workItem from="1593658431669" duration="4463000" />
     </task>
     <servers />
   </component>
@@ -334,6 +330,10 @@
     <option name="version" value="2" />
   </component>
   <component name="WindowStateProjectService">
+    <state x="845" y="383" key="#Notifications" timestamp="1593479537761">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="845" y="383" key="#Notifications/0.0.1920.1040@0.0.1920.1040" timestamp="1593479537761" />
     <state x="677" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1593149617639">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -358,10 +358,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="1136" y="345" key="com.intellij.ide.util.TipDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1593137880232" />
-    <state x="616" y="240" key="run.anything.popup" timestamp="1593155236281">
+    <state x="616" y="240" key="run.anything.popup" timestamp="1593585455590">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="616" y="240" key="run.anything.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1593155236281" />
+    <state x="616" y="240" key="run.anything.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1593585455590" />
     <state x="623" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1592366598310">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
