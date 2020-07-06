@@ -70,6 +70,11 @@ class Patient extends Model implements HasMedia
         return $this->belongsTo(Department::class,'department_id','id');
     }
 
+    public function address_link()
+    {
+        return $this->morphOne('App\Address', 'addressable');
+    }
+
     /**
      * Media File
      */
