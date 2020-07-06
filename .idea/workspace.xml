@@ -2,7 +2,20 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6d59e93e-3e6d-4755-8d35-1fa8f2556fbb" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/cems.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/cems.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Commune.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Commune.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/District.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/District.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/Pharmacy/PhSupplierController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/Pharmacy/PhSupplierController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Province.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Province.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Village.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Village.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2020_07_02_101710_create_districts_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_07_02_101710_create_districts_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2020_07_02_101816_create_communes_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_07_02_101816_create_communes_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2020_07_02_101827_create_villages_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_07_02_101827_create_villages_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/seeds/DatabaseSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeds/DatabaseSeeder.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -164,6 +177,7 @@
       <path value="$PROJECT_DIR$/vendor/nette/caching" />
       <path value="$PROJECT_DIR$/vendor/nette/finder" />
       <path value="$PROJECT_DIR$/vendor/nette/utils" />
+      <path value="$PROJECT_DIR$/vendor/staudenmeir/eloquent-has-many-deep" />
     </include_path>
   </component>
   <component name="ProjectId" id="1XxrLFUcVjC3sbosZ86I3bA6B67" />
@@ -322,7 +336,8 @@
       <workItem from="1593393278027" duration="1545000" />
       <workItem from="1593479016910" duration="2331000" />
       <workItem from="1593581393802" duration="1211000" />
-      <workItem from="1593658431669" duration="4463000" />
+      <workItem from="1593658431669" duration="4464000" />
+      <workItem from="1594000293287" duration="12192000" />
     </task>
     <servers />
   </component>

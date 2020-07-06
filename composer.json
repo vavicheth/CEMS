@@ -27,6 +27,7 @@
         "spatie/laravel-activitylog": "^3.10",
         "spatie/laravel-medialibrary": "^7.0.0",
         "spatie/laravel-permission": "^3.8",
+        "staudenmeir/eloquent-has-many-deep": "^1.12",
         "yajra/laravel-datatables-oracle": "^9.8"
     },
     "require-dev": {

@@ -7,6 +7,7 @@ use App\Http\Requests\Pharmacy\PhSuppliersStoreRequest;
 use App\Http\Requests\Pharmacy\PhSuppliersUpdateRequest;
 use App\Model\Pharmacy\PhDonor;
 use App\Model\Pharmacy\PhSupplier;
+use App\Province;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 
@@ -17,6 +18,9 @@ class PhSupplierController extends Controller
 {
     public function index(Request $request)
     {
+        $province=Province::findOrFail(10);
+
+        dd($province->villages);
         abort_if(! Gate::allows('ph_supplier_access'),403);
         if($request->ajax())
         {
