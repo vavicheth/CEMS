@@ -22,7 +22,7 @@ class Patient extends Model implements HasMedia
         'hn', 'name', 'name_kh','id_card', 'gender', 'dob', 'address', 'phone', 'active', 'description','department_id'
     ];
 
-    protected $cascadeDeletes=['patient_accompanies'];
+    protected $cascadeDeletes=['patient_accompanies','hasaddress'];
 
     protected $dates = [
         'dob',
@@ -70,7 +70,7 @@ class Patient extends Model implements HasMedia
         return $this->belongsTo(Department::class,'department_id','id');
     }
 
-    public function address_link()
+    public function hasaddress()
     {
         return $this->morphOne('App\Address', 'addressable');
     }

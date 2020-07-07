@@ -3,9 +3,12 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Address extends Model
 {
+    use SoftDeletes;
+    
     protected $fillable=['address','village_code','commune_code','district_code','province_code'];
 
     public function addressable()
@@ -71,7 +74,5 @@ class Address extends Model
         $name=Province::where('code',$this->attributes['province_code'])->first();
         return $name->type_kh . " ". $name->name_kh;
     }
-
-
 
 }

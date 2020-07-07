@@ -4,6 +4,9 @@
     <list default="true" id="6d59e93e-3e6d-4755-8d35-1fa8f2556fbb" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Address.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Address.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Patient.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Patient.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2020_07_06_153713_create_addresses_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_07_06_153713_create_addresses_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -325,7 +328,7 @@
       <workItem from="1593479016910" duration="2331000" />
       <workItem from="1593581393802" duration="1211000" />
       <workItem from="1593658431669" duration="4464000" />
-      <workItem from="1594000293287" duration="21161000" />
+      <workItem from="1594000293287" duration="29496000" />
     </task>
     <servers />
   </component>

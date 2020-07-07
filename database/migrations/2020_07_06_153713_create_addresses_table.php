@@ -23,6 +23,7 @@ class CreateAddressesTable extends Migration
             $table->unsignedInteger('district_code')->nullable();
             $table->unsignedInteger('province_code')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

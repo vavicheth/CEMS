@@ -104,6 +104,13 @@ Route::group(['middleware' => ['auth','lock'], 'prefix' => 'admin', 'as' => 'adm
     Route::get('setting/ui','Admin\Setting\UiController@index')->name('setting.ui');
     Route::post('setting/ui','Admin\Setting\UiController@update')->name('setting.ui')->middleware(['permission:ui_update']);
 
+
+    /**
+     * Address
+     */
+    Route::get('/move_address','Admin\AddressController@move_address')->name('move_address');
+
+
     /**
      * Pharmacy
      */
