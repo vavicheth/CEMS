@@ -18,9 +18,6 @@ class PhSupplierController extends Controller
 {
     public function index(Request $request)
     {
-        $province=Province::findOrFail(10);
-
-        dd($province->villages);
         abort_if(! Gate::allows('ph_supplier_access'),403);
         if($request->ajax())
         {

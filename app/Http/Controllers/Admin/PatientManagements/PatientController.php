@@ -2,13 +2,17 @@
 
 namespace App\Http\Controllers\Admin\PatientManagements;
 
+use App\Commune;
 use App\Department;
+use App\District;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\PatientsStoreRequest;
 use App\Patient;
 use App\PatientAccompany;
+use App\Province;
 use App\Traits\Slim;
 use App\Traits\UploadBySlim;
+use App\Village;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Config;
@@ -68,8 +72,12 @@ class PatientController extends Controller
         abort_if(!Gate::allows('patient_create'), 403);
 
         $departments = Department::get()->pluck('name', 'id')->prepend('Select patient department', '');
+        $villages = Village::get()->pluck('name_kh', 'code')->prepend('Select village', '');
+        $communes = Commune::get()->pluck('name_kh', 'code')->prepend('Select commune', '');
+        $districts = District::get()->pluck('name_kh', 'code')->prepend('Select district', '');
+        $provinces = Province::get()->pluck('name_kh', 'code')->prepend('Select province', '');
 
-        return view('admin.patient_managements.patients.create',compact('departments'));
+        return view('admin.patient_managements.patients.create',compact('departments','villages','communes','districts','provinces'));
     }
 
     public function store(PatientsStoreRequest $request)

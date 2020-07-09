@@ -113,7 +113,15 @@
                                 @error('address')
                                 <span class="text-danger animated fadeIn">{{$message}}</span>
                                 @enderror
+
+                                {!! Form::select('village_id', $villages, old('village_id'), ['class' => 'js-select2 form-control','id'=>'village']) !!}
+{{--                                <select class="js-select2 form-control" id="village" name="village_id"></select>--}}
+
+                                {!! Form::select('commune_id', $communes, old('commune_id'), ['class' => 'js-select2 form-control','id'=>'commune']) !!}
+                                {!! Form::select('district_id', $districts, old('district_id'), ['class' => 'js-select2 form-control','id'=>'district']) !!}
+                                {!! Form::select('province_id', $provinces, old('province_id'), ['class' => 'js-select2 form-control','id'=>'province']) !!}
                             </div>
+
                         </div>
                         <div class="row">
                             <label class="col-sm-4" for="phone">Phone</label>
@@ -203,6 +211,35 @@
     <script>
         jQuery(function () {
             One.helpers('select2');
+
+            $("#village").select2({
+                placeholder: "Select village...",
+                minimumInputLength: 2,
+                {{--ajax: {--}}
+                {{--    url: '{{ route("admin.address.villages") }}',--}}
+                {{--    dataType: 'json',--}}
+                {{--},--}}
+            });
+            $("#commune").select2({placeholder: "Select commune...",});
+            $("#district").select2({placeholder: "Select district...",});
+            $("#province").select2({placeholder: "Select province...",});
+            $("#province").select2().on("select2:selecting", function(e) {
+                var province_id = $(this).val();
+                $.ajax({
+                    {{--url: '{{route('admin.address.districts')}}',--}}
+                    url: '../../address/districts/'+ province_id,
+                    type:'GET',
+                    {{--data: {--}}
+                    {{--    "province_id": province_id,--}}
+                    {{--    "_token": "{{ csrf_token() }}",--}}
+                    {{--},--}}
+                    success: function(data){
+                        $("#district").select2({
+                            data:data
+                        });
+                    }
+                });
+            });
 
             $('#age').focusout(function () {
                 var y = parseInt($(this).val());

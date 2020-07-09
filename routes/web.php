@@ -109,6 +109,8 @@ Route::group(['middleware' => ['auth','lock'], 'prefix' => 'admin', 'as' => 'adm
      * Address
      */
     Route::get('/move_address','Admin\AddressController@move_address')->name('move_address');
+    Route::get('/address/villages','Admin\AddressController@villages')->name('address.villages');
+    Route::get('/address/districts/{id}','Admin\AddressController@districts')->name('address.districts');
 
 
     /**
