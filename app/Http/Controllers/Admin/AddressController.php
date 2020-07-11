@@ -33,17 +33,10 @@ class AddressController extends Controller
 
     public function villages(Request $request)
     {
-//        if ($request->ajax()) {
-//            $villages = Village::get()->pluck('name_kh', 'code')->prepend('Select village', '');
-//            $villages = Village::select('code','name_kh')->get();
-//            return response()->json($villages);
 
-//        }
-
-
-        $villages = Village::where('name_kh', 'LIKE', '%'.$request->input('term', '').'%')
-            ->get(['code', 'name_kh as text']);
-        return ['results' => $villages];
+        $villages = Village::where('name_kh', 'LIKE', '%'.$request->input('name_kh').'%')
+            ->paginate(10);
+        return $villages;
 
     }
 

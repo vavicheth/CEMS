@@ -114,8 +114,10 @@
                                 <span class="text-danger animated fadeIn">{{$message}}</span>
                                 @enderror
 
-                                {!! Form::select('village_id', $villages, old('village_id'), ['class' => 'js-select2 form-control','id'=>'village']) !!}
-{{--                                <select class="js-select2 form-control" id="village" name="village_id"></select>--}}
+                                <select class="js-data-example-ajax form-control"></select>
+
+{{--                                {!! Form::select('village_id', $villages, old('village_id'), ['class' => 'js-select2 form-control','id'=>'village']) !!}--}}
+                                <select class="js-select2 form-control" id="village" name="village_id"></select>
 
                                 {!! Form::select('commune_id', $communes, old('commune_id'), ['class' => 'js-select2 form-control','id'=>'commune']) !!}
                                 {!! Form::select('district_id', $districts, old('district_id'), ['class' => 'js-select2 form-control','id'=>'district']) !!}
@@ -212,13 +214,60 @@
         jQuery(function () {
             One.helpers('select2');
 
+            $('.js-data-example-ajax').select2({
+                ajax: {
+                    url: '{{ route("admin.address.villages") }}',
+                    dataType: 'json',
+                    // cache:true,
+
+                },
+                templateSelection:function (repo) {
+                    return repo.name_kh;
+                },
+                templateResult:function (repo) {
+                    if(repo.loading) return repo.name_kh;
+                    // var markup = "<img scr="+repo.photo+"></img>"+ repo.name_kh;
+                    var markup = repo.name_kh;
+                    return  markup;
+                },
+            });
+
             $("#village").select2({
-                placeholder: "Select village...",
-                minimumInputLength: 2,
-                {{--ajax: {--}}
-                {{--    url: '{{ route("admin.address.villages") }}',--}}
-                {{--    dataType: 'json',--}}
-                {{--},--}}
+                // placeholder: "Select village...",
+                // minimumInputLength: 2,
+                ajax: {
+                    url: '{{ route("admin.address.villages") }}',
+                    dataType: 'json',
+                    delay: 250,
+                    data:function (params) {
+                        return{
+                            q:params.name_kh,
+                            page:params.page
+                        };
+                    },
+                    processResults:function (data,params) {
+                        params.page=params.page || 1;
+                        return {
+                            results:data.data,
+                            pagination:{
+                                more:(params.page *10) < data.total
+                            }
+                        };
+                    }
+                },
+                minimumInputLength:1,
+                templateResult:function (repo) {
+                    if(repo.loading) return repo.name_kh;
+                    // var markup = "<img scr="+repo.photo+"></img>"+ repo.name_kh;
+                    var markup = repo.name_kh;
+                    return  markup;
+                },
+                templateSelection:function (repo) {
+                    return repo.name_kh;
+                },
+                escapeMarkup: function (markup) {
+                    return markup;
+                }
             });
             $("#commune").select2({placeholder: "Select commune...",});
             $("#district").select2({placeholder: "Select district...",});
