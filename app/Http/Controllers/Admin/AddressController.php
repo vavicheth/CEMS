@@ -8,6 +8,7 @@ use App\Patient;
 use App\Province;
 use App\Village;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class AddressController extends Controller
 {
@@ -40,13 +41,57 @@ class AddressController extends Controller
 
     }
 
-    public function districts($id)
+    public function districts(Request $request)
     {
-//        $province = Province::whereCode($request->province_id)->get();
-//        $districts = $province->districts()->select('code','name_kh')->get();
-        $districts=District::where('province_code',$id)->select('code','name_kh')->get();
-        return response()->json($districts);
+        $data= [];
+
+        if($request->has('q')){
+            $search = $request->q;
+            $data =District::where('name_kh','LIKE',"%$search%")->orWhere('name','LIKE',"%$search%")->with('province')->get();
+//            $districts =District::where('name_kh','LIKE',"%$search%")->orWhere('name','LIKE',"%$search%")->with('province')->get();
+        }
+        return response()->json($data);
     }
+
+    public function fetch(Request $request)
+    {
+        $select = $request->get('select');
+        $value = $request->get('value');
+        $dependent = $request->get('dependent');
+        $data = District::where($select, $value)
+            ->groupBy('code')
+            ->get();
+        $output = '<option value="">Select '.ucfirst($dependent).'</option>';
+        foreach($data as $row)
+        {
+            $output .= '<option value="'.$row->$dependent.'">'.$row->$dependent.'</option>';
+        }
+        echo $output;
+
+    }
+
+    public function get_data(Request $request)
+    {
+        $table = $request->get('table');
+        $value = $request->get('value');
+        $con_id = $request->get('con_id');
+        $data = DB::table('communes')
+//            ->select("code","name_kh")
+            ->where('district_code', '102')
+//            ->pluck('name', 'id');
+            ->get(['code','name_kh']);
+
+
+//        return response($data);
+        $output = '<option value="">Select '.ucfirst('Testing').'</option>';
+        foreach($data as $row)
+        {
+            $output .= '<option value="'.$row->code.'">'.$row->name_kh.'</option>';
+        }
+        echo $output;
+    }
+
+
 
 
 }
