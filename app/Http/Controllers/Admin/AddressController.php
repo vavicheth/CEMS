@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Commune;
 use App\District;
 use App\Http\Controllers\Controller;
 use App\Patient;
@@ -16,8 +17,12 @@ class AddressController extends Controller
 
     public function move_address()
     {
+        $source=Village::where('code','1020103')->with('commune','district','province')->first();
+//        $source=DB::table('villages')->where('code','1020103')->first();
+        $data=$source->commune;
+        return $source;
+
         $patients=Patient::withTrashed()->get();
-//        dd($patients->get());
         foreach ($patients as $patient)
         {
             if ($patient->hasaddress()->count() == 0)
@@ -27,68 +32,73 @@ class AddressController extends Controller
                 ]);
             }
         }
-
-
     }
 
-
-    public function villages(Request $request)
-    {
-
-        $villages = Village::where('name_kh', 'LIKE', '%'.$request->input('name_kh').'%')
-            ->paginate(10);
-        return $villages;
-
-    }
-
-    public function districts(Request $request)
+    public function filters(Request $request)
     {
         $data= [];
-
         if($request->has('q')){
             $search = $request->q;
-            $data =District::where('name_kh','LIKE',"%$search%")->orWhere('name','LIKE',"%$search%")->with('province')->get();
-//            $districts =District::where('name_kh','LIKE',"%$search%")->orWhere('name','LIKE',"%$search%")->with('province')->get();
+            if(request('type') == 'village') {
+                $data = Village::where('name_kh', 'LIKE', "%$search%")->orWhere('name', 'LIKE', "%$search%")->with('province', 'district', 'commune')->get();
+            }elseif (request('type') == 'commune') {
+                $data = Commune::where('name_kh', 'LIKE', "%$search%")->orWhere('name', 'LIKE', "%$search%")->with('province', 'district', 'villages')->get();
+            }elseif (request('type') == 'district') {
+                $data = District::where('name_kh', 'LIKE', "%$search%")->orWhere('name', 'LIKE', "%$search%")->with('province', 'communes', 'villages')->get();
+            }elseif (request('type') == 'province') {
+                $data =Province::where('name_kh','LIKE',"%$search%")->orWhere('name','LIKE',"%$search%")->with('districts','communes','villages')->get();
+            }else{
+                $data= [];
+            }
         }
         return response()->json($data);
     }
 
     public function fetch(Request $request)
     {
-        $select = $request->get('select');
-        $value = $request->get('value');
-        $dependent = $request->get('dependent');
-        $data = District::where($select, $value)
-            ->groupBy('code')
-            ->get();
-        $output = '<option value="">Select '.ucfirst($dependent).'</option>';
-        foreach($data as $row)
-        {
-            $output .= '<option value="'.$row->$dependent.'">'.$row->$dependent.'</option>';
-        }
-        echo $output;
+//        $select = $request->get('select');
+//        $value = $request->get('value');
+//        $dependent = $request->get('dependent');
+//        $data = District::where($select, $value)
+//            ->groupBy('code')
+//            ->get();
+//        $output = '<option value="">Select '.ucfirst($dependent).'</option>';
+//        foreach($data as $row)
+//        {
+//            $output .= '<option value="'.$row->$dependent.'">'.$row->$dependent.'</option>';
+//        }
+//        echo $output;
 
     }
 
     public function get_data(Request $request)
     {
-        $table = $request->get('table');
-        $value = $request->get('value');
-        $con_id = $request->get('con_id');
-        $data = DB::table('communes')
-//            ->select("code","name_kh")
-            ->where('district_code', '102')
-//            ->pluck('name', 'id');
-            ->get(['code','name_kh']);
+        $code = $request->get('code');
+        $name = $request->get('name');
 
-
-//        return response($data);
-        $output = '<option value="">Select '.ucfirst('Testing').'</option>';
-        foreach($data as $row)
-        {
-            $output .= '<option value="'.$row->code.'">'.$row->name_kh.'</option>';
+        //get data from table by table name
+        if ($name=='commune') {
+            $data = Commune::where('code', $code)->with('district','province')->first();
+        }elseif ($name=='district') {
+            $data = District::where('code', $code)->with('province')->first();
+        }elseif ($name=='province'){
+            $data = Province::where('code', $code)->first();
+        }else{
+            $data=Village::where('code',$code)->with('commune','district','province')->first();
         }
-        echo $output;
+
+        //get data destination
+//        if ($type=='commune') {
+//            $data=$source->commune;
+//        }elseif ($type=='district') {
+//            $data=$source->district;
+//        }elseif ($type=='province'){
+//            $data=$source->province;
+//        }else{
+//            $data=$source->villages;
+//        }
+
+        return response($data);
     }
 
 

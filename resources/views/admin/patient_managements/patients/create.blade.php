@@ -114,14 +114,14 @@
                                 <span class="text-danger animated fadeIn">{{$message}}</span>
                                 @enderror
 
-                                {!! Form::select('village_id', $villages, old('village_id'), ['class' => 'js-select2 form-control','id'=>'village']) !!}
-                                {!! Form::select('commune_id', $communes, old('commune_id'), ['class' => 'js-select2 form-control','id'=>'commune']) !!}
-{{--                                {!! Form::select('district_id', $districts, old('district_id'), ['class' => 'js-select2 form-control','id'=>'district']) !!}--}}
-                                {!! Form::select('province_id', $provinces, old('province_id'), ['class' => 'js-select2 form-control','id'=>'province', 'data-dependent'=>'district']) !!}
+                                {!! Form::select('village_id', $villages, old('village_id'), ['class' => 'js-select2 form-control address-link','id'=>'village']) !!}
+                                {!! Form::select('commune_id', $communes, old('commune_id'), ['class' => 'js-select2 form-control address-link','id'=>'commune']) !!}
+                                {!! Form::select('district_id', $districts, old('district_id'), ['class' => 'js-select2 form-control address-link','id'=>'district']) !!}
+                                {!! Form::select('province_id', $provinces, old('province_id'), ['class' => 'js-select2 form-control address-link','id'=>'province', 'data-dependent'=>'district']) !!}
 
 {{--                                {!! Form::select('village_id', [], old('village_id'), ['class' => 'js-select2 form-control dynamic-select','id'=>'village']) !!}--}}
 {{--                                {!! Form::select('commune_id', [], old('commune_id'), ['class' => 'js-select2 form-control dynamic-select','id'=>'commune']) !!}--}}
-                                {!! Form::select('district_id', [], old('district_id'), ['class' => 'js-select2 form-control dynamic-select','id'=>'district','data-sub'=>'district', 'data-parent'=>'province']) !!}
+{{--                                {!! Form::select('district_id', [], old('district_id'), ['class' => 'js-select2 form-control dynamic-select','id'=>'district','data-sub'=>'district', 'data-parent'=>'province']) !!}--}}
 {{--                                {!! Form::select('province_id', $provinces, old('province_id'), ['class' => 'js-select2 form-control dynamic-select','id'=>'province', 'data-dependent'=>'district']) !!}--}}
 
 
@@ -228,48 +228,17 @@
             $("#village").select2({
                 placeholder: "Select village...",
                 minimumInputLength: 1,
-            });
-            $("#commune").select2({placeholder: "Select commune...",minimumInputLength: 1,});
-            // $("#district").select2({placeholder: "Select district...",minimumInputLength: 1,});
-            $("#province").select2({placeholder: "Select province...",});
-
-            $('#province').change(function(){
-                $('#district').val('').trigger("change");;
-                $('#commune').val('').trigger("change");;
-                $('#village').val('').trigger("change");;
-            });
-
-            function formatState (state) {
-                if (!state.id) {
-                    return state.text;
-                }
-                var $state = $(
-                    state.text + 'test'
-                );
-
-                return $state;
-            };
-
-
-            $('#district').select2({
-                placeholder: 'Select district...',
                 ajax: {
-                    theme: 'bootstrap4',
-                    url: "{{ route('admin.address.districts') }}",
+                    url: "{{ route('admin.address.filters') }}?type=village",
                     dataType: 'json',
                     minimumInputLength: 1,
-                    // method:"POST",
-                    // data:{_token:_token, dependent:dependent},
                     delay: 250,
-                    templateResult: formatState,
-                    templateSelection: formatState,
                     processResults: function (data) {
                         return {
                             results:  $.map(data, function (item) {
                                 return {
                                     text: item.name_kh,
                                     id: item.code,
-                                    province_name: item.province.name_kh,
                                 }
                             })
                         };
@@ -277,6 +246,184 @@
                     cache: true
                 }
             });
+
+            $("#commune").select2({
+                placeholder: "Select commune...",
+                minimumInputLength: 1,
+                ajax: {
+                    url: "{{ route('admin.address.filters') }}?type=commune",
+                    dataType: 'json',
+                    minimumInputLength: 1,
+                    delay: 250,
+                    processResults: function (data) {
+                        return {
+                            results:  $.map(data, function (item) {
+                                return {
+                                    text: item.name_kh,
+                                    id: item.code,
+                                }
+                            })
+                        };
+                    },
+                    cache: true
+                }
+            });
+
+            $('#district').select2({
+                placeholder: 'Select district...',
+                ajax: {
+                    url: "{{ route('admin.address.filters') }}?type=district",
+                    dataType: 'json',
+                    minimumInputLength: 1,
+                    delay: 250,
+                    processResults: function (data) {
+                        return {
+                            results:  $.map(data, function (item) {
+                                return {
+                                    text: item.name_kh,
+                                    id: item.code,
+                                }
+                            })
+                        };
+                    },
+                    cache: true
+                }
+            });
+
+            $("#province").select2({placeholder: "Select province...",});
+
+            $('#village').change(function(){
+                $.ajax({
+                    data: {
+                        "code": $(this).val(),
+                        "name": $(this).attr('id'),
+                        "_token": "{{ csrf_token() }}",
+                    },
+                    url: "{{route('admin.address.get_data')}}",
+                    type: 'POST',
+                    dataType: 'json',
+                    success: function (data) {
+                        if(data){
+                            $('#commune').val(data.commune.code).trigger("change");
+                        }
+                    },
+                    error: function () {
+                    }
+                })
+            });
+            $('#commune').change(function(){
+                $.ajax({
+                    data: {
+                        "code": $(this).val(),
+                        "name": $(this).attr('id'),
+                        "_token": "{{ csrf_token() }}",
+                    },
+                    url: "{{route('admin.address.get_data')}}",
+                    type: 'POST',
+                    dataType: 'json',
+                    success: function (data) {
+                        if(data){
+                            // $('#village').val('').trigger("change");
+                            $('#district').val(data.district.code).trigger("change");
+                            // $('#province').val(data.province[0].code).trigger("change");
+                        }
+                    },
+                    error: function () {
+                    }
+                })
+            });
+            $('#district').change(function(){
+                $.ajax({
+                    data: {
+                        "code": $(this).val(),
+                        "name": $(this).attr('id'),
+                        "_token": "{{ csrf_token() }}",
+                    },
+                    url: "{{route('admin.address.get_data')}}",
+                    type: 'POST',
+                    dataType: 'json',
+                    success: function (data) {
+                        if(data){
+                            $('#province').val(data.province.code).trigger("change");
+                        }
+                    },
+                    error: function () {
+                    }
+                })
+            });
+            $('#province').change(function(){
+                // $('#district').val('').trigger("change");
+            });
+
+            function get_data_to_select(code,name) {
+                $.ajax({
+                    data: {
+                        "code": code,
+                        "name": name,
+                        "_token": "{{ csrf_token() }}",
+                    },
+                    url: "{{route('admin.address.get_data')}}",
+                    type: 'POST',
+                    dataType: 'json',
+                    success: function (data) {
+                        // $('#'+type).val(data.code).trigger("change");
+                        alert(name);
+                        console.log(data);
+                        if (name == 'village')
+                        {
+                            $('#commune').val(data.commune.code).trigger("change");
+                            $('#district').val(data.district[0].code).trigger("change");
+                            $('#province').val(data.province[0].code).trigger("change");
+                        }else if(name == 'coummune')
+                        {
+                            $('#village').val('').trigger("change");
+                            $('#district').val(data.district.code).trigger("change");
+                            $('#province').val(data.province[0].code).trigger("change");
+                        }else if(name == 'district')
+                        {
+                            $('#village').val('').trigger("change");
+                            $('#commune').val('').trigger("change");
+                            $('#province').val(data.province.code).trigger("change");
+                        }else if(name == 'province')
+                        {
+                            $('#village').val('').trigger("change");
+                            $('#commune').val('').trigger("change");
+                            $('#district').val('').trigger("change");
+                        }
+
+                    },
+                    error: function () {
+                    }
+                })
+            }
+
+
+
+
+            {{--$('#district').select2({--}}
+            {{--    placeholder: 'Select district...',--}}
+            {{--    ajax: {--}}
+            {{--        theme: 'bootstrap4',--}}
+            {{--        url: "{{ route('admin.address.fetch') }}",--}}
+            {{--        dataType: 'json',--}}
+            {{--        minimumInputLength: 1,--}}
+            {{--        method:"POST",--}}
+            {{--        data:{_token:{{ csrf_token() }}, type:'district'},--}}
+            {{--        delay: 250,--}}
+            {{--        processResults: function (data) {--}}
+            {{--            return {--}}
+            {{--                results:  $.map(data, function (item) {--}}
+            {{--                    return {--}}
+            {{--                        text: item.name_kh,--}}
+            {{--                        id: item.code,--}}
+            {{--                        province_name: item.province.name_kh,--}}
+            {{--                    }--}}
+            {{--                })--}}
+            {{--            };--}}
+            {{--        },--}}
+            {{--        cache: true--}}
+            {{--    }--}}
+            {{--});--}}
 
 
 
@@ -331,8 +478,6 @@
             {{--        }--}}
             {{--    })--}}
             {{--}--}}
-
-
 
 
 
