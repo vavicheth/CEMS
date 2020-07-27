@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin\Setting;
 
 use App\Department;
+use App\Department_type;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\DepartmentsStoreRequest;
 use App\Http\Requests\DepartmentsUpdateRequest;
@@ -18,10 +19,10 @@ class DepartmentController extends Controller
         abort_if(! Gate::allows('department_access'),403);
         if($request->ajax())
         {
-            $data=Department::query()->orderBy('name','asc');
+            $data=Department::with('department_type')->select('departments.*');
 
             if (request('trash') == 1 && Gate::allows('department_delete')){
-                $data=$data->onlyTrashed()->get();
+                $data=Department::onlyTrashed()->with('department_type')->select('departments.*');
             }
 
             return DataTables::of($data)
@@ -49,6 +50,9 @@ class DepartmentController extends Controller
                 ->editColumn('active', function ($data) {
                     return $data->active == 1 ? '<span class="badge badge-success">Active</span>' : '<span class="badge badge-secondary">Inactive</span>';
                 })
+                ->addColumn('type', function (Department $department) {
+                    return $department->department_type?$department->department_type['name']:'';
+                })
                 ->rawColumns(['action','active'])
                 ->make(true);
         }
@@ -59,8 +63,8 @@ class DepartmentController extends Controller
     public function create()
     {
         abort_if(! Gate::allows('department_create'),403);
-
-        return view('admin.setting.departments.create');
+        $department_types = Department_type::get()->pluck('name', 'id')->prepend('Select department type', '');
+        return view('admin.setting.departments.create',compact('department_types'));
     }
 
     public function store(DepartmentsStoreRequest $request)
@@ -82,7 +86,8 @@ class DepartmentController extends Controller
         abort_if(! Gate::allows('department_update'),403);
 
         $department = Department::findOrFail($id);
-        return view('admin.setting.departments.edit', compact('department'));
+        $department_types = Department_type::get()->pluck('name', 'id')->prepend('Select department type', '');
+        return view('admin.setting.departments.edit', compact('department','department_types'));
     }
 
     public function update(DepartmentsUpdateRequest $request, Department $department)

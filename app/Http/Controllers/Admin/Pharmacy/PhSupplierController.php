@@ -52,9 +52,6 @@ class PhSupplierController extends Controller
                 ->editColumn('active', function ($data) {
                     return $data->active == 1 ? '<span class="badge badge-success">Active</span>' : '<span class="badge badge-secondary">Inactive</span>';
                 })
-                ->editColumn('donor_id', function ($data) {
-                    return $data->donor->name;
-                })
 
                 ->addColumn('donor', function (PhSupplier $supplier) {
                     return $supplier->donor->name;

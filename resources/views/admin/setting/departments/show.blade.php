@@ -31,6 +31,10 @@
                             <table class="table table-striped table-hover table-vcenter mb-0">
                                 <tbody>
                                 <tr>
+                                    <td class="font-w600 text-left border-right">Department Type</td>
+                                    <td>{{$department->department_type['name']}}</td>
+                                </tr>
+                                <tr>
                                     <td class="font-w600 text-left border-right">Name</td>
                                     <td>{{$department->name}}</td>
                                 </tr>

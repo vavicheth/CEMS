@@ -35,6 +35,15 @@
                 <div class="row">
                     <div class="col-lg-12 col-xl-10">
                         <div class="row">
+                            <label class="col-sm-2" for="role_id">Department Type<span class="text-danger">*</span></label>
+                            <div class="col-sm-8 form-group">
+                                {!! Form::select('department_type_id', $department_types, $department->department_type_id, ['class' => 'js-select2 form-control','id'=>'department_type_id']) !!}
+                                @error('department_type_id')
+                                <span class="text-danger animated fadeIn">{{$message}}</span>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="row">
                             <label class="col-sm-2" for="name">Name<span class="text-danger">*</span></label>
                             <div class="col-sm-8 form-group">
                                 <input type="text" class="form-control" id="name" name="name" value="{{$department->name}}"
@@ -132,6 +141,8 @@
 
     <script>
         jQuery(function () {
+            One.helpers("select2");
+            $("#department_type_id").select2({placeholder: "Select department type...",});
             One.helpers("validation"), jQuery(".js-validation").validate({
                     ignore: [], rules: {
                         "name": {

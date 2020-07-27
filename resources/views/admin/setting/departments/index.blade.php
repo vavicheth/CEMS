@@ -54,7 +54,7 @@
                         <th >Name Khmer</th>
                         <th >Abr</th>
                         <th >Abr Khmer</th>
-{{--                        <th >Bed Total</th>--}}
+                        <th >Type</th>
                         <th >Active</th>
 {{--                        <th >Description</th>--}}
                         <th style="width: 15%;">Action</th>
@@ -176,7 +176,7 @@
                     {data: 'name_kh', name: 'name_kh'},
                     {data: 'abr', name: 'abr'},
                     {data: 'abr_kh', name: 'abr_kh'},
-                    // {data: 'bed_total', name: 'bed_total'},
+                    {data: 'type', name: 'department_type.name'},
                     {data: 'active', name: 'active'},
                     // {data: 'description', name: 'description'},
                     {data: 'action', name: 'action', orderable: false},

@@ -27,4 +27,10 @@ class Department extends Model
     {
         return $date->format('d-M-Y H:i:s');
     }
+
+    public function department_type()
+    {
+        return $this->belongsTo(Department_type::class,'department_type_id');
+    }
+
 }

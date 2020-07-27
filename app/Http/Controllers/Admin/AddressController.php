@@ -40,13 +40,13 @@ class AddressController extends Controller
         if($request->has('q')){
             $search = $request->q;
             if(request('type') == 'village') {
-                $data = Village::where('name_kh', 'LIKE', "%$search%")->orWhere('name', 'LIKE', "%$search%")->with('province', 'district', 'commune')->get();
+                $data = Village::where('name_kh', 'LIKE', "%$search%")->orWhere('name', 'LIKE', "%$search%")->get();
             }elseif (request('type') == 'commune') {
-                $data = Commune::where('name_kh', 'LIKE', "%$search%")->orWhere('name', 'LIKE', "%$search%")->with('province', 'district', 'villages')->get();
+                $data = Commune::where('name_kh', 'LIKE', "%$search%")->orWhere('name', 'LIKE', "%$search%")->get();
             }elseif (request('type') == 'district') {
-                $data = District::where('name_kh', 'LIKE', "%$search%")->orWhere('name', 'LIKE', "%$search%")->with('province', 'communes', 'villages')->get();
+                $data = District::where('name_kh', 'LIKE', "%$search%")->orWhere('name', 'LIKE', "%$search%")->get();
             }elseif (request('type') == 'province') {
-                $data =Province::where('name_kh','LIKE',"%$search%")->orWhere('name','LIKE',"%$search%")->with('districts','communes','villages')->get();
+                $data =Province::where('name_kh','LIKE',"%$search%")->orWhere('name','LIKE',"%$search%")->get();
             }else{
                 $data= [];
             }
