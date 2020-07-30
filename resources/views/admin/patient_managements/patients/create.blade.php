@@ -83,7 +83,7 @@
                             <label class="col-sm-4" for="dob">Age/DOB</label>
                             <div class="col-sm-8 form-group">
                                 <input type="number" class="form-control" id="age" placeholder="Age...">
-                                <input type="text" tabindex="-1" class="js-datepicker form-control" id="dob" name="dob" data-week-start="1" data-autoclose="true" data-today-highlight="true" data-date-format="dd/mm/yyyy" placeholder="dd/mm/yyyy">
+                                <input type="text" autocomplete="off" tabindex="-1" class="js-datepicker form-control" id="dob" name="dob" data-week-start="1" data-autoclose="true" data-today-highlight="true" data-date-format="{{config('panel.date_format_front')}}" placeholder="dd/mm/yyyy">
                                 @error('dob')
                                 <span class="text-danger animated fadeIn">{{$message}}</span>
                                 @enderror
@@ -99,7 +99,6 @@
                                         <input name="patient_idcard" type="file"/>
                                     </div>
                                 </div>
-{{--                                <input type="file" name="patient_idcard" />--}}
                                 @error('id_card')
                                 <span class="text-danger animated fadeIn">{{$message}}</span>
                                 @enderror
@@ -136,69 +135,32 @@
                                 <span class="text-danger animated fadeIn">{{$message}}</span>
                                 @enderror
 
-                                <div class="input-group">
-                                    {!! Form::select('village_id', [], old('village_id'), ['class' => 'form-control address-link','id'=>'village_id','disabled'=>'true']) !!}
+                                <div class="input-group mt-2">
+                                    {!! Form::select('village_code', [], old('village_code'), ['class' => 'form-control address-link','id'=>'village_id']) !!}
                                     <div class="input-group-append">
-                                        <button type="button" class="btn btn-alt-dark address-type" id="btnVillage" data-address="village" >Select</button>
+                                        <button type="button" class="btn btn-alt-dark address-type" id="btnVillage" data-address="village" >Village</button>
                                     </div>
                                 </div>
-                                <div class="input-group">
-                                    {!! Form::select('commune_id', [], old('commune_id'), ['class' => 'form-control address-link','id'=>'commune_id','disabled'=>'true']) !!}
+                                <div class="input-group mt-2">
+                                    {!! Form::select('commune_code', [], old('commune_code'), ['class' => 'form-control address-link','id'=>'commune_id']) !!}
                                     <div class="input-group-append">
-                                        <button type="button" class="btn btn-alt-dark address-type" id="btnCommune" data-address="commune">Select</button>
+                                        <button type="button" class="btn btn-alt-dark address-type" id="btnCommune" data-address="commune">Commune</button>
                                     </div>
                                 </div>
-                                <div class="input-group">
-                                    {!! Form::select('district_id', [], old('district_id'), ['class' => 'form-control address-link','id'=>'district_id','disabled'=>'true']) !!}
+                                <div class="input-group mt-2">
+                                    {!! Form::select('district_code', [], old('district_code'), ['class' => 'form-control address-link','id'=>'district_id']) !!}
                                     <div class="input-group-append">
-                                        <button type="button" class="btn btn-alt-dark address-type" id="btnDistrict" data-address="district">Select</button>
+                                        <button type="button" class="btn btn-alt-dark address-type" id="btnDistrict" data-address="district">District</button>
                                     </div>
                                 </div>
-                                <div class="input-group">
-                                    {!! Form::select('province_id', [], old('province_id'), ['class' => 'form-control address-link','id'=>'province_id','disabled'=>'true']) !!}
+                                <div class="input-group mt-2">
+                                    {!! Form::select('province_code', [], old('province_code'), ['class' => 'form-control address-link','id'=>'province_id']) !!}
                                     <div class="input-group-append">
-                                        <button type="button" class="btn btn-alt-dark address-type" id="btnProvince" data-address="province">Select</button>
+                                        <button type="button" class="btn btn-alt-dark address-type" id="btnProvince" data-address="province">Province</button>
                                     </div>
                                 </div>
-
-{{--                                    {!! Form::select('village_id', [], old('village_id'), ['class' => 'js-select2 form-control address-link','id'=>'village_id']) !!}--}}
-{{--                                    {!! Form::select('commune_id', [], old('commune_id'), ['class' => 'js-select2 form-control address-link','id'=>'commune_id']) !!}--}}
-{{--                                    {!! Form::select('district_id', [], old('district_id'), ['class' => 'js-select2 form-control address-link','id'=>'district_id']) !!}--}}
-{{--                                    {!! Form::select('province_id', [], old('province_id'), ['class' => 'js-select2 form-control address-link','id'=>'province_id']) !!}--}}
-
-
-
-{{--                                {!! Form::select('village_id', $villages, old('village_id'), ['class' => 'js-select2 form-control address-link','id'=>'village']) !!}--}}
-{{--                                {!! Form::select('commune_id', $communes, old('commune_id'), ['class' => 'js-select2 form-control address-link','id'=>'commune']) !!}--}}
-{{--                                {!! Form::select('district_id', $districts, old('district_id'), ['class' => 'js-select2 form-control address-link','id'=>'district']) !!}--}}
-{{--                                {!! Form::select('province_id', $provinces, old('province_id'), ['class' => 'js-select2 form-control address-link','id'=>'province', 'data-dependent'=>'district']) !!}--}}
-
-{{--                                {!! Form::select('village_id', [], old('village_id'), ['class' => 'js-select2 form-control dynamic-select','id'=>'village']) !!}--}}
-{{--                                {!! Form::select('commune_id', [], old('commune_id'), ['class' => 'js-select2 form-control dynamic-select','id'=>'commune']) !!}--}}
-{{--                                {!! Form::select('district_id', [], old('district_id'), ['class' => 'js-select2 form-control dynamic-select','id'=>'district','data-sub'=>'district', 'data-parent'=>'province']) !!}--}}
-{{--                                {!! Form::select('province_id', $provinces, old('province_id'), ['class' => 'js-select2 form-control dynamic-select','id'=>'province', 'data-dependent'=>'district']) !!}--}}
-
-
-
-{{--                                <select name="country" id="country" class="form-control input-lg dynamic" data-dependent="state">--}}
-{{--                                    <option value="">Select Country</option>--}}
-{{--                                    @foreach($country_list as $country)--}}
-{{--                                        <option value="{{ $country->country}}">{{ $country->country }}</option>--}}
-{{--                                    @endforeach--}}
-{{--                                </select>--}}
-
                             </div>
-
                         </div>
-
-{{--                        <div class="form-group">--}}
-{{--                            <div class="input-group">--}}
-{{--                                <input type="email" class="form-control form-control-alt" id="example-group3-input2-alt2" name="example-group3-input2-alt2" placeholder="Email">--}}
-{{--                                <div class="input-group-append">--}}
-{{--                                    <button type="button" class="btn btn-alt-dark">Submit</button>--}}
-{{--                                </div>--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
 
                         <div class="row">
                             <label class="col-sm-4" for="description">Description</label>
@@ -237,6 +199,7 @@
                 <a class="btn btn-alt-secondary float-right" href="{{route('admin.patient_managements.patients.index')}}">Cancel</a>
                 {!! Form::close() !!}
 
+                <button id="btn-show">Show</button>
 
             </div>
 
@@ -256,10 +219,7 @@
                             </div>
                             <div class="block-content font-size-sm">
                                 <div class="row">
-{{--                                    <label class="col-sm-4" for="address">Address</label>--}}
-{{--                                    <div class="col-sm-8 form-group">--}}
                                         {!! Form::select('address_select', [], old('address'), ['class' => 'js-select2 form-control address-link','id'=>'address_select']) !!}
-{{--                                    </div>--}}
                                 </div>
                             </div>
                             <div class="block-content block-content-full text-right border-top">
@@ -323,7 +283,7 @@
                             return {
                                 results:  $.map(data, function (item) {
                                     return {
-                                        text: item.name_kh,
+                                        text: item.name_parent,
                                         id: item.code,
                                     }
                                 })
@@ -335,7 +295,7 @@
             });
 
             $('#ok_button').click(function () {
-                $('#village').empty();
+                $('#village_id').empty();
                 $('#commune_id').empty();
                 $('#district_id').empty();
                 $('#province_id').empty();
@@ -355,14 +315,14 @@
                             {
                                 $('#village_id').append($('<option>',{ value: data.code,text : data.name_kh }));
                                 $('#commune_id').append($('<option>',{ value: data.commune.code,text : data.commune.name_kh }));
-                                $('#district_id').append($('<option>',{ value: data.district[0].code,text : data.district[0].name_kh }));
-                                $('#province_id').append($('<option>',{ value: data.province[0].code,text : data.province[0].name_kh }));
+                                $('#district_id').append($('<option>',{ value: data.district.code,text : data.district.name_kh }));
+                                $('#province_id').append($('<option>',{ value: data.province.code,text : data.province.name_kh }));
                             }else if(address_type == 'commune')
                             {
                                 $('#village_id').val('').trigger("change");
                                 $('#commune_id').append($('<option>',{ value: data.code,text : data.name_kh }));
                                 $('#district_id').append($('<option>',{ value: data.district.code,text : data.district.name_kh }));
-                                $('#province_id').append($('<option>',{ value: data.province[0].code,text : data.province[0].name_kh }));
+                                $('#province_id').append($('<option>',{ value: data.province.code,text : data.province.name_kh }));
                             }else if(address_type == 'district')
                             {
                                 $('#village_id').val('').trigger("change");
@@ -383,7 +343,6 @@
                     }
                 })
             });
-
 
             $('#age').focusout(function () {
                 var y = parseInt($(this).val());
@@ -422,17 +381,6 @@
                 }
             )
         });
-
-        function deltaDate(input, days, months, years) {
-            return new Date(
-                input.getFullYear() + years,
-                input.getMonth() + months,
-                Math.min(
-                    input.getDate() + days,
-                    new Date(input.getFullYear() + years, input.getMonth() + months + 1, 0).getDate()
-                )
-            );
-        }
 
     </script>
 

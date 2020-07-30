@@ -16,7 +16,8 @@ class Province extends Model
 
     public function communes()
     {
-        return $this->hasManyThrough(Commune::class,District::class,'province_code','district_code','code','code');
+//        return $this->hasManyThrough(Commune::class,District::class,'province_code','district_code','code','code');
+        return $this->hasMany(Commune::class,'province_code','code');
     }
 
 //    public function villages()
@@ -26,7 +27,8 @@ class Province extends Model
 
     public function villages()
     {
-        return $this->hasManyDeepFromRelations($this->communes(), (new Commune)->villages());
+//        return $this->hasManyDeepFromRelations($this->communes(), (new Commune)->villages());
+        return $this->hasMany(Village::class,'province_code','code');
     }
 
 }

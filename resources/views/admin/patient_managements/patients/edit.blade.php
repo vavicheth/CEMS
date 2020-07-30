@@ -94,18 +94,6 @@
                             <div class="col-sm-8 form-group">
                                 <input type="text" class="form-control" id="id_card" name="id_card" value="{{$patient->id_card}}"
                                        placeholder="Type patient ID card or Passport...">
-
-{{--                                <div class="form-group animated fadeInUp" id="pic_idcard" {{$patient->id_card ? '':'hidden'}}>--}}
-{{--                                    <div class="slim" data-label="Drop ID Card here" data-fetcher="fetch.php" data-size="600,600" data-ratio="1:1" data-rotate-button="true" accept="image/jpeg , image/gif, image/png">--}}
-{{--                                        <img src="{{asset($patient->getFirstMediaUrl('patient_id_card') )}}" />--}}
-{{--                                        <input name="patient_idcard" type="file"/>--}}
-{{--                                    </div>--}}
-{{--                                </div>--}}
-{{--                                <div class="slim" data-label="Drop patient image here" data-fetcher="fetch.php" data-size="600,600" data-ratio="1:1" data-rotate-button="true" accept="image/jpeg , image/gif, image/png">--}}
-{{--                                    <img src="{{asset($patient->getFirstMediaUrl('patient_id_card') )}}" />--}}
-{{--                                    <input name="photo" type="file"/>--}}
-{{--                                </div>--}}
-
                                 <div class="slim" data-label="Drop ID Card here" data-fetcher="fetch.php" data-size="600,600" data-ratio="1:1" data-rotate-button="true" accept="image/jpeg , image/gif, image/png">
                                     <img src="{{asset($patient->getFirstMediaUrl('patient_id_card') )}}" />
                                     <input name="patient_idcard" type="file"/>
@@ -116,16 +104,7 @@
                                 @enderror
                             </div>
                         </div>
-                        <div class="row">
-                            <label class="col-sm-4" for="address">Address</label>
-                            <div class="col-sm-8 form-group">
-                                <input type="text" class="form-control" id="address" name="address" value="{{$patient->address}}"
-                                       placeholder="Type patient address...">
-                                @error('address')
-                                <span class="text-danger animated fadeIn">{{$message}}</span>
-                                @enderror
-                            </div>
-                        </div>
+
                         <div class="row">
                             <label class="col-sm-4" for="phone">Phone</label>
                             <div class="col-sm-8 form-group">
@@ -137,13 +116,49 @@
                             </div>
                         </div>
 
+{{--                        <div class="row">--}}
+{{--                            <label class="col-sm-4" for="role_id">Department</label>--}}
+{{--                            <div class="col-sm-8 form-group">--}}
+{{--                                {!! Form::select('department_id', $departments, $patient->department_id, ['class' => 'js-select2 form-control']) !!}--}}
+{{--                                @error('department_id')--}}
+{{--                                <span class="text-danger animated fadeIn">{{$message}}</span>--}}
+{{--                                @enderror--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
+
                         <div class="row">
-                            <label class="col-sm-4" for="role_id">Department</label>
+                            <label class="col-sm-4" for="address">Address</label>
                             <div class="col-sm-8 form-group">
-                                {!! Form::select('department_id', $departments, $patient->department_id, ['class' => 'js-select2 form-control']) !!}
-                                @error('department_id')
+                                <input type="text" class="form-control" id="address" name="address"
+                                       placeholder="Type patient address...">
+                                @error('address')
                                 <span class="text-danger animated fadeIn">{{$message}}</span>
                                 @enderror
+
+                                <div class="input-group mt-2">
+                                    {!! Form::select('village_code', [$patient->hasaddress->village['name_kh'],$patient->hasaddress->village['code']], old('village_code'), ['class' => 'form-control address-link','id'=>'village_id']) !!}
+                                    <div class="input-group-append">
+                                        <button type="button" class="btn btn-alt-dark address-type" id="btnVillage" data-address="village" >Village</button>
+                                    </div>
+                                </div>
+                                <div class="input-group mt-2">
+                                    {!! Form::select('commune_code', [$patient->hasaddress->commune['name_kh'],$patient->hasaddress->commune['code']], old('commune_code'), ['class' => 'form-control address-link','id'=>'commune_id']) !!}
+                                    <div class="input-group-append">
+                                        <button type="button" class="btn btn-alt-dark address-type" id="btnCommune" data-address="commune">Commune</button>
+                                    </div>
+                                </div>
+                                <div class="input-group mt-2">
+                                    {!! Form::select('district_code', [$patient->hasaddress->district['name_kh'],$patient->hasaddress->district['code']], old('district_code'), ['class' => 'form-control address-link','id'=>'district_id']) !!}
+                                    <div class="input-group-append">
+                                        <button type="button" class="btn btn-alt-dark address-type" id="btnDistrict" data-address="district">District</button>
+                                    </div>
+                                </div>
+                                <div class="input-group mt-2">
+                                    {!! Form::select('province_code', [$patient->hasaddress->province['name_kh'],$patient->hasaddress->province['code']], old('province_code'), ['class' => 'form-control address-link','id'=>'province_id']) !!}
+                                    <div class="input-group-append">
+                                        <button type="button" class="btn btn-alt-dark address-type" id="btnProvince" data-address="province">Province</button>
+                                    </div>
+                                </div>
                             </div>
                         </div>
 
@@ -190,6 +205,36 @@
 
             </div>
 
+            <!-- Modal select address -->
+            <div class="modal" id="modal-select-address" tabindex="-1" role="dialog" aria-labelledby="modal-block-popin"
+                 aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="block block-themed block-transparent mb-0">
+                            <div class="block-header bg-primary">
+                                <h3 class="block-title" id="title-address">Select Address</h3>
+                                <div class="block-options">
+                                    <button type="button" class="btn-block-option" data-dismiss="modal" aria-label="Close">
+                                        <i class="fa fa-fw fa-times"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="block-content font-size-sm">
+                                <div class="row">
+                                    {!! Form::select('address_select', [], old('address'), ['class' => 'js-select2 form-control address-link','id'=>'address_select']) !!}
+                                </div>
+                            </div>
+                            <div class="block-content block-content-full text-right border-top">
+                                <button type="button" class="btn btn-sm btn-primary" data-dismiss="modal" id="ok_button">Select</button>
+                                <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">Close</button>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- END Modal delete data -->
+
 
         </div>
 
@@ -217,6 +262,89 @@
     <script>
         jQuery(function () {
             One.helpers('select2');
+
+            var address_type='';
+
+            $('.address-type').click(function () {
+                address_type= $(this).data('address');
+
+                $('#title-address').text('Select '+ address_type);
+                $('#modal-select-address').modal('show');
+
+                $('#address_select').val(null).trigger('change');
+                $('#address_select').select2({
+
+                    placeholder: 'Select '+ address_type + '...',
+                    // dropdownParent: $('#modal-select-address'),
+                    ajax: {
+                        url: "{{ route('admin.address.filters') }}?type=" + address_type,
+                        dataType: 'json',
+                        minimumInputLength: 1,
+                        delay: 250,
+                        processResults: function (data) {
+                            return {
+                                results:  $.map(data, function (item) {
+                                    return {
+                                        text: item.name_parent,
+                                        id: item.code,
+                                    }
+                                })
+                            };
+                        },
+                        cache: true
+                    }
+                });
+            });
+
+            $('#ok_button').click(function () {
+                $('#village_id').empty();
+                $('#commune_id').empty();
+                $('#district_id').empty();
+                $('#province_id').empty();
+                $.ajax({
+                    data: {
+                        "code": $('#address_select').val(),
+                        "name": address_type,
+                        "_token": "{{ csrf_token() }}",
+                    },
+                    url: "{{route('admin.address.get_data')}}",
+                    type: 'POST',
+                    dataType: 'json',
+                    success: function (data) {
+                        console.log(data);
+                        if (data != ''){
+                            if (address_type == 'village')
+                            {
+                                $('#village_id').append($('<option>',{ value: data.code,text : data.name_kh }));
+                                $('#commune_id').append($('<option>',{ value: data.commune.code,text : data.commune.name_kh }));
+                                $('#district_id').append($('<option>',{ value: data.district.code,text : data.district.name_kh }));
+                                $('#province_id').append($('<option>',{ value: data.province.code,text : data.province.name_kh }));
+                            }else if(address_type == 'commune')
+                            {
+                                $('#village_id').val('').trigger("change");
+                                $('#commune_id').append($('<option>',{ value: data.code,text : data.name_kh }));
+                                $('#district_id').append($('<option>',{ value: data.district.code,text : data.district.name_kh }));
+                                $('#province_id').append($('<option>',{ value: data.province.code,text : data.province.name_kh }));
+                            }else if(address_type == 'district')
+                            {
+                                $('#village_id').val('').trigger("change");
+                                $('#commune_id').val('').trigger("change");
+                                $('#district_id').append($('<option>',{ value: data.code,text : data.name_kh }));
+                                $('#province_id').append($('<option>',{ value: data.province.code,text : data.province.name_kh }));
+                            }else if(address_type == 'province')
+                            {
+                                $('#village_id').val('').trigger("change");
+                                $('#commune_id').val('').trigger("change");
+                                $('#district_id').val('').trigger("change");
+                                $('#province_id').append($('<option>',{ value: data.code,text : data.name_kh }));
+                            }
+                        }
+
+                    },
+                    error: function () {
+                    }
+                })
+            });
 
             $('#age').focusout(function () {
                 var y = parseInt($(this).val());

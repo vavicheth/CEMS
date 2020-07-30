@@ -98,6 +98,14 @@ class PatientController extends Controller
                 ->toMediaCollection('patient_id_card');
         }
 
+        $patient->hasaddress()->create([
+            'address'=>$request->address,
+            'village_code'=>$request->village_code,
+            'commune_code'=>$request->commune_code,
+            'district_code'=>$request->district_code,
+            'province_code'=>$request->province_code,
+        ]);
+
 //        if ($request->patient_idcard){
 //            $filename = $request->file('patient_idcard')->getClientOriginalName();
 //            $patient->addMedia($request->patient_idcard)
@@ -206,6 +214,16 @@ class PatientController extends Controller
                 ->usingFileName('idcard_' . $patient->id . '_' . $image['name'])
                 ->toMediaCollection('patient_id_card');
         }else{$patient->clearMediaCollection('patient_id_card');}
+
+        $address=[
+            'address'=>$request->address,
+            'village_code'=>$request->village_code,
+            'commune_code'=>$request->commune_code,
+            'district_code'=>$request->district_code,
+            'province_code'=>$request->province_code,
+        ];
+
+        $patient->hasaddress->update($address);
 
         return redirect()->route('admin.patient_managements.patients.index')->with('message_success', __('patient.patient_update_success'));
     }

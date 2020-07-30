@@ -10,6 +10,7 @@ use App\Province;
 use App\Village;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Yajra\DataTables\Facades\DataTables;
 
 class AddressController extends Controller
 {
@@ -17,11 +18,6 @@ class AddressController extends Controller
 
     public function move_address()
     {
-        $source=Village::where('code','1020103')->with('commune','district','province')->first();
-//        $source=DB::table('villages')->where('code','1020103')->first();
-        $data=$source->commune;
-        return $source;
-
         $patients=Patient::withTrashed()->get();
         foreach ($patients as $patient)
         {
@@ -54,23 +50,6 @@ class AddressController extends Controller
         return response()->json($data);
     }
 
-    public function fetch(Request $request)
-    {
-//        $select = $request->get('select');
-//        $value = $request->get('value');
-//        $dependent = $request->get('dependent');
-//        $data = District::where($select, $value)
-//            ->groupBy('code')
-//            ->get();
-//        $output = '<option value="">Select '.ucfirst($dependent).'</option>';
-//        foreach($data as $row)
-//        {
-//            $output .= '<option value="'.$row->$dependent.'">'.$row->$dependent.'</option>';
-//        }
-//        echo $output;
-
-    }
-
     public function get_data(Request $request)
     {
         $code = $request->get('code');
@@ -86,18 +65,6 @@ class AddressController extends Controller
         }else{
             $data=Village::where('code',$code)->with('commune','district','province')->first();
         }
-
-        //get data destination
-//        if ($type=='commune') {
-//            $data=$source->commune;
-//        }elseif ($type=='district') {
-//            $data=$source->district;
-//        }elseif ($type=='province'){
-//            $data=$source->province;
-//        }else{
-//            $data=$source->villages;
-//        }
-
         return response($data);
     }
 

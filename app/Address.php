@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Address extends Model
 {
     use SoftDeletes;
-    
+
     protected $fillable=['address','village_code','commune_code','district_code','province_code'];
 
     public function addressable()
@@ -18,19 +18,19 @@ class Address extends Model
 
     public function village()
     {
-        return $this->hasOne(Village::class,'village_code','code');
+        return $this->belongsTo(Village::class,'village_code','code');
     }
     public function commune()
     {
-        return $this->hasOne(Commune::class,'commune_code','code');
+        return $this->belongsTo(Commune::class,'commune_code','code');
     }
     public function district()
     {
-        return $this->hasOne(District::class,'district_code','code');
+        return $this->belongsTo(District::class,'district_code','code');
     }
     public function province()
     {
-        return $this->hasOne(Province::class,'province_code','code');
+        return $this->belongsTo(Province::class,'province_code','code');
     }
 
 
