@@ -199,8 +199,6 @@
                 <a class="btn btn-alt-secondary float-right" href="{{route('admin.patient_managements.patients.index')}}">Cancel</a>
                 {!! Form::close() !!}
 
-                <button id="btn-show">Show</button>
-
             </div>
 
             <!-- Modal select address -->
