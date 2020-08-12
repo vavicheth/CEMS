@@ -42,7 +42,7 @@
                     <div class="col-lg-10 col-xl-5">
                         <div class="row">
                             <label class="col-sm-4" for="hn">HN</label>
-                            <div class="col-sm-8 form-group">
+                            <div class="col-sm-8 form-group input-group-sm">
                                 <input type="text" class="form-control" id="hn" name="hn"
                                        placeholder="Type Hospital Number..." autofocus>
                                 @error('hn')
@@ -94,8 +94,8 @@
                             <div class="col-sm-8 form-group">
                                 <input type="text" class="form-control" id="id_card" name="id_card"
                                        placeholder="Type patient ID card or Passport...">
-                                <div class="form-group animated fadeInUp" id="pic_idcard" hidden>
-                                    <div class="slim" data-label="Drop ID Card here" data-fetcher="fetch.php" data-size="600,600" data-ratio="1:1" data-rotate-button="true" accept="image/jpeg, image/gif, image/png">
+                                <div class="form-group animated fadeIn" id="pic_idcard" hidden>
+                                    <div class="slim" data-label="Drop ID Card here" data-fetcher="fetch.php" data-size="600,600"  data-rotate-button="true" accept="image/jpeg, image/gif, image/png">
                                         <input name="patient_idcard" type="file"/>
                                     </div>
                                 </div>

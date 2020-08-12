@@ -94,7 +94,7 @@
                             <div class="col-sm-8 form-group">
                                 <input type="text" class="form-control" id="id_card" name="id_card" value="{{$patient->id_card}}"
                                        placeholder="Type patient ID card or Passport...">
-                                <div class="slim" data-label="Drop ID Card here" data-fetcher="fetch.php" data-size="600,600" data-ratio="1:1" data-rotate-button="true" accept="image/jpeg , image/gif, image/png">
+                                <div class="slim" data-label="Drop ID Card here" data-fetcher="fetch.php" data-size="600,600" data-rotate-button="true" accept="image/jpeg , image/gif, image/png">
                                     <img src="{{asset($patient->getFirstMediaUrl('patient_id_card') )}}" />
                                     <input name="patient_idcard" type="file"/>
                                 </div>

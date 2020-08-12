@@ -2,17 +2,17 @@
 
 namespace App\Http\Controllers\Admin\PatientManagements;
 
-use App\Commune;
-use App\Department;
-use App\District;
+use App\Model\Commune;
+use App\Model\Department;
+use App\Model\District;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\PatientsStoreRequest;
-use App\Patient;
-use App\PatientAccompany;
-use App\Province;
+use App\Model\Patient;
+use App\Model\PatientAccompany;
+use App\Model\Province;
 use App\Traits\Slim;
 use App\Traits\UploadBySlim;
-use App\Village;
+use App\Model\Village;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Config;

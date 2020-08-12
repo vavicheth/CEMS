@@ -132,7 +132,7 @@ function () {
           lengthMenu: "_MENU_",
           search: "_INPUT_",
           searchPlaceholder: "Search..",
-          info: "Page <strong>_PAGE_</strong> of <strong>_PAGES_</strong>",
+            info: "Page <strong>_PAGE_</strong> of <strong>_PAGES_</strong> in <strong>_TOTAL_</strong> records ",
             processing: "<div class='spinner-border text-primary' role='status'><span class='sr-only'>Loading...</span></div>",
 
           paginate: {

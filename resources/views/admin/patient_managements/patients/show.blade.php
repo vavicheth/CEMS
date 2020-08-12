@@ -493,7 +493,7 @@
                 $("#form_patient_accompany")[0].reset();
 
                 // Limitation of Patient Accompany
-                @if(App\PatientAccompany::where('patient_id',$patient->id)->count() < config('panel.total_patient_accompany'))
+                @if(App\Model\PatientAccompany::where('patient_id',$patient->id)->count() < config('panel.total_patient_accompany'))
                     $url_submit="{{route('admin.patient_managements.patient_accompanies.store')}}";
                     $type_submit='POST';
                     $('#modal-create').modal('show');
